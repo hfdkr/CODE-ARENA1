@@ -361,13 +361,35 @@
                             <div class="s-stat"><i class="fi fi-rr-star" style="color:#A5C8FF"></i><span class="s-num"
                                     id="s-pts">0</span><small>Points</small></div>
                         </div>
-                        <p id="s-saved-msg" class="s-saved hidden"><i class="fa-solid fa-cloud-check" style="color: #f87738;"></i> Score saved!</p>
+                        <p id="s-saved-msg" class="s-saved hidden"><i class="fa-solid fa-cloud-check"
+                                style="color: #f87738;"></i> Score saved!</p>
                         <div class="s-actions">
                             <button id="s-replay" class="btn-primary"><i class="fi fi-rr-refresh"></i> Replay</button>
                             <button class="btn-ghost" onclick="navigate('home')"><i class="fi fi-rr-home"></i>
                                 Home</button>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- ── LESSONS ───────────────────────────────────────────── -->
+            <section id="page-lessons" class="page">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2>📚 Lessons</h2>
+                        <p>Learn before playing</p>
+                    </div>
+                    <div id="lessons-filter" class="filter-row"></div>
+                    <div id="lessons-grid" class="lessons-grid"></div>
+                </div>
+            </section>
+
+            <!-- ── LESSON DETAIL ─────────────────────────────────────── -->
+            <section id="page-lesson-detail" class="page">
+                <div class="page-content">
+                    <button class="btn-back" onclick="navigate('lessons')"><i class="fi fi-rr-arrow-left"></i>
+                        Back</button>
+                    <div id="lesson-content" class="lesson-content"></div>
                 </div>
             </section>
         </main>
