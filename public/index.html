@@ -246,7 +246,8 @@
                 <div class="hero">
                     <div class="hero-badge"><span class="pulse-dot"></span> Live — Quiz available</div>
                     <h1 class="hero-title">Code<span style="color:var(--blue)">Arena</span></h1>
-                    <p class="hero-sub">Test your development knowledge. Timer, multiple-choice questions, instant score.</p>
+                    <p class="hero-sub">Test your development knowledge. Timer, multiple-choice questions, instant
+                        score.</p>
 
                     <div class="hero-stats">
                         <div class="hstat"><span id="stat-q" class="hstat-num">—</span><span
@@ -300,6 +301,34 @@
                         <div class="feature"><i class="fi fi-rr-chart-pie-alt"></i><span>Live Score</span></div>
                         <div class="feature"><i class="fi fi-rr-forward"></i><span>Skip</span></div>
                         <div class="feature"><i class="fi fi-rr-trophy"></i><span>Leaderboard</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── QUIZ ─────────────────────────────────────────────── -->
+            <section id="page-quiz" class="page">
+                <div class="quiz-wrap">
+                    <div class="quiz-top">
+                        <div class="score-pill"><i class="fi fi-ss-star"></i><span id="q-score">0 pts</span></div>
+                        <div class="quiz-meta">
+                            <span id="q-tracker" class="q-tracker">Q 1/10</span>
+                            <div id="q-timer" class="timer">30</div>
+                        </div>
+                    </div>
+                    <div class="quiz-progress">
+                        <div id="q-progress-bar" class="progress-fill" style="width:0%"></div>
+                    </div>
+                    <div class="quiz-card">
+                        <div class="quiz-tags">
+                            <span id="q-cat-tag" class="tag tag-blue">HTML</span>
+                            <span id="q-diff-tag" class="tag tag-green">Easy</span>
+                            <span id="q-mode-tag" class="tag tag-orange hidden">⚡ Challenge</span>
+                        </div>
+                        <h2 id="q-question" class="quiz-question">Loading...</h2>
+                        <div id="q-options" class="options-grid"></div>
+                    </div>
+                    <div class="quiz-footer">
+                        <button id="q-skip" class="btn-ghost">Skip <i class="fi fi-rr-forward"></i></button>
                     </div>
                 </div>
             </section>
