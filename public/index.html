@@ -721,6 +721,63 @@
                 </div>
                 <div id="lessons-admin-list" class="admin-list"></div>
               </div>
+              <!-- CATEGORIES -->
+              <div class="admin-tab" id="tab-categories">
+                <div class="admin-tab-header">
+                  <h3>Categories</h3>
+                  <button class="btn-primary btn-sm" id="add-cat-btn">
+                    <i class="fi fi-rr-plus"></i> Add
+                  </button>
+                </div>
+                <div id="cats-list" class="cats-grid"></div>
+              </div>
+              <!-- USERS (admin only) -->
+              <div class="admin-tab" id="tab-users">
+                <div class="admin-tab-header">
+                  <h3>Registered users</h3>
+                </div>
+                <div class="table-wrap">
+                  <table class="lb-table">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Registered on</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-users-body"></tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- SCORES -->
+              <div class="admin-tab" id="tab-scores">
+                <div class="admin-tab-header">
+                  <h3>Scores</h3>
+                  <button class="btn-danger btn-sm" id="clear-scores-btn">
+                    🗑 Clear all
+                  </button>
+                </div>
+                <div class="table-wrap">
+                  <table class="lb-table">
+                    <thead>
+                      <tr>
+                        <th>Player</th>
+                        <th>Category</th>
+                        <th>Mode</th>
+                        <th>Difficulty</th>
+                        <th>Score</th>
+                        <th>%</th>
+                        <th>Date</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="admin-scores-body"></tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </section>
