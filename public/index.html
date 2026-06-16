@@ -238,6 +238,72 @@
                 <i class="fi fi-rr-angle-left toggle-arrow"></i>
             </button>
         </aside>
+
+        <!-- MAIN CONTENT -->
+        <main id="main-content" class="main-content">
+            <!-- ── HOME ─────────────────────────────────────────────── -->
+            <section id="page-home" class="page active">
+                <div class="hero">
+                    <div class="hero-badge"><span class="pulse-dot"></span> Live — Quiz available</div>
+                    <h1 class="hero-title">Code<span style="color:var(--blue)">Arena</span></h1>
+                    <p class="hero-sub">Test your development knowledge. Timer, multiple-choice questions, instant score.</p>
+
+                    <div class="hero-stats">
+                        <div class="hstat"><span id="stat-q" class="hstat-num">—</span><span
+                                class="hstat-label">Questions</span></div>
+                        <div class="hstat-sep"></div>
+                        <div class="hstat"><span id="stat-l" class="hstat-num">—</span><span
+                                class="hstat-label">Lessons</span></div>
+                        <div class="hstat-sep"></div>
+                        <div class="hstat"><span id="stat-c" class="hstat-num">—</span><span
+                                class="hstat-label">Categories</span></div>
+                    </div>
+
+                    <div class="config-card">
+                        <div class="config-section">
+                            <label class="config-label">Category</label>
+                            <div id="categoryGrid" class="category-grid"></div>
+                        </div>
+                        <div class="config-section">
+                            <label class="config-label">Difficulty</label>
+                            <div class="diff-row">
+                                <button class="diff-btn active" data-diff="easy">
+                                    <span class="diff-dot" style="background:#4ade80;box-shadow:0 0 8px #4ade80"></span>
+                                    <div><strong>Easy</strong><small>Basics & Fundamentals</small></div>
+                                </button>
+                                <button class="diff-btn" data-diff="medium">
+                                    <span class="diff-dot" style="background:#f97316;box-shadow:0 0 8px #f97316"></span>
+                                    <div><strong>Medium</strong><small>Algorithms & Logic</small></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="config-section">
+                            <label class="config-label">Game Mode</label>
+                            <div class="mode-row">
+                                <button class="mode-btn active" data-mode="normal">
+                                    <i class="fi fi-rr-play-alt mode-icon"></i>
+                                    <strong>Normal</strong><small>30s per question</small>
+                                </button>
+                                <button class="mode-btn" data-mode="challenge">
+                                    <i class="fi fi-rr-bolt mode-icon" style="color:#f59e0b"></i>
+                                    <strong>Challenge ⚡</strong><small>15s — No mercy</small>
+                                </button>
+                            </div>
+                        </div>
+                        <button id="launchBtn" class="btn-primary btn-launch" disabled>
+                            <i class="fi fi-ss-play"></i> Start Quiz
+                        </button>
+                    </div>
+
+                    <div class="feature-row">
+                        <div class="feature"><i class="fi fi-rr-clock"></i><span>Timer</span></div>
+                        <div class="feature"><i class="fi fi-rr-chart-pie-alt"></i><span>Live Score</span></div>
+                        <div class="feature"><i class="fi fi-rr-forward"></i><span>Skip</span></div>
+                        <div class="feature"><i class="fi fi-rr-trophy"></i><span>Leaderboard</span></div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
     <script src="js/app.js"></script>
 </body>
