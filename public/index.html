@@ -332,6 +332,44 @@
                     </div>
                 </div>
             </section>
+
+            <!-- ── SCORE ────────────────────────────────────────────── -->
+            <section id="page-score" class="page">
+                <div class="score-wrap">
+                    <div class="score-card">
+                        <div class="score-glow"></div>
+                        <div id="s-emoji" class="s-emoji"><i class="fa-solid fa-fire" style="color: #f87738;"></i></div>
+                        <h2 id="s-title" class="s-title">Excellent!</h2>
+                        <p id="s-msg" class="s-msg">You master the subject.</p>
+                        <div class="ring-wrap">
+                            <svg viewBox="0 0 120 120" class="ring-svg">
+                                <circle class="ring-bg" stroke-width="8" fill="transparent" r="54" cx="60" cy="60" />
+                                <circle id="ring-fill" class="ring-fill" stroke-width="8" stroke-dasharray="339.292"
+                                    stroke-dashoffset="339.292" stroke-linecap="round" fill="transparent" r="54" cx="60"
+                                    cy="60" />
+                            </svg>
+                            <div class="ring-center"><span id="s-pct" class="ring-pct">0%</span><small>Score</small>
+                            </div>
+                        </div>
+                        <div class="s-grid">
+                            <div class="s-stat"><i class="fi fi-rr-check-circle" style="color:#4ade80"></i><span
+                                    class="s-num" id="s-correct">0</span><small>Correct</small></div>
+                            <div class="s-stat"><i class="fi fi-rr-cross-circle" style="color:#f85149"></i><span
+                                    class="s-num" id="s-wrong">0</span><small>Incorrect</small></div>
+                            <div class="s-stat"><i class="fi fi-rr-forward" style="color:#d29922"></i><span
+                                    class="s-num" id="s-skip">0</span><small>Skipped</small></div>
+                            <div class="s-stat"><i class="fi fi-rr-star" style="color:#A5C8FF"></i><span class="s-num"
+                                    id="s-pts">0</span><small>Points</small></div>
+                        </div>
+                        <p id="s-saved-msg" class="s-saved hidden"><i class="fa-solid fa-cloud-check" style="color: #f87738;"></i> Score saved!</p>
+                        <div class="s-actions">
+                            <button id="s-replay" class="btn-primary"><i class="fi fi-rr-refresh"></i> Replay</button>
+                            <button class="btn-ghost" onclick="navigate('home')"><i class="fi fi-rr-home"></i>
+                                Home</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
     <script src="js/app.js"></script>
