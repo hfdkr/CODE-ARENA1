@@ -778,6 +778,97 @@
                   </table>
                 </div>
               </div>
+              <!-- SETTINGS -->
+              <div class="admin-tab" id="tab-settings">
+                <div class="admin-tab-header"><h3>Settings</h3></div>
+                <div class="settings-form">
+                  <div class="form-group">
+                    <label>Site name</label
+                    ><input id="set-siteName" class="form-input" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label>Time per question — Normal (sec)</label
+                    ><input
+                      id="set-time"
+                      class="form-input"
+                      type="number"
+                      min="5"
+                      max="120"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Time per question — Challenge (sec)</label
+                    ><input
+                      id="set-ctime"
+                      class="form-input"
+                      type="number"
+                      min="5"
+                      max="60"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Points per correct answer</label
+                    ><input
+                      id="set-pts"
+                      class="form-input"
+                      type="number"
+                      min="1"
+                      max="100"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Maximum questions per quiz</label
+                    ><input
+                      id="set-maxq"
+                      class="form-input"
+                      type="number"
+                      min="5"
+                      max="50"
+                    />
+                  </div>
+                  <button id="save-settings-btn" class="btn-primary">
+                    💾 Save
+                  </button>
+                  <p id="settings-ok" class="s-saved hidden">✅ Saved!</p>
+                  <hr class="divider" />
+                  <h4>My Account</h4>
+                  <div class="form-group">
+                    <label>Name</label
+                    ><input id="acc-name" class="form-input" type="text" />
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label
+                    ><input id="acc-email" class="form-input" type="email" />
+                  </div>
+                  <button id="save-profile-btn" class="btn-secondary">
+                    💾 Save Profile
+                  </button>
+                  <p id="profile-ok" class="s-saved hidden">
+                    ✅ Profile updated!
+                  </p>
+                  <hr class="divider" />
+                  <h4>Change Password</h4>
+                  <div class="form-group">
+                    <label>Current Password</label
+                    ><input
+                      id="pw-current"
+                      class="form-input"
+                      type="password"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>New Password</label
+                    ><input id="pw-new" class="form-input" type="password" />
+                  </div>
+                  <button id="change-pw-btn" class="btn-secondary">
+                    🔒 Change
+                  </button>
+                  <p id="pw-ok" class="s-saved hidden">
+                    ✅ Password changed!
+                  </p>
+                  <p id="settings-err" class="auth-error hidden"></p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
