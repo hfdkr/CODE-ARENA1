@@ -1,427 +1,680 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="dark">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CodeArena</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css" />
-    <link rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css" />
-    <link rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css" />
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
     <link rel="stylesheet" href="css/styles.css" />
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- ══════════════════════════════════════════════════════
      AUTH SCREEN (fullscreen overlay)
 ══════════════════════════════════════════════════════ -->
     <div id="auth-screen" class="auth-screen">
-        <div class="auth-bg-deco"></div>
+      <div class="auth-bg-deco"></div>
 
-        <div class="auth-box">
-            <!-- Brand -->
-            <div class="auth-brand">
-                <span class="auth-brand-dot"></span>
-                Code<span style="color:var(--blue)">Arena</span>
-            </div>
-            <p id="auth-subtitle" class="auth-sub">Welcome back — sign in to continue</p>
-
-            <!-- Tabs -->
-            <div class="auth-tabs">
-                <button id="tab-signin" class="auth-tab active" onclick="switchTab('signin')">Sign In</button>
-                <button id="tab-signup" class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
-            </div>
-
-            <!-- ── SIGN IN ── -->
-            <div id="form-signin">
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input id="si-email" type="email" class="form-input" placeholder="you@example.com" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <div class="input-pw-wrap">
-                        <input id="si-password" type="password" class="form-input" placeholder="Your password..."
-                            onkeydown="if(event.key==='Enter')handleSignIn()" />
-                        <button onclick="togglePwd('si-password',this)" class="pw-eye"><i
-                                class="fi fi-rr-eye"></i></button>
-                    </div>
-                </div>
-                <div style="text-align:right;margin-bottom:16px">
-                    <span class="auth-link" onclick="openForgot()">Forgot password?</span>
-                </div>
-                <p id="si-error" class="auth-error hidden"></p>
-                <button id="si-btn" onclick="handleSignIn()" class="btn-auth">Sign In →</button>
-                <p class="auth-switch">Don't have an account? <span class="auth-link" onclick="switchTab('signup')">Sign
-                        up free</span></p>
-            </div>
-
-            <!-- ── SIGN UP ── -->
-            <div id="form-signup" style="display:none">
-                <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input id="su-name" type="text" class="form-input" placeholder="Your name..." />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input id="su-email" type="email" class="form-input" placeholder="you@example.com" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Password</label>
-                    <div class="input-pw-wrap">
-                        <input id="su-password" type="password" class="form-input" placeholder="Create a password..."
-                            oninput="updateStrength(this.value)" />
-                        <button onclick="togglePwd('su-password',this)" class="pw-eye"><i
-                                class="fi fi-rr-eye"></i></button>
-                    </div>
-                    <div class="strength-bar">
-                        <div id="strength-fill" class="strength-fill"></div>
-                    </div>
-                    <p id="strength-label" class="strength-label"></p>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Security Question</label>
-                    <select id="su-sq" class="form-input form-select">
-                        <option value="">Choose a question...</option>
-                        <option>What city were you born in?</option>
-                        <option>What is your mother's maiden name?</option>
-                        <option>What was the name of your first pet?</option>
-                        <option>What is your favorite color?</option>
-                        <option>What was the name of your primary school?</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Security Answer</label>
-                    <input id="su-sa" type="text" class="form-input" placeholder="Your answer..." />
-                </div>
-                <p id="su-error" class="auth-error hidden"></p>
-                <button id="su-btn" onclick="handleSignUp()" class="btn-auth">Create Account →</button>
-                <p class="auth-switch">Already have an account? <span class="auth-link"
-                        onclick="switchTab('signin')">Sign in</span></p>
-            </div>
+      <div class="auth-box">
+        <!-- Brand -->
+        <div class="auth-brand">
+          <span class="auth-brand-dot"></span>
+          Code<span style="color: var(--blue)">Arena</span>
         </div>
+        <p id="auth-subtitle" class="auth-sub">
+          Welcome back — sign in to continue
+        </p>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button
+            id="tab-signin"
+            class="auth-tab active"
+            onclick="switchTab('signin')"
+          >
+            Sign In
+          </button>
+          <button
+            id="tab-signup"
+            class="auth-tab"
+            onclick="switchTab('signup')"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <!-- ── SIGN IN ── -->
+        <div id="form-signin">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              id="si-email"
+              type="email"
+              class="form-input"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-pw-wrap">
+              <input
+                id="si-password"
+                type="password"
+                class="form-input"
+                placeholder="Your password..."
+                onkeydown="if (event.key === 'Enter') handleSignIn();"
+              />
+              <button onclick="togglePwd('si-password', this)" class="pw-eye">
+                <i class="fi fi-rr-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div style="text-align: right; margin-bottom: 16px">
+            <span class="auth-link" onclick="openForgot()"
+              >Forgot password?</span
+            >
+          </div>
+          <p id="si-error" class="auth-error hidden"></p>
+          <button id="si-btn" onclick="handleSignIn()" class="btn-auth">
+            Sign In →
+          </button>
+          <p class="auth-switch">
+            Don't have an account?
+            <span class="auth-link" onclick="switchTab('signup')"
+              >Sign up free</span
+            >
+          </p>
+        </div>
+
+        <!-- ── SIGN UP ── -->
+        <div id="form-signup" style="display: none">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input
+              id="su-name"
+              type="text"
+              class="form-input"
+              placeholder="Your name..."
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              id="su-email"
+              type="email"
+              class="form-input"
+              placeholder="you@example.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-pw-wrap">
+              <input
+                id="su-password"
+                type="password"
+                class="form-input"
+                placeholder="Create a password..."
+                oninput="updateStrength(this.value)"
+              />
+              <button onclick="togglePwd('su-password', this)" class="pw-eye">
+                <i class="fi fi-rr-eye"></i>
+              </button>
+            </div>
+            <div class="strength-bar">
+              <div id="strength-fill" class="strength-fill"></div>
+            </div>
+            <p id="strength-label" class="strength-label"></p>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Security Question</label>
+            <select id="su-sq" class="form-input form-select">
+              <option value="">Choose a question...</option>
+              <option>What city were you born in?</option>
+              <option>What is your mother's maiden name?</option>
+              <option>What was the name of your first pet?</option>
+              <option>What is your favorite color?</option>
+              <option>What was the name of your primary school?</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Security Answer</label>
+            <input
+              id="su-sa"
+              type="text"
+              class="form-input"
+              placeholder="Your answer..."
+            />
+          </div>
+          <p id="su-error" class="auth-error hidden"></p>
+          <button id="su-btn" onclick="handleSignUp()" class="btn-auth">
+            Create Account →
+          </button>
+          <p class="auth-switch">
+            Already have an account?
+            <span class="auth-link" onclick="switchTab('signin')">Sign in</span>
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- ══════════════════════════════════════════════════════
      FORGOT PASSWORD MODAL
 ══════════════════════════════════════════════════════ -->
     <div id="forgot-modal" class="modal-overlay hidden">
-        <div class="modal" style="max-width:420px">
-            <!-- Step 1 -->
-            <div id="fp-step1" class="modal-body">
-                <div class="modal-header">
-                    <h3>🔐 Reset Password</h3>
-                    <button class="modal-close" onclick="closeForgot()"><i class="fi fi-rr-cross"></i></button>
-                </div>
-                <p style="color:var(--text2);font-size:.875rem;margin-bottom:20px">Enter your email to find your
-                    security question.</p>
-                <div style="display:flex;gap:8px">
-                    <input id="fp-email" type="email" class="form-input" placeholder="you@example.com" style="flex:1" />
-                    <button onclick="loadSecQ()" class="btn-secondary" style="flex-shrink:0">Find →</button>
-                </div>
-                <div id="fp-q-block" style="display:none;margin-top:18px">
-                    <div class="form-group">
-                        <label class="form-label">Security Question</label>
-                        <p id="fp-q-text"
-                            style="font-size:.9rem;color:var(--text);padding:12px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)">
-                        </p>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Your Answer</label>
-                        <input id="fp-answer" type="text" class="form-input" placeholder="Type your answer..." />
-                    </div>
-                    <button onclick="verifySecQ()" class="btn-auth">Verify Answer →</button>
-                </div>
-                <p id="fp-error" class="auth-error hidden"></p>
-                <p class="auth-switch" style="margin-top:16px">Remember it? <span class="auth-link"
-                        onclick="closeForgot()">Back to sign in</span></p>
+      <div class="modal" style="max-width: 420px">
+        <!-- Step 1 -->
+        <div id="fp-step1" class="modal-body">
+          <div class="modal-header">
+            <h3>🔐 Reset Password</h3>
+            <button class="modal-close" onclick="closeForgot()">
+              <i class="fi fi-rr-cross"></i>
+            </button>
+          </div>
+          <p
+            style="
+              color: var(--text2);
+              font-size: 0.875rem;
+              margin-bottom: 20px;
+            "
+          >
+            Enter your email to find your security question.
+          </p>
+          <div style="display: flex; gap: 8px">
+            <input
+              id="fp-email"
+              type="email"
+              class="form-input"
+              placeholder="you@example.com"
+              style="flex: 1"
+            />
+            <button
+              onclick="loadSecQ()"
+              class="btn-secondary"
+              style="flex-shrink: 0"
+            >
+              Find →
+            </button>
+          </div>
+          <div id="fp-q-block" style="display: none; margin-top: 18px">
+            <div class="form-group">
+              <label class="form-label">Security Question</label>
+              <p
+                id="fp-q-text"
+                style="
+                  font-size: 0.9rem;
+                  color: var(--text);
+                  padding: 12px;
+                  background: var(--surface2);
+                  border-radius: 10px;
+                  border: 1px solid var(--border);
+                "
+              ></p>
             </div>
-            <!-- Step 2 -->
-            <div id="fp-step2" style="display:none" class="modal-body">
-                <div class="modal-header">
-                    <h3>🔑 New Password</h3>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">New Password</label>
-                    <div class="input-pw-wrap">
-                        <input id="fp-newpwd" type="password" class="form-input" placeholder="New password (6+ chars)"
-                            oninput="updateStrength(this.value)" />
-                        <button onclick="togglePwd('fp-newpwd',this)" class="pw-eye"><i
-                                class="fi fi-rr-eye"></i></button>
-                    </div>
-                    <div class="strength-bar">
-                        <div id="strength-fill2" class="strength-fill"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Confirm Password</label>
-                    <input id="fp-confirm" type="password" class="form-input" placeholder="Repeat new password..." />
-                </div>
-                <p id="fp-reset-error" class="auth-error hidden"></p>
-                <button onclick="doReset()" class="btn-auth">Reset Password →</button>
+            <div class="form-group">
+              <label class="form-label">Your Answer</label>
+              <input
+                id="fp-answer"
+                type="text"
+                class="form-input"
+                placeholder="Type your answer..."
+              />
             </div>
+            <button onclick="verifySecQ()" class="btn-auth">
+              Verify Answer →
+            </button>
+          </div>
+          <p id="fp-error" class="auth-error hidden"></p>
+          <p class="auth-switch" style="margin-top: 16px">
+            Remember it?
+            <span class="auth-link" onclick="closeForgot()"
+              >Back to sign in</span
+            >
+          </p>
         </div>
+        <!-- Step 2 -->
+        <div id="fp-step2" style="display: none" class="modal-body">
+          <div class="modal-header">
+            <h3>🔑 New Password</h3>
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <div class="input-pw-wrap">
+              <input
+                id="fp-newpwd"
+                type="password"
+                class="form-input"
+                placeholder="New password (6+ chars)"
+                oninput="updateStrength(this.value)"
+              />
+              <button onclick="togglePwd('fp-newpwd', this)" class="pw-eye">
+                <i class="fi fi-rr-eye"></i>
+              </button>
+            </div>
+            <div class="strength-bar">
+              <div id="strength-fill2" class="strength-fill"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input
+              id="fp-confirm"
+              type="password"
+              class="form-input"
+              placeholder="Repeat new password..."
+            />
+          </div>
+          <p id="fp-reset-error" class="auth-error hidden"></p>
+          <button onclick="doReset()" class="btn-auth">Reset Password →</button>
+        </div>
+      </div>
     </div>
 
     <!-- ══════════════════════════════════════════════════════
      MAIN APP
 ══════════════════════════════════════════════════════ -->
     <div id="app" class="app-layout hidden">
-        <!-- LEFT SIDEBAR -->
-        <aside id="sidebar" class="sidebar">
-            <div class="sidebar-inner">
-                <!-- Brand -->
-                <div class="sidebar-brand">
-                    <span class="brand-dot"></span>
-                    <span class="sidebar-label">Code<span style="color:var(--blue)">Arena</span></span>
-                </div>
+      <!-- LEFT SIDEBAR -->
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-inner">
+          <!-- Brand -->
+          <div class="sidebar-brand">
+            <span class="brand-dot"></span>
+            <span class="sidebar-label"
+              >Code<span style="color: var(--blue)">Arena</span></span
+            >
+          </div>
 
-                <!-- Nav -->
-                <nav class="sidebar-nav">
-                    <div class="sidebar-section-title sidebar-label">Navigation</div>
-                    <a class="nav-item active" data-page="home" onclick="navigate('home')">
-                        <i class="fi fi-rr-home nav-icon"></i><span class="sidebar-label">Home</span>
-                    </a>
-                    <a class="nav-item" data-page="lessons" onclick="navigate('lessons')">
-                        <i class="fi fi-rr-book-open-cover nav-icon"></i><span class="sidebar-label">Lessons</span>
-                    </a>
-                    <a class="nav-item" data-page="leaderboard" onclick="navigate('leaderboard')">
-                        <i class="fi fi-rr-trophy nav-icon"></i><span class="sidebar-label">Leaderboard</span>
-                    </a>
-                    <div id="admin-nav-link" style="display:none">
-                        <div class="sidebar-section-title sidebar-label" style="margin-top:8px">Admin</div>
-                        <a class="nav-item" data-page="admin" onclick="navigate('admin')">
-                            <i class="fi fi-rr-settings nav-icon"></i><span class="sidebar-label">Admin Panel</span>
-                        </a>
-                    </div>
-                </nav>
+          <!-- Nav -->
+          <nav class="sidebar-nav">
+            <div class="sidebar-section-title sidebar-label">Navigation</div>
+            <a
+              class="nav-item active"
+              data-page="home"
+              onclick="navigate('home')"
+            >
+              <i class="fi fi-rr-home nav-icon"></i
+              ><span class="sidebar-label">Home</span>
+            </a>
+            <a
+              class="nav-item"
+              data-page="lessons"
+              onclick="navigate('lessons')"
+            >
+              <i class="fi fi-rr-book-open-cover nav-icon"></i
+              ><span class="sidebar-label">Lessons</span>
+            </a>
+            <a
+              class="nav-item"
+              data-page="leaderboard"
+              onclick="navigate('leaderboard')"
+            >
+              <i class="fi fi-rr-trophy nav-icon"></i
+              ><span class="sidebar-label">Leaderboard</span>
+            </a>
+            <div id="admin-nav-link" style="display: none">
+              <div
+                class="sidebar-section-title sidebar-label"
+                style="margin-top: 8px"
+              >
+                Admin
+              </div>
+              <a class="nav-item" data-page="admin" onclick="navigate('admin')">
+                <i class="fi fi-rr-settings nav-icon"></i
+                ><span class="sidebar-label">Admin Panel</span>
+              </a>
+            </div>
+          </nav>
 
-                <!-- Online Users Panel -->
-                <div id="presence-panel" class="presence-panel">
-                    <div class="presence-title sidebar-label">
-                        <i class="fi fi-rr-users"></i> Users
-                    </div>
-                    <div id="presence-list" class="presence-list"></div>
-                </div>
+          <!-- Online Users Panel -->
+          <div id="presence-panel" class="presence-panel">
+            <div class="presence-title sidebar-label">
+              <i class="fi fi-rr-users"></i> Users
+            </div>
+            <div id="presence-list" class="presence-list"></div>
+          </div>
 
-                <!-- Bottom: user + theme -->
-                <div class="sidebar-bottom">
-                    <div class="sidebar-user-full sidebar-label">
-                        <div class="user-avatar-sm" id="sb-avatar">A</div>
-                        <div class="sidebar-user-info">
-                            <div id="sb-name" class="sidebar-user-name">Loading...</div>
-                            <div id="sb-role" class="sidebar-user-role">—</div>
-                        </div>
-                    </div>
-                    <div class="sidebar-bottom-actions">
-                        <button class="btn-icon" id="theme-toggle" onclick="toggleTheme()" title="Change theme">
-                            <i class="fi fi-rr-moon"></i>
-                        </button>
-                        <button class="btn-icon" onclick="handleLogout()" title="Logout">
-                            <i class="fi fi-rr-sign-out-alt"></i>
-                        </button>
-                    </div>
-                </div>
+          <!-- Bottom: user + theme -->
+          <div class="sidebar-bottom">
+            <div class="sidebar-user-full sidebar-label">
+              <div class="user-avatar-sm" id="sb-avatar">A</div>
+              <div class="sidebar-user-info">
+                <div id="sb-name" class="sidebar-user-name">Loading...</div>
+                <div id="sb-role" class="sidebar-user-role">—</div>
+              </div>
+            </div>
+            <div class="sidebar-bottom-actions">
+              <button
+                class="btn-icon"
+                id="theme-toggle"
+                onclick="toggleTheme()"
+                title="Change theme"
+              >
+                <i class="fi fi-rr-moon"></i>
+              </button>
+              <button class="btn-icon" onclick="handleLogout()" title="Logout">
+                <i class="fi fi-rr-sign-out-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapse toggle -->
+        <button id="sidebar-toggle" onclick="toggleSidebar()">
+          <i class="fi fi-rr-angle-left toggle-arrow"></i>
+        </button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main id="main-content" class="main-content">
+        <!-- ── HOME ─────────────────────────────────────────────── -->
+        <section id="page-home" class="page active">
+          <div class="hero">
+            <div class="hero-badge">
+              <span class="pulse-dot"></span> Live — Quiz available
+            </div>
+            <h1 class="hero-title">
+              Code<span style="color: var(--blue)">Arena</span>
+            </h1>
+            <p class="hero-sub">
+              Test your development knowledge. Timer, multiple-choice questions,
+              instant score.
+            </p>
+
+            <div class="hero-stats">
+              <div class="hstat">
+                <span id="stat-q" class="hstat-num">—</span
+                ><span class="hstat-label">Questions</span>
+              </div>
+              <div class="hstat-sep"></div>
+              <div class="hstat">
+                <span id="stat-l" class="hstat-num">—</span
+                ><span class="hstat-label">Lessons</span>
+              </div>
+              <div class="hstat-sep"></div>
+              <div class="hstat">
+                <span id="stat-c" class="hstat-num">—</span
+                ><span class="hstat-label">Categories</span>
+              </div>
             </div>
 
-            <!-- Collapse toggle -->
-            <button id="sidebar-toggle" onclick="toggleSidebar()">
-                <i class="fi fi-rr-angle-left toggle-arrow"></i>
+            <div class="config-card">
+              <div class="config-section">
+                <label class="config-label">Category</label>
+                <div id="categoryGrid" class="category-grid"></div>
+              </div>
+              <div class="config-section">
+                <label class="config-label">Difficulty</label>
+                <div class="diff-row">
+                  <button class="diff-btn active" data-diff="easy">
+                    <span
+                      class="diff-dot"
+                      style="background: #4ade80; box-shadow: 0 0 8px #4ade80"
+                    ></span>
+                    <div>
+                      <strong>Easy</strong><small>Basics & Fundamentals</small>
+                    </div>
+                  </button>
+                  <button class="diff-btn" data-diff="medium">
+                    <span
+                      class="diff-dot"
+                      style="background: #f97316; box-shadow: 0 0 8px #f97316"
+                    ></span>
+                    <div>
+                      <strong>Medium</strong><small>Algorithms & Logic</small>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div class="config-section">
+                <label class="config-label">Game Mode</label>
+                <div class="mode-row">
+                  <button class="mode-btn active" data-mode="normal">
+                    <i class="fi fi-rr-play-alt mode-icon"></i>
+                    <strong>Normal</strong><small>30s per question</small>
+                  </button>
+                  <button class="mode-btn" data-mode="challenge">
+                    <i
+                      class="fi fi-rr-bolt mode-icon"
+                      style="color: #f59e0b"
+                    ></i>
+                    <strong>Challenge ⚡</strong><small>15s — No mercy</small>
+                  </button>
+                </div>
+              </div>
+              <button id="launchBtn" class="btn-primary btn-launch" disabled>
+                <i class="fi fi-ss-play"></i> Start Quiz
+              </button>
+            </div>
+
+            <div class="feature-row">
+              <div class="feature">
+                <i class="fi fi-rr-clock"></i><span>Timer</span>
+              </div>
+              <div class="feature">
+                <i class="fi fi-rr-chart-pie-alt"></i><span>Live Score</span>
+              </div>
+              <div class="feature">
+                <i class="fi fi-rr-forward"></i><span>Skip</span>
+              </div>
+              <div class="feature">
+                <i class="fi fi-rr-trophy"></i><span>Leaderboard</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── QUIZ ─────────────────────────────────────────────── -->
+        <section id="page-quiz" class="page">
+          <div class="quiz-wrap">
+            <div class="quiz-top">
+              <div class="score-pill">
+                <i class="fi fi-ss-star"></i><span id="q-score">0 pts</span>
+              </div>
+              <div class="quiz-meta">
+                <span id="q-tracker" class="q-tracker">Q 1/10</span>
+                <div id="q-timer" class="timer">30</div>
+              </div>
+            </div>
+            <div class="quiz-progress">
+              <div
+                id="q-progress-bar"
+                class="progress-fill"
+                style="width: 0%"
+              ></div>
+            </div>
+            <div class="quiz-card">
+              <div class="quiz-tags">
+                <span id="q-cat-tag" class="tag tag-blue">HTML</span>
+                <span id="q-diff-tag" class="tag tag-green">Easy</span>
+                <span id="q-mode-tag" class="tag tag-orange hidden"
+                  >⚡ Challenge</span
+                >
+              </div>
+              <h2 id="q-question" class="quiz-question">Loading...</h2>
+              <div id="q-options" class="options-grid"></div>
+            </div>
+            <div class="quiz-footer">
+              <button id="q-skip" class="btn-ghost">
+                Skip <i class="fi fi-rr-forward"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── SCORE ────────────────────────────────────────────── -->
+        <section id="page-score" class="page">
+          <div class="score-wrap">
+            <div class="score-card">
+              <div class="score-glow"></div>
+              <div id="s-emoji" class="s-emoji">
+                <i class="fa-solid fa-fire" style="color: #f87738"></i>
+              </div>
+              <h2 id="s-title" class="s-title">Excellent!</h2>
+              <p id="s-msg" class="s-msg">You master the subject.</p>
+              <div class="ring-wrap">
+                <svg viewBox="0 0 120 120" class="ring-svg">
+                  <circle
+                    class="ring-bg"
+                    stroke-width="8"
+                    fill="transparent"
+                    r="54"
+                    cx="60"
+                    cy="60"
+                  />
+                  <circle
+                    id="ring-fill"
+                    class="ring-fill"
+                    stroke-width="8"
+                    stroke-dasharray="339.292"
+                    stroke-dashoffset="339.292"
+                    stroke-linecap="round"
+                    fill="transparent"
+                    r="54"
+                    cx="60"
+                    cy="60"
+                  />
+                </svg>
+                <div class="ring-center">
+                  <span id="s-pct" class="ring-pct">0%</span
+                  ><small>Score</small>
+                </div>
+              </div>
+              <div class="s-grid">
+                <div class="s-stat">
+                  <i class="fi fi-rr-check-circle" style="color: #4ade80"></i
+                  ><span class="s-num" id="s-correct">0</span
+                  ><small>Correct</small>
+                </div>
+                <div class="s-stat">
+                  <i class="fi fi-rr-cross-circle" style="color: #f85149"></i
+                  ><span class="s-num" id="s-wrong">0</span
+                  ><small>Incorrect</small>
+                </div>
+                <div class="s-stat">
+                  <i class="fi fi-rr-forward" style="color: #d29922"></i
+                  ><span class="s-num" id="s-skip">0</span
+                  ><small>Skipped</small>
+                </div>
+                <div class="s-stat">
+                  <i class="fi fi-rr-star" style="color: #a5c8ff"></i
+                  ><span class="s-num" id="s-pts">0</span><small>Points</small>
+                </div>
+              </div>
+              <p id="s-saved-msg" class="s-saved hidden">
+                <i class="fa-solid fa-cloud-check" style="color: #f87738"></i>
+                Score saved!
+              </p>
+              <div class="s-actions">
+                <button id="s-replay" class="btn-primary">
+                  <i class="fi fi-rr-refresh"></i> Replay
+                </button>
+                <button class="btn-ghost" onclick="navigate('home')">
+                  <i class="fi fi-rr-home"></i> Home
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── LESSONS ───────────────────────────────────────────── -->
+        <section id="page-lessons" class="page">
+          <div class="page-content">
+            <div class="page-header">
+              <h2>📚 Lessons</h2>
+              <p>Learn before playing</p>
+            </div>
+            <div id="lessons-filter" class="filter-row"></div>
+            <div id="lessons-grid" class="lessons-grid"></div>
+          </div>
+        </section>
+
+        <!-- ── LESSON DETAIL ─────────────────────────────────────── -->
+        <section id="page-lesson-detail" class="page">
+          <div class="page-content">
+            <button class="btn-back" onclick="navigate('lessons')">
+              <i class="fi fi-rr-arrow-left"></i> Back
             </button>
-        </aside>
+            <div id="lesson-content" class="lesson-content"></div>
+          </div>
+        </section>
 
-        <!-- MAIN CONTENT -->
-        <main id="main-content" class="main-content">
-            <!-- ── HOME ─────────────────────────────────────────────── -->
-            <section id="page-home" class="page active">
-                <div class="hero">
-                    <div class="hero-badge"><span class="pulse-dot"></span> Live — Quiz available</div>
-                    <h1 class="hero-title">Code<span style="color:var(--blue)">Arena</span></h1>
-                    <p class="hero-sub">Test your development knowledge. Timer, multiple-choice questions, instant
-                        score.</p>
+        <!-- ── LEADERBOARD ───────────────────────────────────────── -->
+        <section id="page-leaderboard" class="page">
+          <div class="page-content">
+            <div class="page-header">
+              <h2>🏆 Leaderboard</h2>
+              <p>The best scores</p>
+            </div>
+            <div id="lb-filter" class="filter-row"></div>
+            <div class="table-wrap">
+              <table class="lb-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Category</th>
+                    <th>Mode</th>
+                    <th>Score</th>
+                    <th>%</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="lb-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-                    <div class="hero-stats">
-                        <div class="hstat"><span id="stat-q" class="hstat-num">—</span><span
-                                class="hstat-label">Questions</span></div>
-                        <div class="hstat-sep"></div>
-                        <div class="hstat"><span id="stat-l" class="hstat-num">—</span><span
-                                class="hstat-label">Lessons</span></div>
-                        <div class="hstat-sep"></div>
-                        <div class="hstat"><span id="stat-c" class="hstat-num">—</span><span
-                                class="hstat-label">Categories</span></div>
-                    </div>
-
-                    <div class="config-card">
-                        <div class="config-section">
-                            <label class="config-label">Category</label>
-                            <div id="categoryGrid" class="category-grid"></div>
-                        </div>
-                        <div class="config-section">
-                            <label class="config-label">Difficulty</label>
-                            <div class="diff-row">
-                                <button class="diff-btn active" data-diff="easy">
-                                    <span class="diff-dot" style="background:#4ade80;box-shadow:0 0 8px #4ade80"></span>
-                                    <div><strong>Easy</strong><small>Basics & Fundamentals</small></div>
-                                </button>
-                                <button class="diff-btn" data-diff="medium">
-                                    <span class="diff-dot" style="background:#f97316;box-shadow:0 0 8px #f97316"></span>
-                                    <div><strong>Medium</strong><small>Algorithms & Logic</small></div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="config-section">
-                            <label class="config-label">Game Mode</label>
-                            <div class="mode-row">
-                                <button class="mode-btn active" data-mode="normal">
-                                    <i class="fi fi-rr-play-alt mode-icon"></i>
-                                    <strong>Normal</strong><small>30s per question</small>
-                                </button>
-                                <button class="mode-btn" data-mode="challenge">
-                                    <i class="fi fi-rr-bolt mode-icon" style="color:#f59e0b"></i>
-                                    <strong>Challenge ⚡</strong><small>15s — No mercy</small>
-                                </button>
-                            </div>
-                        </div>
-                        <button id="launchBtn" class="btn-primary btn-launch" disabled>
-                            <i class="fi fi-ss-play"></i> Start Quiz
-                        </button>
-                    </div>
-
-                    <div class="feature-row">
-                        <div class="feature"><i class="fi fi-rr-clock"></i><span>Timer</span></div>
-                        <div class="feature"><i class="fi fi-rr-chart-pie-alt"></i><span>Live Score</span></div>
-                        <div class="feature"><i class="fi fi-rr-forward"></i><span>Skip</span></div>
-                        <div class="feature"><i class="fi fi-rr-trophy"></i><span>Leaderboard</span></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ── QUIZ ─────────────────────────────────────────────── -->
-            <section id="page-quiz" class="page">
-                <div class="quiz-wrap">
-                    <div class="quiz-top">
-                        <div class="score-pill"><i class="fi fi-ss-star"></i><span id="q-score">0 pts</span></div>
-                        <div class="quiz-meta">
-                            <span id="q-tracker" class="q-tracker">Q 1/10</span>
-                            <div id="q-timer" class="timer">30</div>
-                        </div>
-                    </div>
-                    <div class="quiz-progress">
-                        <div id="q-progress-bar" class="progress-fill" style="width:0%"></div>
-                    </div>
-                    <div class="quiz-card">
-                        <div class="quiz-tags">
-                            <span id="q-cat-tag" class="tag tag-blue">HTML</span>
-                            <span id="q-diff-tag" class="tag tag-green">Easy</span>
-                            <span id="q-mode-tag" class="tag tag-orange hidden">⚡ Challenge</span>
-                        </div>
-                        <h2 id="q-question" class="quiz-question">Loading...</h2>
-                        <div id="q-options" class="options-grid"></div>
-                    </div>
-                    <div class="quiz-footer">
-                        <button id="q-skip" class="btn-ghost">Skip <i class="fi fi-rr-forward"></i></button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ── SCORE ────────────────────────────────────────────── -->
-            <section id="page-score" class="page">
-                <div class="score-wrap">
-                    <div class="score-card">
-                        <div class="score-glow"></div>
-                        <div id="s-emoji" class="s-emoji"><i class="fa-solid fa-fire" style="color: #f87738;"></i></div>
-                        <h2 id="s-title" class="s-title">Excellent!</h2>
-                        <p id="s-msg" class="s-msg">You master the subject.</p>
-                        <div class="ring-wrap">
-                            <svg viewBox="0 0 120 120" class="ring-svg">
-                                <circle class="ring-bg" stroke-width="8" fill="transparent" r="54" cx="60" cy="60" />
-                                <circle id="ring-fill" class="ring-fill" stroke-width="8" stroke-dasharray="339.292"
-                                    stroke-dashoffset="339.292" stroke-linecap="round" fill="transparent" r="54" cx="60"
-                                    cy="60" />
-                            </svg>
-                            <div class="ring-center"><span id="s-pct" class="ring-pct">0%</span><small>Score</small>
-                            </div>
-                        </div>
-                        <div class="s-grid">
-                            <div class="s-stat"><i class="fi fi-rr-check-circle" style="color:#4ade80"></i><span
-                                    class="s-num" id="s-correct">0</span><small>Correct</small></div>
-                            <div class="s-stat"><i class="fi fi-rr-cross-circle" style="color:#f85149"></i><span
-                                    class="s-num" id="s-wrong">0</span><small>Incorrect</small></div>
-                            <div class="s-stat"><i class="fi fi-rr-forward" style="color:#d29922"></i><span
-                                    class="s-num" id="s-skip">0</span><small>Skipped</small></div>
-                            <div class="s-stat"><i class="fi fi-rr-star" style="color:#A5C8FF"></i><span class="s-num"
-                                    id="s-pts">0</span><small>Points</small></div>
-                        </div>
-                        <p id="s-saved-msg" class="s-saved hidden"><i class="fa-solid fa-cloud-check"
-                                style="color: #f87738;"></i> Score saved!</p>
-                        <div class="s-actions">
-                            <button id="s-replay" class="btn-primary"><i class="fi fi-rr-refresh"></i> Replay</button>
-                            <button class="btn-ghost" onclick="navigate('home')"><i class="fi fi-rr-home"></i>
-                                Home</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ── LESSONS ───────────────────────────────────────────── -->
-            <section id="page-lessons" class="page">
-                <div class="page-content">
-                    <div class="page-header">
-                        <h2>📚 Lessons</h2>
-                        <p>Learn before playing</p>
-                    </div>
-                    <div id="lessons-filter" class="filter-row"></div>
-                    <div id="lessons-grid" class="lessons-grid"></div>
-                </div>
-            </section>
-
-            <!-- ── LESSON DETAIL ─────────────────────────────────────── -->
-            <section id="page-lesson-detail" class="page">
-                <div class="page-content">
-                    <button class="btn-back" onclick="navigate('lessons')"><i class="fi fi-rr-arrow-left"></i>
-                        Back</button>
-                    <div id="lesson-content" class="lesson-content"></div>
-                </div>
-            </section>
-
-            <!-- ── LEADERBOARD ───────────────────────────────────────── -->
-            <section id="page-leaderboard" class="page">
-                <div class="page-content">
-                    <div class="page-header">
-                        <h2>🏆 Leaderboard</h2>
-                        <p>The best scores</p>
-                    </div>
-                    <div id="lb-filter" class="filter-row"></div>
-                    <div class="table-wrap">
-                        <table class="lb-table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Player</th>
-                                    <th>Category</th>
-                                    <th>Mode</th>
-                                    <th>Score</th>
-                                    <th>%</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lb-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-        </main>
+        <!-- ── ADMIN ─────────────────────────────────────────────── -->
+        <section id="page-admin" class="page">
+          <div class="admin-layout">
+            <aside class="admin-sidebar">
+              <div class="admin-sidebar-brand">⚙️ Admin</div>
+              <nav class="admin-nav">
+                <button class="admin-nav-item active" data-tab="dashboard">
+                  <i class="fi fi-rr-chart-histogram"></i> Dashboard
+                </button>
+                <button class="admin-nav-item" data-tab="questions">
+                  <i class="fi fi-rr-interrogation"></i> Questions
+                </button>
+                <button class="admin-nav-item" data-tab="lessons">
+                  <i class="fi fi-rr-book-open-cover"></i> Lessons
+                </button>
+                <button class="admin-nav-item" data-tab="categories">
+                  <i class="fi fi-rr-tags"></i> Categories
+                </button>
+                <button class="admin-nav-item" data-tab="users">
+                  <i class="fi fi-rr-users"></i> Users
+                </button>
+                <button class="admin-nav-item" data-tab="scores">
+                  <i class="fi fi-rr-trophy"></i> Scores
+                </button>
+                <button class="admin-nav-item" data-tab="settings">
+                  <i class="fi fi-rr-settings"></i> Settings
+                </button>
+              </nav>
+            </aside>
+          </div>
+        </section>
+      </main>
     </div>
     <script src="js/app.js"></script>
-</body>
-
+  </body>
 </html>
