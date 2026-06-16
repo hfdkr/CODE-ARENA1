@@ -863,9 +863,7 @@
                   <button id="change-pw-btn" class="btn-secondary">
                     🔒 Change
                   </button>
-                  <p id="pw-ok" class="s-saved hidden">
-                    ✅ Password changed!
-                  </p>
+                  <p id="pw-ok" class="s-saved hidden">✅ Password changed!</p>
                   <p id="settings-err" class="auth-error hidden"></p>
                 </div>
               </div>
@@ -873,6 +871,65 @@
           </div>
         </section>
       </main>
+    </div>
+
+    <!-- ══ MODALS ══════════════════════════════════════════════════ -->
+    <!-- Question Modal -->
+    <div id="modal-question" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="mq-title">Add a question</h3>
+          <button class="modal-close" onclick="hideModal('modal-question')">
+            <i class="fi fi-rr-cross"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Category</label
+            ><select id="mq-cat" class="form-input form-select"></select>
+          </div>
+          <div class="form-group">
+            <label>Difficulty</label
+            ><select id="mq-diff" class="form-input form-select">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Question</label
+            ><textarea
+              id="mq-question"
+              class="form-input"
+              rows="3"
+              placeholder="Enter the question..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Options (one per line, min. 2)</label
+            ><textarea
+              id="mq-options"
+              class="form-input"
+              rows="4"
+              placeholder="Option A&#10;Option B&#10;Option C&#10;Option D"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Correct answer (exact)</label
+            ><input
+              id="mq-answer"
+              type="text"
+              class="form-input"
+              placeholder="Correct answer"
+            />
+          </div>
+          <p id="mq-err" class="auth-error hidden"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="hideModal('modal-question')">
+            Cancel</button
+          ><button id="mq-save" class="btn-primary">Save</button>
+        </div>
+      </div>
     </div>
     <script src="js/app.js"></script>
   </body>
