@@ -80,3 +80,36 @@ window.doReset = async () => {
   if (r.success) { hideModal('forgot-modal'); switchTab('signin'); }
   else { showErr('fp-reset-error', r.message||'Reset failed'); }
 };
+// ══ BOOT APP ═════════════════════════════════════════
+async function bootApp() {
+  if (!state.token) {
+    $('auth-screen').style.display=''; $('app').classList.add('hidden');
+    return;
+  }
+  // Verify token
+  const me = await req('/me');
+  if (!me.success) { clearAuth(); bootApp(); return; }
+  state.user = me.user;
+  localStorage.setItem('ca_user', JSON.stringify(state.user));
+
+  $('auth-screen').style.display='none';
+  $('app').classList.remove('hidden');
+
+  // Sidebar user
+  $('sb-name').textContent  = state.user.name;
+  $('sb-role').textContent  = state.user.role === 'admin' ? '👑 Admin' : '👤 Member';
+  $('sb-avatar').textContent = state.user.name[0].toUpperCase();
+
+  // Admin nav
+  if (state.user.role === 'admin') $('admin-nav-link').style.display='';
+  else $('admin-nav-link').style.display='none';
+
+  // Load home
+  const [cats, settings] = await Promise.all([req('/categories'), req('/settings')]);
+  state.categories = cats; state.settings = settings;
+
+  initHome();
+  navigate('home');
+  startHeartbeat();
+  loadPresence();
+}
