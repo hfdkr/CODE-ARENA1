@@ -207,3 +207,39 @@ function initHome() {
 
 function checkLaunch() { $('launchBtn').disabled = !state.quiz.category; }
 
+
+// ══ QUIZ ═════════════════════════════════════════════
+async function startQuiz() {
+  const q = state.quiz;
+  q.current=0; q.score=0; q.answers=[]; q.answered=false;
+  clearInterval(q.timerInterval);
+  const data = await req(`/quiz?categoryId=${q.category}&difficulty=${q.difficulty}`);
+  if (!data.questions?.length) { alert('Aucune question pour cette sélection !'); navigate('home'); return; }
+  q.questions = data.questions;
+  if (data.settings) state.settings = {...state.settings,...data.settings};
+  q.timePerQ = q.mode==='challenge' ? (state.settings.challengeTimePerQuestion||15) : (state.settings.timePerQuestion||30);
+
+  $('q-cat-tag').textContent  = state.categories.find(c=>c.id===q.category)?.name || q.category;
+  $('q-diff-tag').textContent = q.difficulty==='easy'?'Facile':'Moyen';
+  q.mode==='challenge' ? show('q-mode-tag') : hide('q-mode-tag');
+  $('q-skip').onclick = handleSkip;
+  loadQ();
+}
+
+function loadQ() {
+  const q = state.quiz, question = q.questions[q.current], total = q.questions.length;
+  $('q-score').textContent   = q.score + ' pts';
+  $('q-tracker').textContent = `Q ${q.current+1}/${total}`;
+  $('q-progress-bar').style.width = ((q.current+1)/total*100)+'%';
+  $('q-question').textContent = question.question;
+  const opts = $('q-options'); opts.innerHTML='';
+  question.options.forEach((opt,idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<div class="option-letter">${String.fromCharCode(65+idx)}</div><span class="option-text">${esc(opt)}</span>`;
+    btn.dataset.opt = opt;
+    btn.onclick = () => { if(!q.answered) handleAnswer(opt, btn); };
+    opts.appendChild(btn);
+  });
+  startTimer();
+}
