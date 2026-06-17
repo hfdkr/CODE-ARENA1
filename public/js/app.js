@@ -303,3 +303,33 @@ function endQuiz() {
   state.quizResult={score:state.quiz.score,answers:state.quiz.answers,category:state.quiz.category,difficulty:state.quiz.difficulty,mode:state.quiz.mode};
   navigate('score');
 }
+
+
+// ══ SCORE ════════════════════════════════════════════
+async function showScore() {
+  const r=state.quizResult; if(!r){navigate('home');return;}
+  const total=r.answers.length, correct=r.answers.filter(a=>a.isCorrect).length,
+        wrong=r.answers.filter(a=>!a.isCorrect&&a.selected!==null).length,
+        skipped=r.answers.filter(a=>a.selected===null).length,
+        pct=total>0?Math.round((r.score/(total*(state.settings.pointsPerQuestion||10)))*100):0;
+
+  let emoji='📚',title='Continuez !',msg='Entraîne-toi encore.';
+  if(pct>=80){emoji='🔥';title='Excellent !';msg='Tu maîtrises le sujet !';}
+  else if(pct>=60){emoji='⭐';title='Bien joué !';msg='Tu progresses bien.';}
+  else if(pct>=40){emoji='💡';title='Pas mal !';msg='Continue, tu y arrives !';}
+
+  $('s-emoji').textContent=emoji; $('s-title').textContent=title; $('s-msg').textContent=msg;
+  $('s-pct').textContent=pct+'%'; $('s-correct').textContent=correct;
+  $('s-wrong').textContent=wrong; $('s-skip').textContent=skipped; $('s-pts').textContent=r.score;
+
+  const circ=2*Math.PI*54;
+  setTimeout(()=>{ $('ring-fill').style.strokeDashoffset=circ-(pct/100)*circ; },100);
+
+  // Auto-save score
+  hide('s-saved-msg');
+  const saved = await req('/scores','POST',{categoryId:r.category,difficulty:r.difficulty,score:r.score,percentage:pct,correct,incorrect:wrong,skipped,mode:r.mode});
+  if(saved.id) show('s-saved-msg');
+
+  $('s-replay').onclick = ()=>navigate('quiz');
+}
+
