@@ -412,3 +412,20 @@ function renderLB(scores,cats,fc) {
     </tr>`;
   }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text2);padding:30px">Aucun score.</td></tr>';
 }
+
+
+// ══ ADMIN ════════════════════════════════════════════
+function initAdmin() {
+  if(!state.token||state.user?.role!=='admin'){navigate('home');return;}
+  document.querySelectorAll('.admin-nav-item').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.admin-nav-item').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+      b.classList.add('active');
+      $(`tab-${b.dataset.tab}`).classList.add('active');
+      const loaders={dashboard:loadDashboard,questions:loadAdminQ,lessons:loadAdminL,categories:loadAdminCats,users:loadAdminUsers,scores:loadAdminScores,settings:loadAdminSettings};
+      if(loaders[b.dataset.tab])loaders[b.dataset.tab]();
+    };
+  });
+  loadDashboard();
+}
