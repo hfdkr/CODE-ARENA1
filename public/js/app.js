@@ -243,3 +243,63 @@ function loadQ() {
   });
   startTimer();
 }
+
+
+function startTimer() {
+  const q = state.quiz;
+  q.answered=false; q.timeLeft=q.timePerQ;
+  clearInterval(q.timerInterval);
+  const timer=$('q-timer');
+  timer.className = 'timer' + (q.mode==='challenge'?' danger':'');
+  const tick = () => {
+    timer.textContent = q.timeLeft;
+    if(q.timeLeft<=5 && q.mode!=='challenge') timer.className='timer danger';
+    if(q.timeLeft<=0){clearInterval(q.timerInterval);handleTimeout();}
+    q.timeLeft--;
+  };
+  tick();
+  q.timerInterval = setInterval(tick,1000);
+}
+
+function handleAnswer(sel, btn) {
+  const q=state.quiz; if(q.answered)return;
+  q.answered=true; clearInterval(q.timerInterval);
+  const question=q.questions[q.current], ok=sel===question.answer;
+  if(ok){q.score+=(state.settings.pointsPerQuestion||10);btn.classList.add('correct');}
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.option-btn').forEach(b=>{if(b.dataset.opt===question.answer)b.classList.add('correct');});
+  }
+  document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+  q.answers.push({question:question.question,selected:sel,correct:question.answer,isCorrect:ok});
+  $('q-score').textContent=q.score+' pts';
+  setTimeout(()=>advanceQ(),1500);
+}
+
+function handleTimeout() {
+  const q=state.quiz; if(q.answered)return;
+  q.answered=true;
+  const question=q.questions[q.current];
+  q.answers.push({question:question.question,selected:null,correct:question.answer,isCorrect:false});
+  document.querySelectorAll('.option-btn').forEach(b=>{if(b.dataset.opt===question.answer)b.classList.add('correct');b.disabled=true;});
+  setTimeout(()=>advanceQ(),1500);
+}
+
+function handleSkip() {
+  const q=state.quiz; if(q.answered)return;
+  q.answered=true; clearInterval(q.timerInterval);
+  const question=q.questions[q.current];
+  q.answers.push({question:question.question,selected:null,correct:question.answer,isCorrect:false});
+  advanceQ();
+}
+
+function advanceQ() {
+  const q=state.quiz;
+  if(q.current<q.questions.length-1){q.current++;loadQ();}else{endQuiz();}
+}
+
+function endQuiz() {
+  clearInterval(state.quiz.timerInterval);
+  state.quizResult={score:state.quiz.score,answers:state.quiz.answers,category:state.quiz.category,difficulty:state.quiz.difficulty,mode:state.quiz.mode};
+  navigate('score');
+}
