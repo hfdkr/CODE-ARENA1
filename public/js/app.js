@@ -429,3 +429,80 @@ function initAdmin() {
   });
   loadDashboard();
 }
+
+
+// ── Dashboard ──────────────────────────────────────
+async function loadDashboard() {
+  const stats=await req('/stats');
+  $('dash-kpis').innerHTML=[
+    {icon:'📝',num:stats.totalQuizzes,label:'Quiz joués'},
+    {icon:'❓',num:stats.totalQuestions,label:'Questions'},
+    {icon:'📚',num:stats.totalLessons,label:'Leçons'},
+    {icon:'📊',num:stats.avgScore+'%',label:'Score moyen'}
+  ].map(k=>`<div class="kpi-card"><div class="kpi-icon">${k.icon}</div><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`).join('');
+
+  const max=Math.max(...stats.daily.map(d=>d.count),1);
+  $('chart-activity').innerHTML=stats.daily.map(d=>`<div class="bar-day"><div class="bar-fill" style="height:${Math.max((d.count/max)*60,4)}px" title="${d.count}"></div><span class="bar-label">${d.label}</span></div>`).join('');
+  $('chart-cats').innerHTML=stats.categoryStats.map(c=>`<div class="cat-bar-row"><span class="cat-bar-label">${c.icon} ${esc(c.name)}</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.avgScore}%;background:${c.color||'var(--blue)'}"></div></div><span class="cat-bar-pct">${c.avgScore}%</span></div>`).join('')||'<p style="color:var(--text2);font-size:.85rem">Pas de données.</p>';
+  $('dash-recent-list').innerHTML=stats.recentScores.map(s=>{const cat=stats.categoryStats.find(c=>c.id===s.categoryId);return `<div class="recent-row"><div><div class="recent-player">${esc(s.playerName)}</div><div class="recent-meta">${cat?cat.icon+' '+cat.name:s.categoryId} · ${s.mode}</div></div><div class="recent-score">${s.score} pts</div></div>`;}).join('')||'<p style="color:var(--text2);font-size:.85rem;padding:10px">Aucun score récent.</p>';
+}
+
+
+// ── Admin: Questions ───────────────────────────────
+async function loadAdminQ() {
+  const [qs,cats]=await Promise.all([req('/questions'),req('/categories')]);
+  populateCatSel('q-filter-cat',cats);
+  populateCatSel('mq-cat',cats);
+  const render=list=>{
+    $('questions-list').innerHTML=list.length?list.map(q=>{
+      const cat=cats.find(c=>c.id===q.categoryId);
+      return `<div class="admin-item" data-id="${q.id}"><div class="admin-item-body"><div class="admin-item-title">${esc(q.question)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):q.categoryId} · ${q.difficulty==='easy'?'Facile':'Moyen'} · ✅ ${esc(q.answer)}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-q" data-id="${q.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-q" data-id="${q.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
+    }).join(''):'<p style="color:var(--text2)">Aucune question.</p>';
+    document.querySelectorAll('.edit-q').forEach(b=>b.onclick=()=>openQModal(b.dataset.id));
+    document.querySelectorAll('.del-q').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette question ?',async()=>{await req('/questions/'+b.dataset.id,'DELETE');loadAdminQ();}));
+  };
+  const filterFn=()=>{const c=$('q-filter-cat').value,d=$('q-filter-diff').value;render(qs.filter(q=>(!c||q.categoryId===c)&&(!d||q.difficulty===d)));};
+  $('q-filter-cat').onchange=filterFn; $('q-filter-diff').onchange=filterFn; render(qs);
+  $('add-q-btn').onclick=()=>openQModal(null);
+}
+
+let _editQId=null;
+function openQModal(id) {
+  _editQId=id; $('mq-title').textContent=id?'Modifier':'Ajouter une question'; hide('mq-err');
+  if(id){req('/questions').then(qs=>{const q=qs.find(x=>x.id===id);if(!q)return;$('mq-cat').value=q.categoryId;$('mq-diff').value=q.difficulty;$('mq-question').value=q.question;$('mq-options').value=q.options.join('\n');$('mq-answer').value=q.answer;});}
+  else{$('mq-question').value='';$('mq-options').value='';$('mq-answer').value='';}
+  showModal('modal-question');
+}
+$('mq-save').onclick=async()=>{
+  const body={categoryId:$('mq-cat').value,difficulty:$('mq-diff').value,question:$('mq-question').value.trim(),options:$('mq-options').value.split('\n').map(s=>s.trim()).filter(Boolean),answer:$('mq-answer').value.trim()};
+  if(!body.question||body.options.length<2||!body.answer){showErr('mq-err','Remplissez tous les champs (min. 2 options).');return;}
+  if(!body.options.includes(body.answer)){showErr('mq-err','La bonne réponse doit être dans les options.');return;}
+  if(_editQId)await req('/questions/'+_editQId,'PUT',body); else await req('/questions','POST',body);
+  hideModal('modal-question'); loadAdminQ();
+};
+
+// ── Admin: Lessons ─────────────────────────────────
+async function loadAdminL() {
+  const [ls,cats]=await Promise.all([req('/lessons'),req('/categories')]);
+  populateCatSel('ml-cat',cats);
+  $('lessons-admin-list').innerHTML=ls.length?ls.map(l=>{
+    const cat=cats.find(c=>c.id===l.categoryId);
+    return `<div class="admin-item"><div class="admin-item-body"><div class="admin-item-title">${esc(l.title)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):l.categoryId} · ${l.difficulty==='easy'?'Facile':'Moyen'}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-l" data-id="${l.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-l" data-id="${l.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
+  }).join(''):'<p style="color:var(--text2)">Aucune leçon.</p>';
+  document.querySelectorAll('.edit-l').forEach(b=>b.onclick=()=>openLModal(b.dataset.id));
+  document.querySelectorAll('.del-l').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette leçon ?',async()=>{await req('/lessons/'+b.dataset.id,'DELETE');loadAdminL();}));
+  $('add-l-btn').onclick=()=>openLModal(null);
+}
+let _editLId=null;
+function openLModal(id) {
+  _editLId=id; $('ml-title').textContent=id?'Modifier':'Ajouter une leçon'; hide('ml-err');
+  if(id){req('/lessons/'+id).then(l=>{$('ml-cat').value=l.categoryId;$('ml-title-inp').value=l.title;$('ml-diff').value=l.difficulty;$('ml-content').value=l.content;});}
+  else{$('ml-title-inp').value='';$('ml-content').value='';}
+  showModal('modal-lesson');
+}
+$('ml-save').onclick=async()=>{
+  const body={categoryId:$('ml-cat').value,title:$('ml-title-inp').value.trim(),difficulty:$('ml-diff').value,content:$('ml-content').value.trim()};
+  if(!body.title||!body.content){showErr('ml-err','Titre et contenu requis.');return;}
+  if(_editLId)await req('/lessons/'+_editLId,'PUT',body); else await req('/lessons','POST',body);
+  hideModal('modal-lesson'); loadAdminL();
+};
