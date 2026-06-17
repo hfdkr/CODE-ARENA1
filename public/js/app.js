@@ -113,3 +113,97 @@ async function bootApp() {
   startHeartbeat();
   loadPresence();
 }
+
+// ══ HEARTBEAT ════════════════════════════════════════
+function startHeartbeat() {
+  stopHeartbeat();
+  req('/heartbeat','POST');
+  state._heartbeat = setInterval(() => req('/heartbeat','POST'), 30000);
+}
+function stopHeartbeat() { if(state._heartbeat){clearInterval(state._heartbeat);state._heartbeat=null;} }
+
+async function loadPresence() {
+  if (!state.token) return;
+  const r = await req('/presence');
+  if (!r.success) return;
+  const list = $('presence-list');
+  if (!list) return;
+  list.innerHTML = r.users.map(u => `
+    <div class="presence-item">
+      <span class="p-dot ${u.online?'p-online':'p-offline'}"></span>
+      <span class="p-name">${esc(u.name)}</span>
+      <span class="p-role">${u.role==='admin'?'👑':''}</span>
+    </div>
+  `).join('');
+  setTimeout(loadPresence, 30000);
+}
+
+// ══ ROUTER ═══════════════════════════════════════════
+function navigate(page, data=null) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = $(`page-${page}`);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-item[data-page]').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+
+  const hooks = {
+    home:()=>{},
+    quiz: startQuiz,
+    score: showScore,
+    lessons: initLessons,
+    'lesson-detail': ()=>initLessonDetail(data),
+    leaderboard: initLeaderboard,
+    admin: initAdmin
+  };
+  if (hooks[page]) hooks[page]();
+  window.scrollTo(0,0);
+}
+window.navigate = navigate;
+
+// ── Sidebar toggle ─────────────────────────────────
+function toggleSidebar() {
+  const sb = $('sidebar');
+  sb.classList.toggle('collapsed');
+  localStorage.setItem('ca_sidebar', sb.classList.contains('collapsed')?'1':'0');
+}
+window.toggleSidebar = toggleSidebar;
+
+// ══ HOME ═════════════════════════════════════════════
+function initHome() {
+  const cats     = state.categories;
+  const settings = state.settings;
+
+  $('stat-q').textContent = cats.reduce((a,c) => a+(c.questionCount||0), 0);
+  $('stat-l').textContent = cats.reduce((a,c) => a+(c.lessonCount||0), 0);
+  $('stat-c').textContent = cats.length;
+
+  const grid = $('categoryGrid');
+  grid.innerHTML = '';
+  cats.forEach((cat, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-pill' + (i===0?' active':'');
+    btn.dataset.id = cat.id;
+    btn.innerHTML  = `${cat.icon||''} ${esc(cat.name)}`;
+    btn.onclick    = () => {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.quiz.category = cat.id;
+      checkLaunch();
+    };
+    grid.appendChild(btn);
+  });
+  if (cats.length) { state.quiz.category = cats[0].id; checkLaunch(); }
+
+  document.querySelectorAll('.diff-btn').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.diff-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active'); state.quiz.difficulty = b.dataset.diff;
+  });
+  document.querySelectorAll('.mode-btn').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active'); state.quiz.mode = b.dataset.mode;
+  });
+
+  $('launchBtn').onclick = () => navigate('quiz');
+}
+
+function checkLaunch() { $('launchBtn').disabled = !state.quiz.category; }
+
