@@ -608,3 +608,25 @@ function populateCatSel(selId, cats) {
   else sel.innerHTML=cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
 }
 
+
+// ── Modal close on overlay ─────────────────────────
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.onclick=e=>{if(e.target===o)o.classList.add('hidden');};});
+
+// ── Nav links ──────────────────────────────────────
+document.querySelectorAll('.nav-item[data-page]').forEach(l=>{l.onclick=()=>navigate(l.dataset.page);});
+
+// ── Keyboard shortcuts in auth ─────────────────────
+document.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    if(!$('auth-screen').classList.contains('hidden')){
+      if($('form-signup').style.display!=='none') handleSignUp();
+      else handleSignIn();
+    }
+  }
+});
+
+// ══ INIT ═════════════════════════════════════════════
+initTheme();
+// Restore sidebar state
+if(localStorage.getItem('ca_sidebar')==='1') $('sidebar')?.classList.add('collapsed');
+bootApp();
