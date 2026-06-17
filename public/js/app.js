@@ -333,3 +333,52 @@ async function showScore() {
   $('s-replay').onclick = ()=>navigate('quiz');
 }
 
+
+
+// ══ LESSONS ══════════════════════════════════════════
+async function initLessons() {
+  const [lessons, cats] = await Promise.all([req('/lessons'), req('/categories')]);
+  const filter = $('lessons-filter');
+  filter.innerHTML = '<button class="filter-chip active" data-cat="">Tout</button>';
+  cats.forEach(c => {
+    const b=document.createElement('button'); b.className='filter-chip'; b.dataset.cat=c.id;
+    b.textContent=(c.icon||'')+' '+c.name; filter.appendChild(b);
+  });
+  let activeCat='';
+  filter.onclick = e => {
+    const b=e.target.closest('.filter-chip'); if(!b)return;
+    filter.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); activeCat=b.dataset.cat;
+    renderLessons(lessons,cats,activeCat);
+  };
+  renderLessons(lessons,cats,activeCat);
+}
+
+function renderLessons(lessons,cats,filterCat) {
+  const grid=$('lessons-grid');
+  const filtered=filterCat?lessons.filter(l=>l.categoryId===filterCat):lessons;
+  if(!filtered.length){grid.innerHTML='<p style="color:var(--text2)">Aucune leçon disponible.</p>';return;}
+  grid.innerHTML=filtered.map(l=>{
+    const cat=cats.find(c=>c.id===l.categoryId);
+    return `<div class="lesson-card" data-id="${l.id}">
+      <div class="lesson-card-cat">${esc(cat?(cat.icon+' '+cat.name):l.categoryId)}</div>
+      <div class="lesson-card-title">${esc(l.title)}</div>
+      <div class="lesson-card-diff">${l.difficulty==='easy'?'🟢 Facile':'🟠 Moyen'}</div>
+    </div>`;
+  }).join('');
+  grid.querySelectorAll('.lesson-card').forEach(card=>{
+    card.onclick=()=>navigate('lesson-detail',card.dataset.id);
+  });
+}
+
+async function initLessonDetail(id) {
+  if(!id){navigate('lessons');return;}
+  const lesson=await req('/lessons/'+id);
+  const cats=state.categories.length?state.categories:await req('/categories');
+  const cat=cats.find(c=>c.id===lesson.categoryId);
+  $('lesson-content').innerHTML=`
+    <h1>${esc(lesson.title)}</h1>
+    <div class="lesson-meta">${cat?cat.icon+' '+esc(cat.name):''} · ${lesson.difficulty==='easy'?'🟢 Facile':'🟠 Moyen'} · ${new Date(lesson.createdAt).toLocaleDateString('fr-FR')}</div>
+    <div class="lesson-body">${md2html(lesson.content)}</div>
+  `;
+}
