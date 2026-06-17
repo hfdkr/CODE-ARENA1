@@ -382,3 +382,33 @@ async function initLessonDetail(id) {
     <div class="lesson-body">${md2html(lesson.content)}</div>
   `;
 }
+
+
+
+// ══ LEADERBOARD ══════════════════════════════════════
+async function initLeaderboard() {
+  const [scores,cats]=await Promise.all([req('/scores'),req('/categories')]);
+  const filter=$('lb-filter');
+  filter.innerHTML='<button class="filter-chip active" data-cat="">Tout</button>';
+  cats.forEach(c=>{const b=document.createElement('button');b.className='filter-chip';b.dataset.cat=c.id;b.textContent=(c.icon||'')+' '+c.name;filter.appendChild(b);});
+  let ac='';
+  filter.onclick=e=>{const b=e.target.closest('.filter-chip');if(!b)return;filter.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');ac=b.dataset.cat;renderLB(scores,cats,ac);};
+  renderLB(scores,cats,ac);
+}
+
+function renderLB(scores,cats,fc) {
+  const filtered=(fc?scores.filter(s=>s.categoryId===fc):scores).sort((a,b)=>b.score-a.score);
+  $('lb-body').innerHTML=filtered.map((s,i)=>{
+    const cat=cats.find(c=>c.id===s.categoryId), rank=i+1;
+    const rc=rank<=3?`rank-${rank}`:'rank-n';
+    return `<tr>
+      <td><span class="rank-badge ${rc}">${rank<=3?['🥇','🥈','🥉'][rank-1]:rank}</span></td>
+      <td><strong>${esc(s.playerName)}</strong></td>
+      <td>${cat?cat.icon+' '+esc(cat.name):esc(s.categoryId)}</td>
+      <td><span class="mode-badge mode-${s.mode}">${s.mode==='challenge'?'⚡ Challenge':'▶ Normal'}</span></td>
+      <td style="font-family:var(--mono);color:var(--blue);font-weight:700">${s.score}</td>
+      <td style="font-family:var(--mono)">${s.percentage}%</td>
+      <td style="color:var(--text2);font-size:.8rem">${new Date(s.createdAt).toLocaleDateString('fr-FR')}</td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text2);padding:30px">Aucun score.</td></tr>';
+}
