@@ -506,3 +506,69 @@ $('ml-save').onclick=async()=>{
   if(_editLId)await req('/lessons/'+_editLId,'PUT',body); else await req('/lessons','POST',body);
   hideModal('modal-lesson'); loadAdminL();
 };
+
+
+// ── Admin: Categories ──────────────────────────────
+async function loadAdminCats() {
+  const cats=await req('/categories');
+  $('cats-list').innerHTML=cats.map(c=>`<div class="cat-admin-card"><div class="cat-color-bar" style="background:${c.color}"></div><div class="cat-admin-top"><span class="cat-admin-ico">${c.icon||'📁'}</span><div class="admin-item-actions"><button class="btn-icon-sm edit-cat" data-id="${c.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-cat" data-id="${c.id}"><i class="fi fi-rr-trash"></i></button></div></div><div class="cat-admin-name">${esc(c.name)}</div><div class="cat-admin-meta">${c.questionCount||0} questions · ${c.lessonCount||0} leçons</div></div>`).join('');
+  document.querySelectorAll('.edit-cat').forEach(b=>b.onclick=()=>openCatModal(b.dataset.id));
+  document.querySelectorAll('.del-cat').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette catégorie ?',async()=>{await req('/categories/'+b.dataset.id,'DELETE');loadAdminCats();}));
+  $('add-cat-btn').onclick=()=>openCatModal(null);
+}
+let _editCatId=null;
+function openCatModal(id) {
+  _editCatId=id; $('mcat-title').textContent=id?'Modifier':'Ajouter une catégorie'; hide('mcat-err');
+  if(id){req('/categories').then(cats=>{const c=cats.find(x=>x.id===id);if(!c)return;$('mcat-name').value=c.name;$('mcat-icon').value=c.icon||'';$('mcat-color').value=c.color||'#5c8dff';$('mcat-desc').value=c.description||'';});}
+  else{$('mcat-name').value='';$('mcat-icon').value='';$('mcat-color').value='#5c8dff';$('mcat-desc').value='';}
+  showModal('modal-category');
+}
+$('mcat-save').onclick=async()=>{
+  const body={name:$('mcat-name').value.trim(),icon:$('mcat-icon').value.trim(),color:$('mcat-color').value,description:$('mcat-desc').value.trim()};
+  if(!body.name){showErr('mcat-err','Nom requis.');return;}
+  if(_editCatId)await req('/categories/'+_editCatId,'PUT',body); else await req('/categories','POST',body);
+  hideModal('modal-category'); loadAdminCats();
+};
+
+// ── Admin: Users ───────────────────────────────────
+async function loadAdminUsers() {
+  const r = await req('/admin/users');
+  if(!r.success)return;
+  $('admin-users-body').innerHTML=r.users.map(u=>`
+    <tr>
+      <td><span class="online-dot ${u.online?'dot-on':'dot-off'}" title="${u.online?'En ligne':'Hors ligne'}"></span></td>
+      <td><strong>${esc(u.name)}</strong></td>
+      <td style="color:var(--text2)">${esc(u.email)}</td>
+      <td>
+        <select class="select-field role-sel" data-id="${u.id}" style="font-size:.78rem;padding:4px 8px" ${u.id===state.user?.id?'disabled':''}>
+          <option value="admin" ${u.role==='admin'?'selected':''}>👑 Admin</option>
+          <option value="member" ${u.role==='member'?'selected':''}>👤 Member</option>
+        </select>
+      </td>
+      <td style="color:var(--text2);font-size:.8rem">${new Date(u.createdAt).toLocaleDateString('fr-FR')}</td>
+      <td>
+        <button class="btn-icon-sm del del-user" data-id="${u.id}" ${u.id===state.user?.id?'disabled style="opacity:.3"':''}><i class="fi fi-rr-trash"></i></button>
+      </td>
+    </tr>
+  `).join('');
+  document.querySelectorAll('.role-sel').forEach(sel=>{
+    sel.onchange=async()=>{
+      await req('/admin/users/'+sel.dataset.id+'/role','PUT',{role:sel.value});
+    };
+  });
+  document.querySelectorAll('.del-user').forEach(b=>{
+    if(b.disabled)return;
+    b.onclick=()=>confirmDo('Supprimer utilisateur','Supprimer cet utilisateur définitivement ?',async()=>{await req('/admin/users/'+b.dataset.id,'DELETE');loadAdminUsers();});
+  });
+}
+
+// ── Admin: Scores ──────────────────────────────────
+async function loadAdminScores() {
+  const [scores,cats]=await Promise.all([req('/scores'),req('/categories')]);
+  $('admin-scores-body').innerHTML=scores.map(s=>{
+    const cat=cats.find(c=>c.id===s.categoryId);
+    return `<tr><td><strong>${esc(s.playerName)}</strong></td><td>${cat?cat.icon+' '+esc(cat.name):s.categoryId}</td><td><span class="mode-badge mode-${s.mode}">${s.mode==='challenge'?'⚡':''} ${s.mode}</span></td><td>${s.difficulty==='easy'?'🟢':'🟠'} ${s.difficulty}</td><td style="font-family:var(--mono);color:var(--blue);font-weight:700">${s.score}</td><td style="font-family:var(--mono)">${s.percentage}%</td><td style="color:var(--text2);font-size:.8rem">${new Date(s.createdAt).toLocaleDateString('fr-FR')}</td><td><button class="btn-icon-sm del del-sc" data-id="${s.id}"><i class="fi fi-rr-trash"></i></button></td></tr>`;
+  }).join('')||'<tr><td colspan="8" style="text-align:center;color:var(--text2);padding:30px">Aucun score.</td></tr>';
+  document.querySelectorAll('.del-sc').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer ce score ?',async()=>{await req('/scores/'+b.dataset.id,'DELETE');loadAdminScores();}));
+  $('clear-scores-btn').onclick=()=>confirmDo('Effacer tout','Effacer TOUS les scores ? Irréversible.',async()=>{await req('/scores','DELETE');loadAdminScores();});
+}
