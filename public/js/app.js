@@ -572,3 +572,39 @@ async function loadAdminScores() {
   document.querySelectorAll('.del-sc').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer ce score ?',async()=>{await req('/scores/'+b.dataset.id,'DELETE');loadAdminScores();}));
   $('clear-scores-btn').onclick=()=>confirmDo('Effacer tout','Effacer TOUS les scores ? Irréversible.',async()=>{await req('/scores','DELETE');loadAdminScores();});
 }
+
+
+// ── Admin: Settings ────────────────────────────────
+async function loadAdminSettings() {
+  const s=await req('/settings');
+  $('set-siteName').value=s.siteName||''; $('set-time').value=s.timePerQuestion||30;
+  $('set-ctime').value=s.challengeTimePerQuestion||15; $('set-pts').value=s.pointsPerQuestion||10; $('set-maxq').value=s.maxQuestionsPerQuiz||10;
+  if(state.user){$('acc-name').value=state.user.name||''; $('acc-email').value=state.user.email||'';}
+
+  $('save-settings-btn').onclick=async()=>{
+    await req('/settings','PUT',{siteName:$('set-siteName').value,timePerQuestion:parseInt($('set-time').value),challengeTimePerQuestion:parseInt($('set-ctime').value),pointsPerQuestion:parseInt($('set-pts').value),maxQuestionsPerQuiz:parseInt($('set-maxq').value)});
+    show('settings-ok'); setTimeout(()=>hide('settings-ok'),3000);
+  };
+
+  $('save-profile-btn').onclick=async()=>{
+    hide('settings-err');
+    const r=await req('/account/profile','PUT',{name:$('acc-name').value.trim(),email:$('acc-email').value.trim()});
+    if(r.success){state.user={...state.user,...r.user};localStorage.setItem('ca_user',JSON.stringify(state.user));$('sb-name').textContent=state.user.name;show('profile-ok');setTimeout(()=>hide('profile-ok'),3000);}
+    else showErr('settings-err',r.message||'Erreur');
+  };
+
+  $('change-pw-btn').onclick=async()=>{
+    hide('settings-err');
+    const r=await req('/account/password','PUT',{currentPassword:$('pw-current').value,newPassword:$('pw-new').value});
+    if(r.success){$('pw-current').value='';$('pw-new').value='';show('pw-ok');setTimeout(()=>hide('pw-ok'),3000);}
+    else showErr('settings-err',r.message||'Erreur');
+  };
+}
+
+// ── Helpers ────────────────────────────────────────
+function populateCatSel(selId, cats) {
+  const sel=$(selId); if(!sel)return;
+  if(selId==='q-filter-cat') sel.innerHTML='<option value="">Toutes catégories</option>'+cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
+  else sel.innerHTML=cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
+}
+
