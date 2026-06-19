@@ -169,3 +169,33 @@ app.post('/api/forgot-password/reset', async (req, res) => {
   resetTokens.delete(token);
   res.json({ success:true });
 });
+// ─── Account ──────────────────────────────────────────────────────────────────
+app.put('/api/account/profile', requireAuth, async (req, res) => {
+  const { name, email } = req.body;
+  if (!name?.trim() || !email || !isEmail(email))
+    return res.status(400).json({ success:false, message:'Invalid data' });
+  const data = read();
+  const idx  = data.users.findIndex(u => u.id === req.user.id);
+  if (idx === -1) return res.status(404).json({ success:false, message:'Not found' });
+  const lo = email.toLowerCase().trim();
+  if (data.users.some(u => u.email === lo && u.id !== req.user.id))
+    return res.status(409).json({ success:false, message:'Email already used' });
+  data.users[idx].name  = sanitize(name.trim());
+  data.users[idx].email = lo;
+  write(data);
+  res.json({ success:true, user:{ id:data.users[idx].id, name:data.users[idx].name, email:data.users[idx].email, role:data.users[idx].role } });
+});
+
+app.put('/api/account/password', requireAuth, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword || newPassword.length < 6)
+    return res.status(400).json({ success:false, message:'Invalid data' });
+  const data = read();
+  const idx  = data.users.findIndex(u => u.id === req.user.id);
+  if (idx === -1) return res.status(404).json({ success:false });
+  const ok = await bcrypt.compare(currentPassword, data.users[idx].password);
+  if (!ok) return res.status(401).json({ success:false, message:'Wrong current password' });
+  data.users[idx].password = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  write(data);
+  res.json({ success:true });
+});
