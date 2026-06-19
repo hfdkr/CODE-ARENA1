@@ -190,6 +190,7 @@
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
+<<<<<<< HEAD
       "id": "q-html-010",
       "categoryId": "html",
       "difficulty": "easy",
@@ -230,6 +231,443 @@
       ],
       "answer": "<canvas>",
       "createdAt": "2025-01-01T00:00:00.000Z"
+=======
+      "id": "q-css-001",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "What does CSS stand for?",
+      "options": [
+        "Computer Style Sheets",
+        "Cascading Style Sheets",
+        "Colorful Style Sheets",
+        "Creative Style Sheets"
+      ],
+      "answer": "Cascading Style Sheets",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-002",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to change the background color?",
+      "options": [
+        "color",
+        "bgcolor",
+        "background-color",
+        "canvas-color"
+      ],
+      "answer": "background-color",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-003",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "How do you add a comment in CSS?",
+      "options": [
+        "// this is a comment",
+        "<!-- this is a comment -->",
+        "/* this is a comment */",
+        "# this is a comment"
+      ],
+      "answer": "/* this is a comment */",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-004",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to change the text color?",
+      "options": [
+        "text-color",
+        "color",
+        "font-color",
+        "foreground"
+      ],
+      "answer": "color",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-005",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which CSS property controls the text size?",
+      "options": [
+        "text-size",
+        "font-size",
+        "size",
+        "text-length"
+      ],
+      "answer": "font-size",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-006",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "How do you select an element with id 'header'?",
+      "options": [
+        ".header",
+        "#header",
+        "header",
+        "*header"
+      ],
+      "answer": "#header",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-007",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to add space inside an element?",
+      "options": [
+        "margin",
+        "padding",
+        "border",
+        "spacing"
+      ],
+      "answer": "padding",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-008",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "What is the default value of the position property?",
+      "options": [
+        "relative",
+        "absolute",
+        "static",
+        "fixed"
+      ],
+      "answer": "static",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-009",
+      "categoryId": "css",
+      "difficulty": "hard",
+      "question": "Which CSS property creates a flexible container?",
+      "options": [
+        "display: grid",
+        "display: flex",
+        "display: block",
+        "position: flex"
+      ],
+      "answer": "display: flex",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-010",
+      "categoryId": "css",
+      "difficulty": "hard",
+      "question": "What does 'z-index' control in CSS?",
+      "options": [
+        "The zoom level",
+        "The stacking order of elements",
+        "The size of an element",
+        "The horizontal position"
+      ],
+      "answer": "The stacking order of elements",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-001",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you create a function in Python?",
+      "options": [
+        "function my_function():",
+        "def my_function():",
+        "create my_function():",
+        "def function my_function():"
+      ],
+      "answer": "def my_function():",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-002",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What is the correct way to create a list in Python?",
+      "options": [
+        "list = (1, 2, 3)",
+        "list = [1, 2, 3]",
+        "list = {1, 2, 3}",
+        "list = <1, 2, 3>"
+      ],
+      "answer": "list = [1, 2, 3]",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-003",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "Which of the following is NOT a data type in Python?",
+      "options": [
+        "int",
+        "str",
+        "char",
+        "float"
+      ],
+      "answer": "char",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-004",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What does the len() function do in Python?",
+      "options": [
+        "Returns the length of an object",
+        "Creates a new list",
+        "Deletes an object",
+        "Converts to integer"
+      ],
+      "answer": "Returns the length of an object",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-005",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you import a module in Python?",
+      "options": [
+        "include module",
+        "import module",
+        "load module",
+        "require module"
+      ],
+      "answer": "import module",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-006",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you create a dictionary in Python?",
+      "options": [
+        "dict = {key: value}",
+        "dict = [key: value]",
+        "dict = (key: value)",
+        "dict = <key: value>"
+      ],
+      "answer": "dict = {key: value}",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-007",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What is the correct way to create a loop in Python?",
+      "options": [
+        "for i in range(10):",
+        "for i = 0; i < 10; i++:",
+        "loop i in range(10):",
+        "repeat i in range(10):"
+      ],
+      "answer": "for i in range(10):",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-008",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "What is the Big O notation for Binary Search?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(n²)",
+        "O(2^n)"
+      ],
+      "answer": "O(log n)",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-009",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "Which data structure uses LIFO (Last In, First Out)?",
+      "options": [
+        "Queue",
+        "Stack",
+        "Linked List",
+        "Tree"
+      ],
+      "answer": "Stack",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-010",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "What is the time complexity of accessing an element in a Python dict?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(1)",
+        "O(n²)"
+      ],
+      "answer": "O(1)",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-001",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "Which keyword declares a block-scoped variable in JavaScript?",
+      "options": [
+        "var",
+        "let",
+        "const",
+        "Both let and const"
+      ],
+      "answer": "Both let and const",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-002",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "What does `typeof null` return in JavaScript?",
+      "options": [
+        "'null'",
+        "'undefined'",
+        "'object'",
+        "'boolean'"
+      ],
+      "answer": "'object'",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-003",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "How do you write a comment in JavaScript?",
+      "options": [
+        "<!-- comment -->",
+        "# comment",
+        "// comment",
+        "** comment"
+      ],
+      "answer": "// comment",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-004",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "Which method adds an element to the end of an array?",
+      "options": [
+        "push()",
+        "pop()",
+        "shift()",
+        "unshift()"
+      ],
+      "answer": "push()",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-005",
+      "categoryId": "js",
+      "difficulty": "hard",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "A way to close a browser window",
+        "A function with access to its outer scope variables",
+        "A method to end a loop",
+        "An error handling technique"
+      ],
+      "answer": "A function with access to its outer scope variables",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+>>>>>>> data-branch
     }
-]
+  ],
+  "scores": [
+    {
+      "id": "sc-001",
+      "playerName": "Alice",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "score": 90,
+      "percentage": 90,
+      "correct": 9,
+      "incorrect": 1,
+      "skipped": 0,
+      "mode": "normal",
+      "createdAt": "2025-06-10T10:00:00.000Z"
+    },
+    {
+      "id": "sc-002",
+      "playerName": "Bob",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "score": 70,
+      "percentage": 70,
+      "correct": 7,
+      "incorrect": 2,
+      "skipped": 1,
+      "mode": "normal",
+      "createdAt": "2025-06-11T14:30:00.000Z"
+    },
+    {
+      "id": "sc-003",
+      "playerName": "Charlie",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "score": 80,
+      "percentage": 80,
+      "correct": 8,
+      "incorrect": 1,
+      "skipped": 1,
+      "mode": "challenge",
+      "createdAt": "2025-06-12T09:15:00.000Z"
+    },
+    {
+      "id": "sc-004",
+      "playerName": "Diana",
+      "categoryId": "html",
+      "difficulty": "hard",
+      "score": 100,
+      "percentage": 100,
+      "correct": 10,
+      "incorrect": 0,
+      "skipped": 0,
+      "mode": "challenge",
+      "createdAt": "2025-06-13T16:45:00.000Z"
+    },
+    {
+      "id": "sc-005",
+      "playerName": "Eve",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "score": 60,
+      "percentage": 60,
+      "correct": 6,
+      "incorrect": 3,
+      "skipped": 1,
+      "mode": "normal",
+      "createdAt": "2025-06-14T11:20:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1781536068731,
+      "name": "hafid",
+      "email": "hafid12@gmail.com",
+      "password": "$2a$10$jqXbniT73Ikd52jbOlQHauFaf9bfIuhRFNoajLQAbAJs9v/cHCLZu",
+      "securityQuestion": "What is your favorite color?",
+      "securityAnswer": "$2a$10$gwMbdJeubxtdCLY/N2/c4eg5mcyBOzjKWhIM67DcAmK9OgyemO5ii",
+      "role": "admin",
+      "createdAt": "2026-06-15T15:07:48.732Z"
+    }
+  ],
+  "onlineSessions": {},
+  "sessions": {
+    "1781536068731": {
+      "userId": 1781536068731,
+      "name": "hafid",
+      "lastSeen": 1781896408543
+    }
+  }
 }
