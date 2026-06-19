@@ -36,5 +36,75 @@
       "color": "#f7df1e",
       "description": "JavaScript fundamentals"
     }
-  ]
+  ],
+  "lessons": [
+    {
+      "id": "lesson-001",
+      "categoryId": "html",
+      "title": "Les bases de HTML",
+      "content": "HTML (HyperText Markup Language) est le langage de balisage standard pour créer des pages web. Il décrit la structure d'une page web et consiste en une série d'éléments. Les éléments HTML indiquent au navigateur comment afficher le contenu.\n\n## Structure de base\n\nUn document HTML commence toujours par `<!DOCTYPE html>` suivi de la balise `<html>`. À l'intérieur on trouve `<head>` pour les métadonnées et `<body>` pour le contenu visible.\n\n## Les balises essentielles\n\n- `<h1>` à `<h6>` : Titres\n- `<p>` : Paragraphes\n- `<a>` : Liens hypertexte\n- `<img>` : Images\n- `<div>` et `<span>` : Conteneurs",
+      "difficulty": "easy",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "lesson-002",
+      "categoryId": "css",
+      "title": "Introduction au CSS",
+      "content": "CSS (Cascading Style Sheets) est utilisé pour styliser les éléments HTML. Il permet de contrôler la couleur, la police, l'espacement, la mise en page et bien plus encore.\n\n## Sélecteurs CSS\n\n- **Sélecteur d'élément** : `p { color: red; }`\n- **Sélecteur de classe** : `.ma-classe { font-size: 16px; }`\n- **Sélecteur d'identifiant** : `#mon-id { background: blue; }`\n\n## Le modèle de boîte\n\nChaque élément HTML est une boîte avec margin, border, padding et content.",
+      "difficulty": "easy",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "lesson-003",
+      "categoryId": "python",
+      "title": "Python : Fondamentaux",
+      "content": "Python est un langage de programmation interprété, de haut niveau et à usage général. Sa philosophie de conception met l'accent sur la lisibilité du code.\n\n## Variables et types\n\n```python\nnom = 'Alice'      # str\nage = 25           # int\nprix = 19.99       # float\nactif = True       # bool\n```\n\n## Structures de contrôle\n\n```python\nif age >= 18:\n    print('Majeur')\nelse:\n    print('Mineur')\n\nfor i in range(5):\n    print(i)\n```",
+      "difficulty": "easy",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-html-001",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "What does HTML stand for?",
+      "options": [
+        "Hyper Text Markup Language",
+        "Home Tool Markup Language",
+        "Hyperlinks and Text Markup Language",
+        "Hyper Tool Multi Language"
+      ],
+      "answer": "Hyper Text Markup Language",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+     {
+      "id": "q-html-002",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "Choose the correct HTML element for the largest heading:",
+      "options": [
+        "<heading>",
+        "<h6>",
+        "<head>",
+        "<h1>"
+      ],
+      "answer": "<h1>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-003",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "Which character is used to indicate an end tag?",
+      "options": [
+        "*",
+        "/",
+        "<",
+        "^"
+      ],
+      "answer": "/",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    }
+]
 }
