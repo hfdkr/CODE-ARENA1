@@ -328,6 +328,147 @@
       ],
       "answer": "The stacking order of elements",
       "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    ,
+    {
+      "id": "q-python-001",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you create a function in Python?",
+      "options": [
+        "function my_function():",
+        "def my_function():",
+        "create my_function():",
+        "def function my_function():"
+      ],
+      "answer": "def my_function():",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-002",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What is the correct way to create a list in Python?",
+      "options": [
+        "list = (1, 2, 3)",
+        "list = [1, 2, 3]",
+        "list = {1, 2, 3}",
+        "list = <1, 2, 3>"
+      ],
+      "answer": "list = [1, 2, 3]",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-003",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "Which of the following is NOT a data type in Python?",
+      "options": [
+        "int",
+        "str",
+        "char",
+        "float"
+      ],
+      "answer": "char",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-004",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What does the len() function do in Python?",
+      "options": [
+        "Returns the length of an object",
+        "Creates a new list",
+        "Deletes an object",
+        "Converts to integer"
+      ],
+      "answer": "Returns the length of an object",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-005",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you import a module in Python?",
+      "options": [
+        "include module",
+        "import module",
+        "load module",
+        "require module"
+      ],
+      "answer": "import module",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-006",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you create a dictionary in Python?",
+      "options": [
+        "dict = {key: value}",
+        "dict = [key: value]",
+        "dict = (key: value)",
+        "dict = <key: value>"
+      ],
+      "answer": "dict = {key: value}",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-007",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What is the correct way to create a loop in Python?",
+      "options": [
+        "for i in range(10):",
+        "for i = 0; i < 10; i++:",
+        "loop i in range(10):",
+        "repeat i in range(10):"
+      ],
+      "answer": "for i in range(10):",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-008",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "What is the Big O notation for Binary Search?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(n²)",
+        "O(2^n)"
+      ],
+      "answer": "O(log n)",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-009",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "Which data structure uses LIFO (Last In, First Out)?",
+      "options": [
+        "Queue",
+        "Stack",
+        "Linked List",
+        "Tree"
+      ],
+      "answer": "Stack",
+      "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-010",
+      "categoryId": "python",
+      "difficulty": "hard",
+      "question": "What is the time complexity of accessing an element in a Python dict?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(1)",
+        "O(n²)"
+      ],
+      "answer": "O(1)",
+      "createdAt": "2025-01-03T00:00:00.000Z"
     }
 ]
 }
