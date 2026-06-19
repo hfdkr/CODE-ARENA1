@@ -188,6 +188,48 @@
       ],
       "answer": "<title>",
       "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-010",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "What is the correct HTML element for the most important heading?",
+      "options": [
+        "<header>",
+        "<h1>",
+        "<heading>",
+        "<important>"
+      ],
+      "answer": "<h1>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-011",
+      "categoryId": "html",
+      "difficulty": "hard",
+      "question": "What is the purpose of the 'srcset' attribute in an <img> tag?",
+      "options": [
+        "Sets the image source",
+        "Provides multiple image sources for different screen sizes",
+        "Sets the image style",
+        "Defines fallback text"
+      ],
+      "answer": "Provides multiple image sources for different screen sizes",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-012",
+      "categoryId": "html",
+      "difficulty": "hard",
+      "question": "Which HTML5 element is used to draw graphics via scripting (usually JavaScript)?",
+      "options": [
+        "<svg>",
+        "<canvas>",
+        "<draw>",
+        "<graphic>"
+      ],
+      "answer": "<canvas>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
     }
 ]
 }
