@@ -199,3 +199,24 @@ app.put('/api/account/password', requireAuth, async (req, res) => {
   write(data);
   res.json({ success:true });
 });
+// ═══ PRESENCE ════════════════════════════════════════════════════════════════
+
+// Heartbeat — called every 30s by logged-in clients
+app.post('/api/heartbeat', requireAuth, (req, res) => {
+  const data = read();
+  data.sessions[req.user.id] = { userId:req.user.id, name:req.user.name, lastSeen:Date.now() };
+  write(data);
+  res.json({ success:true });
+});
+
+// GET /api/presence — online = active in last 2 min
+app.get('/api/presence', requireAuth, (req, res) => {
+  const data    = read();
+  const now     = Date.now();
+  const ONLINE  = 2 * 60 * 1000;
+  const users   = data.users.map(u => ({
+    id: u.id, name: u.name, email: u.email, role: u.role,
+    online: !!(data.sessions[u.id] && (now - data.sessions[u.id].lastSeen) < ONLINE)
+  }));
+  res.json({ success:true, users });
+});
