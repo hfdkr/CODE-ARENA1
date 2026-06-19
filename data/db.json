@@ -329,7 +329,6 @@
       "answer": "The stacking order of elements",
       "createdAt": "2025-01-02T00:00:00.000Z"
     },
-    ,
     {
       "id": "q-python-001",
       "categoryId": "python",
@@ -470,7 +469,6 @@
       "answer": "O(1)",
       "createdAt": "2025-01-03T00:00:00.000Z"
     },
-    ,
     {
       "id": "q-js-001",
       "categoryId": "js",
