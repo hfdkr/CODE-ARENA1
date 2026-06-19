@@ -250,3 +250,34 @@ app.delete('/api/categories/:id', requireAuth, requireAdmin, (req, res) => {
   data.categories = data.categories.filter(c => c.id !== req.params.id);
   write(data); res.json({ success:true });
 });
+// ═══ LESSONS ═════════════════════════════════════════════════════════════════
+app.get('/api/lessons', (req, res) => {
+  const data = read();
+  let ls = data.lessons;
+  if (req.query.categoryId) ls = ls.filter(l => l.categoryId === req.query.categoryId);
+  res.json(ls);
+});
+app.get('/api/lessons/:id', (req, res) => {
+  const data = read(), lesson = data.lessons.find(l => l.id === req.params.id);
+  if (!lesson) return res.status(404).json({ error:'Not found' });
+  res.json(lesson);
+});
+app.post('/api/lessons', requireAuth, requireAdmin, (req, res) => {
+  const { categoryId, title, content, difficulty } = req.body;
+  if (!categoryId || !title || !content) return res.status(400).json({ error:'Missing fields' });
+  const data = read();
+  const l    = { id:'lesson-'+uuid().slice(0,6), categoryId, title, content, difficulty:difficulty||'easy', createdAt:new Date().toISOString() };
+  data.lessons.push(l); write(data);
+  res.status(201).json(l);
+});
+app.put('/api/lessons/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read(), idx = data.lessons.findIndex(l => l.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error:'Not found' });
+  data.lessons[idx] = { ...data.lessons[idx], ...req.body, id:req.params.id };
+  write(data); res.json(data.lessons[idx]);
+});
+app.delete('/api/lessons/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read();
+  data.lessons = data.lessons.filter(l => l.id !== req.params.id);
+  write(data); res.json({ success:true });
+});
