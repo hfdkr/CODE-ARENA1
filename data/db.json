@@ -188,6 +188,146 @@
       ],
       "answer": "<title>",
       "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-001",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "What does CSS stand for?",
+      "options": [
+        "Computer Style Sheets",
+        "Cascading Style Sheets",
+        "Colorful Style Sheets",
+        "Creative Style Sheets"
+      ],
+      "answer": "Cascading Style Sheets",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-002",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to change the background color?",
+      "options": [
+        "color",
+        "bgcolor",
+        "background-color",
+        "canvas-color"
+      ],
+      "answer": "background-color",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-003",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "How do you add a comment in CSS?",
+      "options": [
+        "// this is a comment",
+        "<!-- this is a comment -->",
+        "/* this is a comment */",
+        "# this is a comment"
+      ],
+      "answer": "/* this is a comment */",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-004",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to change the text color?",
+      "options": [
+        "text-color",
+        "color",
+        "font-color",
+        "foreground"
+      ],
+      "answer": "color",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-005",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which CSS property controls the text size?",
+      "options": [
+        "text-size",
+        "font-size",
+        "size",
+        "text-length"
+      ],
+      "answer": "font-size",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-006",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "How do you select an element with id 'header'?",
+      "options": [
+        ".header",
+        "#header",
+        "header",
+        "*header"
+      ],
+      "answer": "#header",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-007",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which property is used to add space inside an element?",
+      "options": [
+        "margin",
+        "padding",
+        "border",
+        "spacing"
+      ],
+      "answer": "padding",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-008",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "What is the default value of the position property?",
+      "options": [
+        "relative",
+        "absolute",
+        "static",
+        "fixed"
+      ],
+      "answer": "static",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-009",
+      "categoryId": "css",
+      "difficulty": "hard",
+      "question": "Which CSS property creates a flexible container?",
+      "options": [
+        "display: grid",
+        "display: flex",
+        "display: block",
+        "position: flex"
+      ],
+      "answer": "display: flex",
+      "createdAt": "2025-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-010",
+      "categoryId": "css",
+      "difficulty": "hard",
+      "question": "What does 'z-index' control in CSS?",
+      "options": [
+        "The zoom level",
+        "The stacking order of elements",
+        "The size of an element",
+        "The horizontal position"
+      ],
+      "answer": "The stacking order of elements",
+      "createdAt": "2025-01-02T00:00:00.000Z"
     }
 ]
 }
