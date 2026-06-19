@@ -620,5 +620,13 @@
       "role": "admin",
       "createdAt": "2026-06-15T15:07:48.732Z"
     }
-  ]
+  ],
+  "onlineSessions": {},
+  "sessions": {
+    "1781536068731": {
+      "userId": 1781536068731,
+      "name": "hafid",
+      "lastSeen": 1781896408543
+    }
+  }
 }
