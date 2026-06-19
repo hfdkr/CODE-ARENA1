@@ -105,6 +105,89 @@
       ],
       "answer": "/",
       "createdAt": "2025-01-01T00:00:00.000Z"
+    }, {
+      "id": "q-html-004",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "What is the correct way to create a hyperlink?",
+      "options": [
+        "<link>text</link>",
+        "<a href='url'>text</a>",
+        "<url>text</url>",
+        "<h ref='url'>text</h>"
+      ],
+      "answer": "<a href='url'>text</a>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-005",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "Which tag is used to insert an image?",
+      "options": [
+        "<img>",
+        "<image>",
+        "<picture>",
+        "<photo>"
+      ],
+      "answer": "<img>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-006",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "What is the correct HTML element for inserting a line break?",
+      "options": [
+        "<br>",
+        "<lb>",
+        "<break>",
+        "<line>"
+      ],
+      "answer": "<br>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-007",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "Which attribute is used to define inline styles?",
+      "options": [
+        "style",
+        "class",
+        "id",
+        "css"
+      ],
+      "answer": "style",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-008",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "What does the <meta> tag define?",
+      "options": [
+        "Metadata about the HTML document",
+        "A menu system",
+        "Mathematical equations",
+        "Media files"
+      ],
+      "answer": "Metadata about the HTML document",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-009",
+      "categoryId": "html",
+      "difficulty": "easy",
+      "question": "Which tag is used to define the title of an HTML document?",
+      "options": [
+        "<title>",
+        "<head>",
+        "<h1>",
+        "<header>"
+      ],
+      "answer": "<title>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
     }
 ]
 }
