@@ -469,6 +469,77 @@
       ],
       "answer": "O(1)",
       "createdAt": "2025-01-03T00:00:00.000Z"
+    },
+    ,
+    {
+      "id": "q-js-001",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "Which keyword declares a block-scoped variable in JavaScript?",
+      "options": [
+        "var",
+        "let",
+        "const",
+        "Both let and const"
+      ],
+      "answer": "Both let and const",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-002",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "What does `typeof null` return in JavaScript?",
+      "options": [
+        "'null'",
+        "'undefined'",
+        "'object'",
+        "'boolean'"
+      ],
+      "answer": "'object'",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-003",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "How do you write a comment in JavaScript?",
+      "options": [
+        "<!-- comment -->",
+        "# comment",
+        "// comment",
+        "** comment"
+      ],
+      "answer": "// comment",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-004",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "Which method adds an element to the end of an array?",
+      "options": [
+        "push()",
+        "pop()",
+        "shift()",
+        "unshift()"
+      ],
+      "answer": "push()",
+      "createdAt": "2025-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-005",
+      "categoryId": "js",
+      "difficulty": "hard",
+      "question": "What is a closure in JavaScript?",
+      "options": [
+        "A way to close a browser window",
+        "A function with access to its outer scope variables",
+        "A method to end a loop",
+        "An error handling technique"
+      ],
+      "answer": "A function with access to its outer scope variables",
+      "createdAt": "2025-01-04T00:00:00.000Z"
     }
-]
+  ]
 }
