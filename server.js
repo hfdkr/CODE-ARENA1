@@ -220,3 +220,33 @@ app.get('/api/presence', requireAuth, (req, res) => {
   }));
   res.json({ success:true, users });
 });
+
+// ═══ CATEGORIES ══════════════════════════════════════════════════════════════
+app.get('/api/categories', (req, res) => {
+  const data = read();
+  const cats = data.categories.map(c => ({
+    ...c,
+    questionCount: data.questions.filter(q => q.categoryId === c.id).length,
+    lessonCount:   data.lessons.filter(l => l.categoryId === c.id).length
+  }));
+  res.json(cats);
+});
+app.post('/api/categories', requireAuth, requireAdmin, (req, res) => {
+  const { name, icon, color, description } = req.body;
+  if (!name) return res.status(400).json({ error:'Name required' });
+  const data = read();
+  const cat  = { id: name.toLowerCase().replace(/\s+/g,'-'), name, icon:icon||'📁', color:color||'#5c8dff', description:description||'' };
+  data.categories.push(cat); write(data);
+  res.status(201).json(cat);
+});
+app.put('/api/categories/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read(), idx = data.categories.findIndex(c => c.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error:'Not found' });
+  data.categories[idx] = { ...data.categories[idx], ...req.body, id:req.params.id };
+  write(data); res.json(data.categories[idx]);
+});
+app.delete('/api/categories/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read();
+  data.categories = data.categories.filter(c => c.id !== req.params.id);
+  write(data); res.json({ success:true });
+});
