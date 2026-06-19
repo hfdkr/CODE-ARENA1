@@ -1,0 +1,40 @@
+{
+  "settings": {
+    "siteName": "CodeArena",
+    "timePerQuestion": 30,
+    "pointsPerQuestion": 10,
+    "challengeTimePerQuestion": 15,
+    "maxQuestionsPerQuiz": 10,
+    "adminPassword": "$2a$10$CU.KBe1zbY0zA5E3vKmb8u.MC1ud1zPaXo0xjlhaT0npX.c3zb6yG"
+  },
+  "categories": [
+    {
+      "id": "html",
+      "name": "HTML",
+      "icon": "🌐",
+      "color": "#e34c26",
+      "description": "HyperText Markup Language"
+    },
+    {
+      "id": "css",
+      "name": "CSS",
+      "icon": "🎨",
+      "color": "#264de4",
+      "description": "Cascading Style Sheets"
+    },
+    {
+      "id": "python",
+      "name": "Python & Algo",
+      "icon": "🐍",
+      "color": "#3572A5",
+      "description": "Python programming and algorithms"
+    },
+    {
+      "id": "js",
+      "name": "JavaScript",
+      "icon": "",
+      "color": "#f7df1e",
+      "description": "JavaScript fundamentals"
+    }
+  ]
+}
