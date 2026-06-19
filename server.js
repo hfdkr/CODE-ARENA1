@@ -120,3 +120,10 @@ app.post('/api/logout', requireAuth, (req, res) => {
   write(data);
   res.json({ success:true });
 });
+// GET /api/me
+app.get('/api/me', requireAuth, (req, res) => {
+  const data = read();
+  const user = data.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ success:false });
+  res.json({ success:true, user:{ id:user.id, name:user.name, email:user.email, role:user.role, createdAt:user.createdAt } });
+});
