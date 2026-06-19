@@ -127,3 +127,45 @@ app.get('/api/me', requireAuth, (req, res) => {
   if (!user) return res.status(404).json({ success:false });
   res.json({ success:true, user:{ id:user.id, name:user.name, email:user.email, role:user.role, createdAt:user.createdAt } });
 });
+// ─── Forgot Password ──────────────────────────────────────────────────────────
+const resetTokens = new Map();
+
+app.get('/api/forgot-password/question', (req, res) => {
+  const email = (req.query.email||'').toLowerCase().trim();
+  if (!isEmail(email)) return res.status(400).json({ success:false, message:'Invalid email' });
+  const user = read().users.find(u => u.email === email);
+  if (!user) return res.status(404).json({ success:false, message:'No account with this email' });
+  if (!user.securityQuestion) return res.status(404).json({ success:false, message:'No security question set' });
+  res.json({ success:true, question:user.securityQuestion });
+});
+
+app.post('/api/forgot-password/verify', async (req, res) => {
+  const email  = (req.body.email||'').toLowerCase().trim();
+  const answer = (req.body.answer||'').trim().toLowerCase();
+  const user = read().users.find(u => u.email === email);
+  if (!user || !user.securityAnswer)
+    return res.status(404).json({ success:false, message:'No account found' });
+  const ok = await bcrypt.compare(answer, user.securityAnswer);
+  if (!ok) return res.status(401).json({ success:false, message:'Incorrect answer' });
+  const token = require('crypto').randomBytes(32).toString('hex');
+  resetTokens.set(token, { userId:user.id, expires:Date.now() + 10*60*1000 });
+  res.json({ success:true, token });
+});
+
+app.post('/api/forgot-password/reset', async (req, res) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword || newPassword.length < 6)
+    return res.status(400).json({ success:false, message:'Invalid request' });
+  const entry = resetTokens.get(token);
+  if (!entry || entry.expires < Date.now()) {
+    resetTokens.delete(token);
+    return res.status(400).json({ success:false, message:'Reset link expired' });
+  }
+  const data = read();
+  const idx  = data.users.findIndex(u => u.id === entry.userId);
+  if (idx === -1) return res.status(404).json({ success:false, message:'User not found' });
+  data.users[idx].password = await bcrypt.hash(newPassword, SALT_ROUNDS);
+  write(data);
+  resetTokens.delete(token);
+  res.json({ success:true });
+});
