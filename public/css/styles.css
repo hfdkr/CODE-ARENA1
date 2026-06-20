@@ -1,0 +1,14 @@
+/* ════════════════════════════════════════════════════
+    CodeArena v3 — Design System
+════════════════════════════════════════════════════ */
+:root {
+  --bg: #08090d; --surface: #0f1017; --surface2: #161821; --surface3: #1c1e2a;
+  --border: #1e2030; --border2: #272a3d;
+  --text: #eeeef2; --text2: #8890b0; --text3: #5b6080;
+  --blue: #6c8fff; --blue-dim: rgba(108,143,255,0.12); --blue-glow: rgba(108,143,255,0.25);
+  --accent: #a5c8ff; --green: #10b981; --green-glow: #4ade80;
+  --red: #f85149; --orange: #d29922; --sidebar-w: 240px;
+  --radius: 14px; --radius-sm: 10px; --radius-lg: 20px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+  --font: 'DM Sans', sans-serif; --mono: 'JetBrains Mono', monospace;
+}
