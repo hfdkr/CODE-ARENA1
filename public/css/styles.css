@@ -374,3 +374,15 @@ input, select, textarea { font-family: var(--font); }
 /* ── MISC ────────────────────────────────────────── */
 .hidden { display: none !important; }
 .s-saved { font-size: .85rem; color: var(--green-glow); margin-top: 8px; }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; padding: 10px; }
+  .admin-nav { flex-direction: row; flex-wrap: wrap; }
+  .admin-nav-item span { display: none; }
+  .dash-charts { grid-template-columns: 1fr; }
+  .diff-row, .mode-row { flex-direction: column; }
+  .sidebar { display: none; }
+  .hero-stats .hstat { padding: 0 12px; }
+}
