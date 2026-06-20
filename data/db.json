@@ -78,7 +78,7 @@
       "answer": "Hyper Text Markup Language",
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
-     {
+    {
       "id": "q-html-002",
       "categoryId": "html",
       "difficulty": "easy",
@@ -105,7 +105,8 @@
       ],
       "answer": "/",
       "createdAt": "2025-01-01T00:00:00.000Z"
-    }, {
+    },
+    {
       "id": "q-html-004",
       "categoryId": "html",
       "difficulty": "easy",
@@ -190,7 +191,6 @@
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-<<<<<<< HEAD
       "id": "q-html-010",
       "categoryId": "html",
       "difficulty": "easy",
@@ -231,7 +231,8 @@
       ],
       "answer": "<canvas>",
       "createdAt": "2025-01-01T00:00:00.000Z"
-=======
+    },
+    {
       "id": "q-css-001",
       "categoryId": "css",
       "difficulty": "easy",
@@ -580,7 +581,6 @@
       ],
       "answer": "A function with access to its outer scope variables",
       "createdAt": "2025-01-04T00:00:00.000Z"
->>>>>>> data-branch
     }
   ],
   "scores": [
@@ -660,6 +660,16 @@
       "securityAnswer": "$2a$10$gwMbdJeubxtdCLY/N2/c4eg5mcyBOzjKWhIM67DcAmK9OgyemO5ii",
       "role": "admin",
       "createdAt": "2026-06-15T15:07:48.732Z"
+    },
+    {
+      "id": 1781983130316,
+      "name": "hassan",
+      "email": "hassan@gmail.com",
+      "password": "$2b$10$UF2MIrKkHQqGJZ8PIpXg9ekVJIpb3ilrUhAZYDgBSH4Yg2QD663XW",
+      "securityQuestion": "What city were you born in?",
+      "securityAnswer": "$2b$10$2EotJihLJ0QhTxlUorJb4.3k0CgJhbDzeKfl0UDEhh1e9UySxKn4O",
+      "role": "member",
+      "createdAt": "2026-06-20T19:18:50.316Z"
     }
   ],
   "onlineSessions": {},
@@ -668,6 +678,11 @@
       "userId": 1781536068731,
       "name": "hafid",
       "lastSeen": 1781896408543
+    },
+    "1781983130316": {
+      "userId": 1781983130316,
+      "name": "hassan",
+      "lastSeen": 1781983311126
     }
   }
 }
