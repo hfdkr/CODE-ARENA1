@@ -144,3 +144,6 @@ input, select, textarea { font-family: var(--font); }
   z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   transition: all .2s;
 }
+#sidebar-toggle:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
+.toggle-arrow { display: inline-block; transition: transform .28s cubic-bezier(.4,0,.2,1); }
+.sidebar.collapsed .toggle-arrow { transform: rotate(180deg); }
