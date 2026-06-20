@@ -281,3 +281,45 @@ app.delete('/api/lessons/:id', requireAuth, requireAdmin, (req, res) => {
   data.lessons = data.lessons.filter(l => l.id !== req.params.id);
   write(data); res.json({ success:true });
 });
+// ═══ SCORES ══════════════════════════════════════════════════════════════════
+app.get('/api/scores', (req, res) => {
+  const data = read();
+  let s = [...data.scores].sort((a,b) => b.score - a.score);
+  if (req.query.categoryId) s = s.filter(x => x.categoryId === req.query.categoryId);
+  if (req.query.limit) s = s.slice(0, parseInt(req.query.limit));
+  res.json(s);
+});
+app.post('/api/scores', requireAuth, (req, res) => {
+  const { categoryId, difficulty, score, percentage, correct, incorrect, skipped, mode } = req.body;
+  const data  = read();
+  const entry = {
+    id:'sc-'+uuid().slice(0,6),
+    playerName: req.user.name,
+    userId:     req.user.id,
+    categoryId, difficulty:difficulty||'easy',
+    score, percentage:percentage||0,
+    correct:correct||0, incorrect:incorrect||0, skipped:skipped||0,
+    mode:mode||'normal', createdAt:new Date().toISOString()
+  };
+  data.scores.push(entry); write(data);
+  res.status(201).json(entry);
+});
+app.delete('/api/scores/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read();
+  data.scores = data.scores.filter(s => s.id !== req.params.id);
+  write(data); res.json({ success:true });
+});
+app.delete('/api/scores', requireAuth, requireAdmin, (req, res) => {
+  const data = read(); data.scores = []; write(data); res.json({ success:true });
+});
+// ═══ SETTINGS ════════════════════════════════════════════════════════════════
+app.get('/api/settings', (req, res) => {
+  const { adminPassword, ...safe } = read().settings;
+  res.json(safe);
+});
+app.put('/api/settings', requireAuth, requireAdmin, (req, res) => {
+  const allowed = ['siteName','timePerQuestion','pointsPerQuestion','challengeTimePerQuestion','maxQuestionsPerQuiz'];
+  const data = read();
+  allowed.forEach(k => { if (req.body[k] !== undefined) data.settings[k] = req.body[k]; });
+  write(data); res.json(data.settings);
+});
