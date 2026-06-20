@@ -134,3 +134,13 @@ input, select, textarea { font-family: var(--font); }
 .sidebar-bottom-actions { display: flex; gap: 6px; justify-content: flex-end; }
 .sidebar.collapsed .sidebar-bottom-actions { justify-content: center; flex-direction: column; align-items: center; }
 
+/* Sidebar toggle button */
+#sidebar-toggle {
+  position: absolute; top: 28px; right: -13px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--text2); font-size: .75rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: all .2s;
+}
