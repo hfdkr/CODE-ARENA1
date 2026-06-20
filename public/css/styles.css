@@ -12,3 +12,12 @@
   --shadow: 0 8px 32px rgba(0,0,0,0.5);
   --font: 'DM Sans', sans-serif; --mono: 'JetBrains Mono', monospace;
 }
+[data-theme="light"] {
+  --bg: #f1f3f9; --surface: #ffffff; --surface2: #f7f8fc; --surface3: #eef0f8;
+  --border: #e2e5f0; --border2: #d4d8eb;
+  --text: #141520; --text2: #7b82a0; --text3: #aab0c8;
+  --blue: #4a72f5; --blue-dim: rgba(74,114,245,0.10); --blue-glow: rgba(74,114,245,0.22);
+  --accent: #4a72f5; --green: #059669; --green-glow: #059669;
+  --red: #dc2626; --orange: #d97706;
+  --shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
