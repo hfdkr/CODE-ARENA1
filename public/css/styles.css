@@ -72,3 +72,14 @@ input, select, textarea { font-family: var(--font); }
 .auth-switch { text-align: center; font-size: .8rem; color: var(--text2); margin-top: 16px; }
 .auth-link { color: var(--blue); cursor: pointer; font-weight: 600; }
 .input-color { width: 48px; height: 36px; border: 1px solid var(--border2); border-radius: var(--radius-sm); cursor: pointer; padding: 2px; background: var(--surface); }
+/* ── APP LAYOUT ──────────────────────────────────── */
+.app-layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ─────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  background: var(--surface); border-right: 1px solid var(--border);
+  position: sticky; top: 0; height: 100vh;
+  transition: width .28s cubic-bezier(.4,0,.2,1);
+  overflow: visible; z-index: 50;
+}
