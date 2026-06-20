@@ -371,3 +371,8 @@ app.get('/api/stats', requireAuth, requireAdmin, (req, res) => {
   }
   res.json({ totalQuizzes:scores.length, totalQuestions:data.questions.length, totalLessons:data.lessons.length, totalCategories:data.categories.length, avgScore:avg, categoryStats:catStats, daily, recentScores:scores.slice(-5).reverse() });
 });
+// ─── SPA fallback ─────────────────────────────────────────────────────────────
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+);
+app.listen(PORT, () => console.log(`\n🚀 CodeArena v3 → http://localhost:${PORT}\n   Welcome to Code-Arena\n`));
