@@ -147,3 +147,13 @@ input, select, textarea { font-family: var(--font); }
 #sidebar-toggle:hover { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
 .toggle-arrow { display: inline-block; transition: transform .28s cubic-bezier(.4,0,.2,1); }
 .sidebar.collapsed .toggle-arrow { transform: rotate(180deg); }
+
+/* ── MAIN CONTENT ────────────────────────────────── */
+.main-content { flex: 1; min-height: 100vh; overflow-x: hidden; }
+
+/* ── PAGES ───────────────────────────────────────── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+#page-home.active { display: flex; justify-content: center; }
+#page-quiz.active { display: flex; justify-content: center; }
+#page-score.active { display: flex; justify-content: center; }
