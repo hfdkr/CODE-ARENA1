@@ -351,3 +351,23 @@ app.delete('/api/admin/users/:id', requireAuth, requireAdmin, (req, res) => {
   data.users = data.users.filter(u => u.id !== id); write(data);
   res.json({ success:true });
 });
+// ═══ STATS ═══════════════════════════════════════════════════════════════════
+app.get('/api/stats', requireAuth, requireAdmin, (req, res) => {
+  const data   = read();
+  const scores = data.scores;
+  const avg    = scores.length ? Math.round(scores.reduce((a,b) => a+b.percentage,0)/scores.length) : 0;
+  const catStats = data.categories.map(c => {
+    const cs = scores.filter(s => s.categoryId === c.id);
+    return { id:c.id, name:c.name, icon:c.icon, color:c.color,
+      quizzesTaken:cs.length,
+      avgScore: cs.length ? Math.round(cs.reduce((a,b) => a+b.percentage,0)/cs.length) : 0,
+      questionCount: data.questions.filter(q => q.categoryId === c.id).length };
+  });
+  const now = new Date(), daily = [];
+  for (let i=6; i>=0; i--) {
+    const d = new Date(now); d.setDate(d.getDate()-i);
+    const day = d.toISOString().slice(0,10);
+    daily.push({ date:day, label:d.toLocaleDateString('fr-FR',{weekday:'short'}), count:scores.filter(s=>s.createdAt.startsWith(day)).length });
+  }
+  res.json({ totalQuizzes:scores.length, totalQuestions:data.questions.length, totalLessons:data.lessons.length, totalCategories:data.categories.length, avgScore:avg, categoryStats:catStats, daily, recentScores:scores.slice(-5).reverse() });
+});
