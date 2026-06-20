@@ -43,4 +43,10 @@ input, select, textarea { font-family: var(--font); }
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow);
 }
-.au
+.auth-brand { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.auth-brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 10px var(--blue); animation: pdot 2s infinite; }
+@keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.auth-sub { color: var(--text2); font-size: .875rem; margin-bottom: 24px; }
+.auth-tabs { display: flex; gap: 4px; background: var(--surface2); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 24px; }
+.auth-tab { flex: 1; padding: 9px; border-radius: 8px; font-size: .875rem; font-weight: 600; background: transparent; color: var(--text2); border: none; transition: all .2s; }
+.auth-tab.active { background: var(--blue); color: #fff; }
