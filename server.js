@@ -323,3 +323,31 @@ app.put('/api/settings', requireAuth, requireAdmin, (req, res) => {
   allowed.forEach(k => { if (req.body[k] !== undefined) data.settings[k] = req.body[k]; });
   write(data); res.json(data.settings);
 });
+// ═══ ADMIN — Users ═══════════════════════════════════════════════════════════
+app.get('/api/admin/users', requireAuth, requireAdmin, (req, res) => {
+  const data  = read();
+  const now   = Date.now();
+  const ONLINE = 2 * 60 * 1000;
+  const users = data.users.map(({ password, securityAnswer, ...u }) => ({
+    ...u,
+    online: !!(data.sessions[u.id] && (now - data.sessions[u.id].lastSeen) < ONLINE)
+  }));
+  res.json({ success:true, users });
+});
+app.put('/api/admin/users/:id/role', requireAuth, requireAdmin, (req, res) => {
+  const id = parseInt(req.params.id);
+  const { role } = req.body;
+  if (!['admin','member'].includes(role)) return res.status(400).json({ success:false, message:'Invalid role' });
+  if (id === req.user.id) return res.status(400).json({ success:false, message:'Cannot change own role' });
+  const data = read(), idx = data.users.findIndex(u => u.id === id);
+  if (idx === -1) return res.status(404).json({ success:false });
+  data.users[idx].role = role; write(data);
+  res.json({ success:true });
+});
+app.delete('/api/admin/users/:id', requireAuth, requireAdmin, (req, res) => {
+  const id = parseInt(req.params.id);
+  if (id === req.user.id) return res.status(400).json({ success:false, message:'Cannot delete yourself' });
+  const data = read();
+  data.users = data.users.filter(u => u.id !== id); write(data);
+  res.json({ success:true });
+});
