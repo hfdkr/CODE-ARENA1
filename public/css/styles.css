@@ -371,3 +371,6 @@ input, select, textarea { font-family: var(--font); }
 .modal-body { padding: 16px 22px; }
 .modal-footer { padding: 0 22px 18px; display: flex; justify-content: flex-end; gap: 8px; }
 
+/* ── MISC ────────────────────────────────────────── */
+.hidden { display: none !important; }
+.s-saved { font-size: .85rem; color: var(--green-glow); margin-top: 8px; }
