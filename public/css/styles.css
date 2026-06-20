@@ -369,7 +369,6 @@ input, select, textarea { font-family: var(--font); }
 .modal-close { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: transparent; color: var(--text2); border: 1px solid var(--border); cursor: pointer; font-size: .72rem; transition: all .2s; }
 .modal-close:hover { background: var(--surface2); color: var(--text); }
 .modal-body { padding: 16px 22px; }
-<<<<<<< HEAD
 .modal-footer { padding: 0 22px 18px; display: flex; justify-content: flex-end; gap: 8px; }
 
 /* ── MISC ────────────────────────────────────────── */
@@ -387,6 +386,3 @@ input, select, textarea { font-family: var(--font); }
   .sidebar { display: none; }
   .hero-stats .hstat { padding: 0 12px; }
 }
-=======
-.modal-footer { padding: 0 22px 18px; display: flex; justify-content: flex-end; gap: 8px; }
->>>>>>> e955d4f4920ca34a066c67ff341a24cc0a743e2f
