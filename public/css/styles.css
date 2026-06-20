@@ -50,3 +50,12 @@ input, select, textarea { font-family: var(--font); }
 .auth-tabs { display: flex; gap: 4px; background: var(--surface2); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 24px; }
 .auth-tab { flex: 1; padding: 9px; border-radius: 8px; font-size: .875rem; font-weight: 600; background: transparent; color: var(--text2); border: none; transition: all .2s; }
 .auth-tab.active { background: var(--blue); color: #fff; }
+/* ── FORM ────────────────────────────────────────── */
+.form-group { margin-bottom: 14px; }
+.form-label { display: block; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--text2); margin-bottom: 7px; }
+.form-input {
+  width: 100%; padding: 11px 14px;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border2); border-radius: var(--radius-sm);
+  font-size: .9rem; outline: none; transition: border-color .2s; resize: vertical;
+}
