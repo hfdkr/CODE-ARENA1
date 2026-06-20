@@ -1,3 +1,148 @@
+// DOM shorthand
+const $ = id => document.getElementById(id);
+
+// Global app state
+const state = {
+  token:    localStorage.getItem('ca_token') || null,
+  user:     JSON.parse(localStorage.getItem('ca_user') || 'null'),
+  categories: [],
+  settings: {},
+  quiz: {
+    category: null, difficulty: 'easy', mode: 'normal',
+    current: 0, score: 0, answers: [], answered: false,
+    questions: [], timePerQ: 30, timeLeft: 0, timerInterval: null
+  },
+  quizResult: null,
+  _heartbeat: null
+};
+
+// ── API request wrapper ────────────────────────────
+async function req(endpoint, method = 'GET', body = null) {
+  const opts = { method, headers: {} };
+  if (state.token) opts.headers['Authorization'] = 'Bearer ' + state.token;
+  if (body !== null) {
+    opts.headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(body);
+  }
+  try {
+    const res = await fetch('/api' + endpoint, opts);
+    return await res.json();
+  } catch (e) {
+    return { success: false, message: 'Network error — is the server running?' };
+  }
+}
+
+// ── Auth storage ────────────────────────────────────
+function saveAuth(token, user) {
+  state.token = token;
+  state.user  = user;
+  localStorage.setItem('ca_token', token);
+  localStorage.setItem('ca_user', JSON.stringify(user));
+}
+function clearAuth() {
+  state.token = null;
+  state.user  = null;
+  localStorage.removeItem('ca_token');
+  localStorage.removeItem('ca_user');
+}
+async function handleLogout() {
+  stopHeartbeat();
+  await req('/logout', 'POST');
+  clearAuth();
+  location.reload();
+}
+window.handleLogout = handleLogout;
+
+// ── Visibility helpers (toggle the .hidden class) ──
+function hide(id) { $(id)?.classList.add('hidden'); }
+function show(id) { $(id)?.classList.remove('hidden'); }
+function showErr(id, msg) {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+
+// ── Modal helpers ───────────────────────────────────
+function showModal(id) { $(id)?.classList.remove('hidden'); }
+function hideModal(id) { $(id)?.classList.add('hidden'); }
+window.showModal = showModal;
+window.hideModal = hideModal;
+
+// Generic confirm dialog (#modal-confirm in index.html)
+function confirmDo(title, msg, onConfirm) {
+  $('confirm-title').textContent = title;
+  $('confirm-msg').textContent   = msg;
+  showModal('modal-confirm');
+  const okBtn = $('confirm-ok');
+  const cancelBtn = $('confirm-cancel');
+  // Replace nodes to clear any previously-attached listeners
+  const newOk = okBtn.cloneNode(true);
+  okBtn.parentNode.replaceChild(newOk, okBtn);
+  const newCancel = cancelBtn.cloneNode(true);
+  cancelBtn.parentNode.replaceChild(newCancel, cancelBtn);
+  newOk.onclick = async () => { hideModal('modal-confirm'); await onConfirm(); };
+  newCancel.onclick = () => hideModal('modal-confirm');
+}
+window.confirmDo = confirmDo;
+
+// ── HTML escaping for anything rendered via innerHTML ──
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── Minimal Markdown → HTML (used by lesson content) ──
+function md2html(src) {
+  if (!src) return '';
+  let html = esc(src);
+
+  // Fenced code blocks
+  html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${code.trim()}</code></pre>`);
+  // Headers
+  html = html.replace(/^### (.*)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.*)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.*)$/gm, '<h1>$1</h1>');
+  // Bold / italic / inline code
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/`(.+?)`/g, '<code>$1</code>');
+  // Unordered lists
+  html = html.replace(/(^|\n)((?:- .*(?:\n|$))+)/g, (_, lead, block) => {
+    const items = block.trim().split('\n').map(l => `<li>${l.replace(/^- /, '')}</li>`).join('');
+    return `${lead}<ul>${items}</ul>`;
+  });
+  // Paragraphs (wrap remaining bare lines, skip lines already turned into tags)
+  html = html.split(/\n{2,}/).map(block => {
+    if (/^\s*<(h1|h2|h3|ul|pre)/.test(block)) return block;
+    return block.trim() ? `<p>${block.trim().replace(/\n/g, '<br>')}</p>` : '';
+  }).join('\n');
+
+  return html;
+}
+
+// ── Theme ────────────────────────────────────────────
+function initTheme() {
+  const saved = localStorage.getItem('ca_theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  const icon = $('theme-toggle')?.querySelector('i');
+  if (icon) icon.className = saved === 'dark' ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+}
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('ca_theme', next);
+  const icon = $('theme-toggle')?.querySelector('i');
+  if (icon) icon.className = next === 'dark' ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+}
+window.toggleTheme = toggleTheme;
+
 // ══ AUTH ═════════════════════════════════════════════
 function switchTab(tab) {
   $('form-signin').style.display = tab === 'signin' ? '' : 'none';
