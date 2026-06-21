@@ -143,6 +143,20 @@ function toggleTheme() {
 }
 window.toggleTheme = toggleTheme;
 
+// ── Mobile header menu ──────────────────────────────
+function toggleMobileMenu(forceClose) {
+  const menu = $('mobile-menu');
+  if (!menu) return;
+  if (forceClose === true) { menu.classList.add('hidden'); return; }
+  menu.classList.toggle('hidden');
+}
+window.toggleMobileMenu = toggleMobileMenu;
+document.addEventListener('click', e => {
+  const menu = $('mobile-menu');
+  if (!menu || menu.classList.contains('hidden')) return;
+  if (e.target === menu) toggleMobileMenu(true); // clicked backdrop
+});
+
 // ══ AUTH ═════════════════════════════════════════════
 function switchTab(tab) {
   $('form-signin').style.display = tab === 'signin' ? '' : 'none';
@@ -245,6 +259,14 @@ async function bootApp() {
   $('sb-role').textContent  = state.user.role === 'admin' ? '👑 Admin' : '👤 Member';
   $('sb-avatar').textContent = state.user.name[0].toUpperCase();
 
+  // Mobile header / account menu
+  const initial = state.user.name[0].toUpperCase();
+  if ($('mh-avatar'))  $('mh-avatar').textContent  = initial;
+  if ($('mh-avatar2')) $('mh-avatar2').textContent = initial;
+  if ($('mh-name'))    $('mh-name').textContent    = state.user.name;
+  if ($('mh-role'))    $('mh-role').textContent    = state.user.role === 'admin' ? '👑 Admin' : '👤 Member';
+  if ($('mobile-admin-link')) $('mobile-admin-link').classList.toggle('hidden', state.user.role !== 'admin');
+
   // Admin nav
   if (state.user.role === 'admin') $('admin-nav-link').style.display='';
   else $('admin-nav-link').style.display='none';
@@ -289,6 +311,7 @@ function navigate(page, data=null) {
   const target = $(`page-${page}`);
   if (target) target.classList.add('active');
   document.querySelectorAll('.nav-item[data-page]').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+  toggleMobileMenu(true);
 
   const hooks = {
     home:()=>{},
@@ -327,7 +350,13 @@ function initHome() {
     const btn = document.createElement('button');
     btn.className = 'cat-pill' + (i===0?' active':'');
     btn.dataset.id = cat.id;
-    btn.innerHTML  = `${cat.icon||''} ${esc(cat.name)}`;
+    const col = cat.color || '#5c8dff';
+    btn.innerHTML  = `
+      <span class="cat-pill-icon" style="background:${col}22;color:${col}">${cat.icon||'📁'}</span>
+      <span class="cat-pill-body">
+        <span class="cat-pill-name">${esc(cat.name)}</span>
+        <span class="cat-pill-count">${cat.questionCount||0} questions</span>
+      </span>`;
     btn.onclick    = () => {
       document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -556,6 +585,53 @@ function renderLB(scores,cats,fc) {
       <td style="color:var(--text2);font-size:.8rem">${new Date(s.createdAt).toLocaleDateString('fr-FR')}</td>
     </tr>`;
   }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text2);padding:30px">Aucun score.</td></tr>';
+
+  renderLBMobile(filtered, cats);
+}
+
+// ── Mobile leaderboard (podium + list) ──────────────
+function renderLBMobile(filtered, cats) {
+  const wrap = $('lb-mobile');
+  if (!wrap) return;
+  if (!filtered.length) {
+    wrap.innerHTML = '<p style="text-align:center;color:var(--text2);padding:30px">Aucun score.</p>';
+    return;
+  }
+
+  const top3  = filtered.slice(0,3);
+  const rest  = filtered.slice(3);
+  const order = [1,0,2].filter(i => top3[i]); // visual order: 2nd, 1st, 3rd
+
+  const podiumHTML = order.map(i => {
+    const s = top3[i], rank = i+1;
+    const initial = (s.playerName||'?')[0].toUpperCase();
+    return `
+      <div class="podium-item podium-${rank}">
+        <div class="podium-avatar">
+          ${initial}<span class="podium-rank">${rank}</span>
+        </div>
+        <div class="podium-name">${esc(s.playerName)}</div>
+        <div class="podium-score">${(s.score||0).toLocaleString()}</div>
+      </div>`;
+  }).join('');
+
+  const listHTML = rest.map((s, idx) => {
+    const rank = idx + 4;
+    const mine = !!(state.user && s.userId === state.user.id);
+    const initial = (s.playerName||'?')[0].toUpperCase();
+    return `
+      <div class="lb-row ${mine?'lb-row-me':''}">
+        <span class="lb-rank">${rank}</span>
+        <div class="lb-avatar">${initial}</div>
+        <div class="lb-row-body">
+          <div class="lb-row-name">${mine?'You':esc(s.playerName)}</div>
+          <span class="mode-badge mode-${s.mode}">${s.mode==='challenge'?'⚡ Challenge':'▶ Normal'}</span>
+        </div>
+        <div class="lb-row-score">${(s.score||0).toLocaleString()}</div>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `<div class="podium-row">${podiumHTML}</div><div class="lb-list">${listHTML}</div>`;
 }
 
 

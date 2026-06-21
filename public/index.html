@@ -290,6 +290,54 @@
      MAIN APP
 ══════════════════════════════════════════════════════ -->
     <div id="app" class="app-layout hidden">
+      <!-- ══ MOBILE TOP HEADER (visible < 768px) ══ -->
+      <header id="mobile-header" class="mobile-header">
+        <div class="mobile-header-brand">
+          <span class="brand-dot"></span>
+          <div>
+            <div class="mobile-header-logo">
+              Code<span style="color: var(--blue)">Arena</span>
+            </div>
+            <div class="mobile-header-live">
+              <span class="pulse-dot"></span> Live — Quiz available
+            </div>
+          </div>
+        </div>
+        <button
+          id="mobile-avatar-btn"
+          class="mobile-avatar-btn"
+          onclick="toggleMobileMenu()"
+        >
+          <span id="mh-avatar">A</span>
+        </button>
+      </header>
+
+      <!-- ══ MOBILE ACCOUNT MENU ══ -->
+      <div id="mobile-menu" class="mobile-menu hidden">
+        <div class="mobile-menu-card">
+          <div class="mobile-menu-user">
+            <div class="user-avatar-sm" id="mh-avatar2">A</div>
+            <div>
+              <div id="mh-name" class="sidebar-user-name">Loading...</div>
+              <div id="mh-role" class="sidebar-user-role">—</div>
+            </div>
+          </div>
+          <a
+            id="mobile-admin-link"
+            class="mobile-menu-item hidden"
+            onclick="navigate('admin'); toggleMobileMenu();"
+          >
+            <i class="fi fi-rr-settings"></i> Admin Panel
+          </a>
+          <button class="mobile-menu-item" onclick="toggleTheme()">
+            <i class="fi fi-rr-moon"></i> Toggle theme
+          </button>
+          <button class="mobile-menu-item" onclick="handleLogout()">
+            <i class="fi fi-rr-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </div>
+
       <!-- LEFT SIDEBAR -->
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-inner">
@@ -447,14 +495,14 @@
                 <div class="mode-row">
                   <button class="mode-btn active" data-mode="normal">
                     <i class="fi fi-rr-play-alt mode-icon"></i>
-                    <strong>Normal</strong><small>30s per question</small>
+                    <div><strong>Normal</strong><small>30s per question</small></div>
                   </button>
                   <button class="mode-btn" data-mode="challenge">
                     <i
                       class="fi fi-rr-bolt mode-icon"
                       style="color: #f59e0b"
                     ></i>
-                    <strong>Challenge ⚡</strong><small>15s — No mercy</small>
+                    <div><strong>Challenge ⚡</strong><small>15s — No mercy</small></div>
                   </button>
                 </div>
               </div>
@@ -623,6 +671,7 @@
               <p>The best scores</p>
             </div>
             <div id="lb-filter" class="filter-row"></div>
+            <div id="lb-mobile" class="lb-mobile"></div>
             <div class="table-wrap">
               <table class="lb-table">
                 <thead>
@@ -871,6 +920,31 @@
           </div>
         </section>
       </main>
+
+      <!-- ══ MOBILE BOTTOM NAV (visible < 768px) ══ -->
+      <nav id="mobile-bottom-nav" class="mobile-bottom-nav">
+        <a
+          class="nav-item mobile-nav-item active"
+          data-page="home"
+          onclick="navigate('home')"
+        >
+          <i class="fi fi-rr-home"></i><span>Home</span>
+        </a>
+        <a
+          class="nav-item mobile-nav-item"
+          data-page="lessons"
+          onclick="navigate('lessons')"
+        >
+          <i class="fi fi-rr-book-open-cover"></i><span>Lessons</span>
+        </a>
+        <a
+          class="nav-item mobile-nav-item"
+          data-page="leaderboard"
+          onclick="navigate('leaderboard')"
+        >
+          <i class="fi fi-rr-trophy"></i><span>Leaderboard</span>
+        </a>
+      </nav>
     </div>
 
     <!-- ══ MODALS ══════════════════════════════════════════════════ -->
