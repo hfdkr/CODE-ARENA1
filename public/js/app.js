@@ -127,35 +127,27 @@ function md2html(src) {
 }
 
 // ── Theme ────────────────────────────────────────────
+// Updates the icon inside every theme-switch present in the DOM
+// (desktop sidebar switch + mobile header switch).
+function setThemeIcons(theme) {
+  const cls = theme === 'dark' ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+  document.querySelectorAll('#theme-toggle i, #mobile-theme-toggle i').forEach(icon => {
+    icon.className = cls;
+  });
+}
 function initTheme() {
   const saved = localStorage.getItem('ca_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', saved);
-  const icon = $('theme-toggle')?.querySelector('i');
-  if (icon) icon.className = saved === 'dark' ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+  setThemeIcons(saved);
 }
 function toggleTheme() {
   const html = document.documentElement;
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('ca_theme', next);
-  const icon = $('theme-toggle')?.querySelector('i');
-  if (icon) icon.className = next === 'dark' ? 'fi fi-rr-moon' : 'fi fi-rr-sun';
+  setThemeIcons(next);
 }
 window.toggleTheme = toggleTheme;
-
-// ── Mobile header menu ──────────────────────────────
-function toggleMobileMenu(forceClose) {
-  const menu = $('mobile-menu');
-  if (!menu) return;
-  if (forceClose === true) { menu.classList.add('hidden'); return; }
-  menu.classList.toggle('hidden');
-}
-window.toggleMobileMenu = toggleMobileMenu;
-document.addEventListener('click', e => {
-  const menu = $('mobile-menu');
-  if (!menu || menu.classList.contains('hidden')) return;
-  if (e.target === menu) toggleMobileMenu(true); // clicked backdrop
-});
 
 // ══ AUTH ═════════════════════════════════════════════
 function switchTab(tab) {
@@ -259,17 +251,9 @@ async function bootApp() {
   $('sb-role').textContent  = state.user.role === 'admin' ? '👑 Admin' : '👤 Member';
   $('sb-avatar').textContent = state.user.name[0].toUpperCase();
 
-  // Mobile header / account menu
-  const initial = state.user.name[0].toUpperCase();
-  if ($('mh-avatar'))  $('mh-avatar').textContent  = initial;
-  if ($('mh-avatar2')) $('mh-avatar2').textContent = initial;
-  if ($('mh-name'))    $('mh-name').textContent    = state.user.name;
-  if ($('mh-role'))    $('mh-role').textContent    = state.user.role === 'admin' ? '👑 Admin' : '👤 Member';
-  if ($('mobile-admin-link')) $('mobile-admin-link').classList.toggle('hidden', state.user.role !== 'admin');
-
-  // Admin nav
-  if (state.user.role === 'admin') $('admin-nav-link').style.display='';
-  else $('admin-nav-link').style.display='none';
+  // Admin nav link (sidebar — shared by desktop and the mobile drawer)
+  const isAdmin = state.user.role === 'admin';
+  $('admin-nav-link').style.display = isAdmin ? '' : 'none';
 
   // Load home
   const [cats, settings] = await Promise.all([req('/categories'), req('/settings')]);
@@ -310,8 +294,11 @@ function navigate(page, data=null) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = $(`page-${page}`);
   if (target) target.classList.add('active');
+
+  // Keep desktop sidebar nav in sync
   document.querySelectorAll('.nav-item[data-page]').forEach(l => l.classList.toggle('active', l.dataset.page === page));
-  toggleMobileMenu(true);
+  // Close the mobile drawer (if open) whenever we navigate somewhere
+  closeMobileMenu();
 
   const hooks = {
     home:()=>{},
@@ -319,6 +306,7 @@ function navigate(page, data=null) {
     score: showScore,
     lessons: initLessons,
     'lesson-detail': ()=>initLessonDetail(data),
+    dashboard: initMainDashboard,
     leaderboard: initLeaderboard,
     admin: initAdmin
   };
@@ -327,13 +315,43 @@ function navigate(page, data=null) {
 }
 window.navigate = navigate;
 
-// ── Sidebar toggle ─────────────────────────────────
+// ── Sidebar toggle (desktop collapse) ──────────────
 function toggleSidebar() {
   const sb = $('sidebar');
   sb.classList.toggle('collapsed');
   localStorage.setItem('ca_sidebar', sb.classList.contains('collapsed')?'1':'0');
 }
 window.toggleSidebar = toggleSidebar;
+
+// ── Mobile drawer (hamburger menu) ─────────────────
+// On mobile the same #sidebar element is reused as an off-canvas drawer,
+// toggled by the hamburger button in the mobile header.
+function openMobileMenu() {
+  $('sidebar')?.classList.add('mobile-open');
+  $('sidebar-backdrop')?.classList.add('show');
+  const icon = $('hamburger-btn')?.querySelector('i');
+  if (icon) icon.className = 'fi fi-rr-cross';
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  $('sidebar')?.classList.remove('mobile-open');
+  $('sidebar-backdrop')?.classList.remove('show');
+  const icon = $('hamburger-btn')?.querySelector('i');
+  if (icon) icon.className = 'fi fi-rr-menu-burger';
+  document.body.style.overflow = '';
+}
+function toggleMobileMenu() {
+  $('sidebar')?.classList.contains('mobile-open') ? closeMobileMenu() : openMobileMenu();
+}
+window.openMobileMenu  = openMobileMenu;
+window.closeMobileMenu = closeMobileMenu;
+window.toggleMobileMenu = toggleMobileMenu;
+
+// Safety: if the window is resized back to desktop width while the
+// drawer happens to be open, reset it so it doesn't get stuck.
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) closeMobileMenu();
+});
 
 // ══ HOME ═════════════════════════════════════════════
 function initHome() {
@@ -350,13 +368,7 @@ function initHome() {
     const btn = document.createElement('button');
     btn.className = 'cat-pill' + (i===0?' active':'');
     btn.dataset.id = cat.id;
-    const col = cat.color || '#5c8dff';
-    btn.innerHTML  = `
-      <span class="cat-pill-icon" style="background:${col}22;color:${col}">${cat.icon||'📁'}</span>
-      <span class="cat-pill-body">
-        <span class="cat-pill-name">${esc(cat.name)}</span>
-        <span class="cat-pill-count">${cat.questionCount||0} questions</span>
-      </span>`;
+    btn.innerHTML  = `${cat.icon||''} ${esc(cat.name)}`;
     btn.onclick    = () => {
       document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -585,53 +597,6 @@ function renderLB(scores,cats,fc) {
       <td style="color:var(--text2);font-size:.8rem">${new Date(s.createdAt).toLocaleDateString('fr-FR')}</td>
     </tr>`;
   }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text2);padding:30px">Aucun score.</td></tr>';
-
-  renderLBMobile(filtered, cats);
-}
-
-// ── Mobile leaderboard (podium + list) ──────────────
-function renderLBMobile(filtered, cats) {
-  const wrap = $('lb-mobile');
-  if (!wrap) return;
-  if (!filtered.length) {
-    wrap.innerHTML = '<p style="text-align:center;color:var(--text2);padding:30px">Aucun score.</p>';
-    return;
-  }
-
-  const top3  = filtered.slice(0,3);
-  const rest  = filtered.slice(3);
-  const order = [1,0,2].filter(i => top3[i]); // visual order: 2nd, 1st, 3rd
-
-  const podiumHTML = order.map(i => {
-    const s = top3[i], rank = i+1;
-    const initial = (s.playerName||'?')[0].toUpperCase();
-    return `
-      <div class="podium-item podium-${rank}">
-        <div class="podium-avatar">
-          ${initial}<span class="podium-rank">${rank}</span>
-        </div>
-        <div class="podium-name">${esc(s.playerName)}</div>
-        <div class="podium-score">${(s.score||0).toLocaleString()}</div>
-      </div>`;
-  }).join('');
-
-  const listHTML = rest.map((s, idx) => {
-    const rank = idx + 4;
-    const mine = !!(state.user && s.userId === state.user.id);
-    const initial = (s.playerName||'?')[0].toUpperCase();
-    return `
-      <div class="lb-row ${mine?'lb-row-me':''}">
-        <span class="lb-rank">${rank}</span>
-        <div class="lb-avatar">${initial}</div>
-        <div class="lb-row-body">
-          <div class="lb-row-name">${mine?'You':esc(s.playerName)}</div>
-          <span class="mode-badge mode-${s.mode}">${s.mode==='challenge'?'⚡ Challenge':'▶ Normal'}</span>
-        </div>
-        <div class="lb-row-score">${(s.score||0).toLocaleString()}</div>
-      </div>`;
-  }).join('');
-
-  wrap.innerHTML = `<div class="podium-row">${podiumHTML}</div><div class="lb-list">${listHTML}</div>`;
 }
 
 
@@ -644,18 +609,21 @@ function initAdmin() {
       document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
       b.classList.add('active');
       $(`tab-${b.dataset.tab}`).classList.add('active');
-      const loaders={dashboard:loadDashboard,questions:loadAdminQ,lessons:loadAdminL,categories:loadAdminCats,users:loadAdminUsers,scores:loadAdminScores,settings:loadAdminSettings};
+      const loaders={questions:loadAdminQ,lessons:loadAdminL,categories:loadAdminCats,users:loadAdminUsers,scores:loadAdminScores,settings:loadAdminSettings};
       if(loaders[b.dataset.tab])loaders[b.dataset.tab]();
     };
   });
-  loadDashboard();
+  loadAdminQ();
 }
 
 
-// ── Dashboard ──────────────────────────────────────
-async function loadDashboard() {
+// ── Dashboard (now a standalone page in the main nav, between
+//    Lessons and Leaderboard — open to every signed-in user) ────
+// `ids` lets the same renderer target either the main-nav dashboard
+// page elements (md-*) or any other set of element ids if needed.
+async function renderDashboard(ids) {
   const stats=await req('/stats');
-  $('dash-kpis').innerHTML=[
+  $(ids.kpis).innerHTML=[
     {icon:'📝',num:stats.totalQuizzes,label:'Quiz joués'},
     {icon:'❓',num:stats.totalQuestions,label:'Questions'},
     {icon:'📚',num:stats.totalLessons,label:'Leçons'},
@@ -663,9 +631,13 @@ async function loadDashboard() {
   ].map(k=>`<div class="kpi-card"><div class="kpi-icon">${k.icon}</div><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`).join('');
 
   const max=Math.max(...stats.daily.map(d=>d.count),1);
-  $('chart-activity').innerHTML=stats.daily.map(d=>`<div class="bar-day"><div class="bar-fill" style="height:${Math.max((d.count/max)*60,4)}px" title="${d.count}"></div><span class="bar-label">${d.label}</span></div>`).join('');
-  $('chart-cats').innerHTML=stats.categoryStats.map(c=>`<div class="cat-bar-row"><span class="cat-bar-label">${c.icon} ${esc(c.name)}</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.avgScore}%;background:${c.color||'var(--blue)'}"></div></div><span class="cat-bar-pct">${c.avgScore}%</span></div>`).join('')||'<p style="color:var(--text2);font-size:.85rem">Pas de données.</p>';
-  $('dash-recent-list').innerHTML=stats.recentScores.map(s=>{const cat=stats.categoryStats.find(c=>c.id===s.categoryId);return `<div class="recent-row"><div><div class="recent-player">${esc(s.playerName)}</div><div class="recent-meta">${cat?cat.icon+' '+cat.name:s.categoryId} · ${s.mode}</div></div><div class="recent-score">${s.score} pts</div></div>`;}).join('')||'<p style="color:var(--text2);font-size:.85rem;padding:10px">Aucun score récent.</p>';
+  $(ids.activity).innerHTML=stats.daily.map(d=>`<div class="bar-day"><div class="bar-fill" style="height:${Math.max((d.count/max)*60,4)}px" title="${d.count}"></div><span class="bar-label">${d.label}</span></div>`).join('');
+  $(ids.cats).innerHTML=stats.categoryStats.map(c=>`<div class="cat-bar-row"><span class="cat-bar-label">${c.icon} ${esc(c.name)}</span><div class="cat-bar-track"><div class="cat-bar-fill" style="width:${c.avgScore}%;background:${c.color||'var(--blue)'}"></div></div><span class="cat-bar-pct">${c.avgScore}%</span></div>`).join('')||'<p style="color:var(--text2);font-size:.85rem">Pas de données.</p>';
+  $(ids.recent).innerHTML=stats.recentScores.map(s=>{const cat=stats.categoryStats.find(c=>c.id===s.categoryId);return `<div class="recent-row"><div><div class="recent-player">${esc(s.playerName)}</div><div class="recent-meta">${cat?cat.icon+' '+cat.name:s.categoryId} · ${s.mode}</div></div><div class="recent-score">${s.score} pts</div></div>`;}).join('')||'<p style="color:var(--text2);font-size:.85rem;padding:10px">Aucun score récent.</p>';
+}
+
+function initMainDashboard() {
+  renderDashboard({ kpis: 'md-kpis', activity: 'md-chart-activity', cats: 'md-chart-cats', recent: 'md-recent-list' });
 }
 
 

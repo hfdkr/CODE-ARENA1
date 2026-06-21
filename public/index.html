@@ -290,55 +290,14 @@
      MAIN APP
 ══════════════════════════════════════════════════════ -->
     <div id="app" class="app-layout hidden">
-      <!-- ══ MOBILE TOP HEADER (visible < 768px) ══ -->
-      <header id="mobile-header" class="mobile-header">
-        <div class="mobile-header-brand">
-          <span class="brand-dot"></span>
-          <div>
-            <div class="mobile-header-logo">
-              Code<span style="color: var(--blue)">Arena</span>
-            </div>
-            <div class="mobile-header-live">
-              <span class="pulse-dot"></span> Live — Quiz available
-            </div>
-          </div>
-        </div>
-        <button
-          id="mobile-avatar-btn"
-          class="mobile-avatar-btn"
-          onclick="toggleMobileMenu()"
-        >
-          <span id="mh-avatar">A</span>
-        </button>
-      </header>
+      <!-- Backdrop shown behind the sidebar when it's opened as a mobile drawer -->
+      <div
+        class="sidebar-backdrop"
+        id="sidebar-backdrop"
+        onclick="closeMobileMenu()"
+      ></div>
 
-      <!-- ══ MOBILE ACCOUNT MENU ══ -->
-      <div id="mobile-menu" class="mobile-menu hidden">
-        <div class="mobile-menu-card">
-          <div class="mobile-menu-user">
-            <div class="user-avatar-sm" id="mh-avatar2">A</div>
-            <div>
-              <div id="mh-name" class="sidebar-user-name">Loading...</div>
-              <div id="mh-role" class="sidebar-user-role">—</div>
-            </div>
-          </div>
-          <a
-            id="mobile-admin-link"
-            class="mobile-menu-item hidden"
-            onclick="navigate('admin'); toggleMobileMenu();"
-          >
-            <i class="fi fi-rr-settings"></i> Admin Panel
-          </a>
-          <button class="mobile-menu-item" onclick="toggleTheme()">
-            <i class="fi fi-rr-moon"></i> Toggle theme
-          </button>
-          <button class="mobile-menu-item" onclick="handleLogout()">
-            <i class="fi fi-rr-sign-out-alt"></i> Logout
-          </button>
-        </div>
-      </div>
-
-      <!-- LEFT SIDEBAR -->
+      <!-- LEFT SIDEBAR (desktop sidebar / mobile off-canvas drawer) -->
       <aside id="sidebar" class="sidebar">
         <div class="sidebar-inner">
           <!-- Brand -->
@@ -367,6 +326,14 @@
             >
               <i class="fi fi-rr-book-open-cover nav-icon"></i
               ><span class="sidebar-label">Lessons</span>
+            </a>
+            <a
+              class="nav-item"
+              data-page="dashboard"
+              onclick="navigate('dashboard')"
+            >
+              <i class="fi fi-rr-chart-histogram nav-icon"></i
+              ><span class="sidebar-label">Dashboard</span>
             </a>
             <a
               class="nav-item"
@@ -409,12 +376,13 @@
             </div>
             <div class="sidebar-bottom-actions">
               <button
-                class="btn-icon"
+                class="theme-switch"
                 id="theme-toggle"
                 onclick="toggleTheme()"
-                title="Change theme"
+                title="Toggle dark / light mode"
+                aria-label="Toggle theme"
               >
-                <i class="fi fi-rr-moon"></i>
+                <span class="theme-switch-thumb"><i class="fi fi-rr-moon"></i></span>
               </button>
               <button class="btn-icon" onclick="handleLogout()" title="Logout">
                 <i class="fi fi-rr-sign-out-alt"></i>
@@ -431,6 +399,32 @@
 
       <!-- MAIN CONTENT -->
       <main id="main-content" class="main-content">
+        <!-- ── MOBILE HEADER (mobile only, sticky, shown on every page) ── -->
+        <header class="mobile-header">
+          <div class="mobile-header-left">
+            <button
+              class="hamburger-btn"
+              id="hamburger-btn"
+              onclick="toggleMobileMenu()"
+              aria-label="Menu"
+            >
+              <i class="fi fi-rr-menu-burger"></i>
+            </button>
+            <div class="mobile-header-brand">
+              <span class="brand-dot"></span>
+              Code<span style="color: var(--blue)">Arena</span>
+            </div>
+          </div>
+          <button
+            class="theme-switch"
+            id="mobile-theme-toggle"
+            onclick="toggleTheme()"
+            aria-label="Toggle theme"
+          >
+            <span class="theme-switch-thumb"><i class="fi fi-rr-moon"></i></span>
+          </button>
+        </header>
+
         <!-- ── HOME ─────────────────────────────────────────────── -->
         <section id="page-home" class="page active">
           <div class="hero">
@@ -495,14 +489,14 @@
                 <div class="mode-row">
                   <button class="mode-btn active" data-mode="normal">
                     <i class="fi fi-rr-play-alt mode-icon"></i>
-                    <div><strong>Normal</strong><small>30s per question</small></div>
+                    <strong>Normal</strong><small>30s per question</small>
                   </button>
                   <button class="mode-btn" data-mode="challenge">
                     <i
                       class="fi fi-rr-bolt mode-icon"
                       style="color: #f59e0b"
                     ></i>
-                    <div><strong>Challenge ⚡</strong><small>15s — No mercy</small></div>
+                    <strong>Challenge ⚡</strong><small>15s — No mercy</small>
                   </button>
                 </div>
               </div>
@@ -671,7 +665,6 @@
               <p>The best scores</p>
             </div>
             <div id="lb-filter" class="filter-row"></div>
-            <div id="lb-mobile" class="lb-mobile"></div>
             <div class="table-wrap">
               <table class="lb-table">
                 <thead>
@@ -691,16 +684,38 @@
           </div>
         </section>
 
+        <!-- ── DASHBOARD (main nav — visible to everyone) ─────────── -->
+        <section id="page-dashboard" class="page">
+          <div class="page-content">
+            <div class="page-header">
+              <h2>📊 Dashboard</h2>
+              <p>Activity & stats overview</p>
+            </div>
+            <div class="dash-kpis" id="md-kpis"></div>
+            <div class="dash-charts">
+              <div class="chart-card">
+                <h4>Activity (7 days)</h4>
+                <div id="md-chart-activity" class="bar-chart"></div>
+              </div>
+              <div class="chart-card">
+                <h4>Score by Category</h4>
+                <div id="md-chart-cats" class="cat-chart"></div>
+              </div>
+            </div>
+            <div class="dash-recent">
+              <h4>Recent Scores</h4>
+              <div id="md-recent-list"></div>
+            </div>
+          </div>
+        </section>
+
         <!-- ── ADMIN ─────────────────────────────────────────────── -->
         <section id="page-admin" class="page">
           <div class="admin-layout">
             <aside class="admin-sidebar">
               <div class="admin-sidebar-brand">⚙️ Admin</div>
               <nav class="admin-nav">
-                <button class="admin-nav-item active" data-tab="dashboard">
-                  <i class="fi fi-rr-chart-histogram"></i> Dashboard
-                </button>
-                <button class="admin-nav-item" data-tab="questions">
+                <button class="admin-nav-item active" data-tab="questions">
                   <i class="fi fi-rr-interrogation"></i> Questions
                 </button>
                 <button class="admin-nav-item" data-tab="lessons">
@@ -721,27 +736,8 @@
               </nav>
             </aside>
             <div class="admin-content">
-              <!-- DASHBOARD -->
-              <div class="admin-tab active" id="tab-dashboard">
-                <div class="admin-tab-header"><h3>Dashboard</h3></div>
-                <div class="dash-kpis" id="dash-kpis"></div>
-                <div class="dash-charts">
-                  <div class="chart-card">
-                    <h4>Activity (7 days)</h4>
-                    <div id="chart-activity" class="bar-chart"></div>
-                  </div>
-                  <div class="chart-card">
-                    <h4>Score by Category</h4>
-                    <div id="chart-cats" class="cat-chart"></div>
-                  </div>
-                </div>
-                <div class="dash-recent">
-                  <h4>Recent Scores</h4>
-                  <div id="dash-recent-list"></div>
-                </div>
-              </div>
               <!-- QUESTIONS -->
-              <div class="admin-tab" id="tab-questions">
+              <div class="admin-tab active" id="tab-questions">
                 <div class="admin-tab-header">
                   <h3>Questions</h3>
                   <button class="btn-primary btn-sm" id="add-q-btn">
@@ -920,31 +916,6 @@
           </div>
         </section>
       </main>
-
-      <!-- ══ MOBILE BOTTOM NAV (visible < 768px) ══ -->
-      <nav id="mobile-bottom-nav" class="mobile-bottom-nav">
-        <a
-          class="nav-item mobile-nav-item active"
-          data-page="home"
-          onclick="navigate('home')"
-        >
-          <i class="fi fi-rr-home"></i><span>Home</span>
-        </a>
-        <a
-          class="nav-item mobile-nav-item"
-          data-page="lessons"
-          onclick="navigate('lessons')"
-        >
-          <i class="fi fi-rr-book-open-cover"></i><span>Lessons</span>
-        </a>
-        <a
-          class="nav-item mobile-nav-item"
-          data-page="leaderboard"
-          onclick="navigate('leaderboard')"
-        >
-          <i class="fi fi-rr-trophy"></i><span>Leaderboard</span>
-        </a>
-      </nav>
     </div>
 
     <!-- ══ MODALS ══════════════════════════════════════════════════ -->
