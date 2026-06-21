@@ -235,20 +235,21 @@ This project is licensed under the ISC License - see the package.json file for d
 
 ## 👨‍💻 Author
 
-Created and maintained by the CodeArena development team.
+**Hafid kr**
 
-## 📞 Support
+* GitHub: https://github.com/hfdkr
 
-For issues, questions, or suggestions:
-- Check existing GitHub issues
-- Review the troubleshooting section above
-- Contact the development team
+**Hamza Bari**
 
-## 🎓 Learning Resources
+* GitHub: https://github.com/u0ke
 
-- [Express.js Documentation](https://expressjs.com/)
-- [JWT Authentication](https://jwt.io/)
-- [bcryptjs Guide](https://github.com/dcodeIO/bcrypt.js)
-- [MDN Web Docs](https://developer.mozilla.org/)
+**Hassan akbad**
+
+* GitHub: https://github.com/akbad091
+
+**Ilyas Assfar**
+
+* GitHub: https://github.com/assfar35-stack
 
 ---
+
