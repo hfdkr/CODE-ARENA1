@@ -54,6 +54,7 @@ function requireAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') return next();
   res.status(403).json({ success:false, message:'Admin only' });
 }
+
 // ═══ AUTH ════════════════════════════════════════════════════════════════════
 
 // POST /api/register
@@ -93,6 +94,7 @@ app.post('/api/register', async (req, res) => {
     res.status(201).json({ success:true, token, user:{ id:user.id, name:user.name, email:user.email, role:user.role, createdAt:user.createdAt } });
   } catch(e) { console.error(e); res.status(500).json({ success:false, message:'Registration failed' }); }
 });
+
 // POST /api/login
 app.post('/api/login', async (req, res) => {
   try {
@@ -120,6 +122,7 @@ app.post('/api/logout', requireAuth, (req, res) => {
   write(data);
   res.json({ success:true });
 });
+
 // GET /api/me
 app.get('/api/me', requireAuth, (req, res) => {
   const data = read();
@@ -127,6 +130,7 @@ app.get('/api/me', requireAuth, (req, res) => {
   if (!user) return res.status(404).json({ success:false });
   res.json({ success:true, user:{ id:user.id, name:user.name, email:user.email, role:user.role, createdAt:user.createdAt } });
 });
+
 // ─── Forgot Password ──────────────────────────────────────────────────────────
 const resetTokens = new Map();
 
@@ -169,6 +173,7 @@ app.post('/api/forgot-password/reset', async (req, res) => {
   resetTokens.delete(token);
   res.json({ success:true });
 });
+
 // ─── Account ──────────────────────────────────────────────────────────────────
 app.put('/api/account/profile', requireAuth, async (req, res) => {
   const { name, email } = req.body;
@@ -199,6 +204,7 @@ app.put('/api/account/password', requireAuth, async (req, res) => {
   write(data);
   res.json({ success:true });
 });
+
 // ═══ PRESENCE ════════════════════════════════════════════════════════════════
 
 // Heartbeat — called every 30s by logged-in clients
@@ -250,6 +256,44 @@ app.delete('/api/categories/:id', requireAuth, requireAdmin, (req, res) => {
   data.categories = data.categories.filter(c => c.id !== req.params.id);
   write(data); res.json({ success:true });
 });
+
+// ═══ QUESTIONS ═══════════════════════════════════════════════════════════════
+app.get('/api/questions', (req, res) => {
+  const data = read();
+  let qs = data.questions;
+  if (req.query.categoryId) qs = qs.filter(q => q.categoryId === req.query.categoryId);
+  if (req.query.difficulty)  qs = qs.filter(q => q.difficulty  === req.query.difficulty);
+  res.json(qs);
+});
+app.get('/api/quiz', (req, res) => {
+  const { categoryId, difficulty } = req.query;
+  const data = read();
+  let qs = data.questions;
+  if (categoryId) qs = qs.filter(q => q.categoryId === categoryId);
+  if (difficulty)  qs = qs.filter(q => q.difficulty  === difficulty);
+  qs = qs.sort(() => Math.random() - 0.5).slice(0, data.settings.maxQuestionsPerQuiz || 10);
+  res.json({ questions:qs, settings:{ timePerQuestion:data.settings.timePerQuestion, pointsPerQuestion:data.settings.pointsPerQuestion, challengeTimePerQuestion:data.settings.challengeTimePerQuestion } });
+});
+app.post('/api/questions', requireAuth, requireAdmin, (req, res) => {
+  const { categoryId, difficulty, question, options, answer } = req.body;
+  if (!categoryId || !question || !options || !answer) return res.status(400).json({ error:'Missing fields' });
+  const data = read();
+  const q    = { id:'q-'+uuid().slice(0,8), categoryId, difficulty:difficulty||'easy', question, options, answer, createdAt:new Date().toISOString() };
+  data.questions.push(q); write(data);
+  res.status(201).json(q);
+});
+app.put('/api/questions/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read(), idx = data.questions.findIndex(q => q.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error:'Not found' });
+  data.questions[idx] = { ...data.questions[idx], ...req.body, id:req.params.id };
+  write(data); res.json(data.questions[idx]);
+});
+app.delete('/api/questions/:id', requireAuth, requireAdmin, (req, res) => {
+  const data = read();
+  data.questions = data.questions.filter(q => q.id !== req.params.id);
+  write(data); res.json({ success:true });
+});
+
 // ═══ LESSONS ═════════════════════════════════════════════════════════════════
 app.get('/api/lessons', (req, res) => {
   const data = read();
@@ -281,6 +325,7 @@ app.delete('/api/lessons/:id', requireAuth, requireAdmin, (req, res) => {
   data.lessons = data.lessons.filter(l => l.id !== req.params.id);
   write(data); res.json({ success:true });
 });
+
 // ═══ SCORES ══════════════════════════════════════════════════════════════════
 app.get('/api/scores', (req, res) => {
   const data = read();
@@ -312,6 +357,7 @@ app.delete('/api/scores/:id', requireAuth, requireAdmin, (req, res) => {
 app.delete('/api/scores', requireAuth, requireAdmin, (req, res) => {
   const data = read(); data.scores = []; write(data); res.json({ success:true });
 });
+
 // ═══ SETTINGS ════════════════════════════════════════════════════════════════
 app.get('/api/settings', (req, res) => {
   const { adminPassword, ...safe } = read().settings;
@@ -323,6 +369,7 @@ app.put('/api/settings', requireAuth, requireAdmin, (req, res) => {
   allowed.forEach(k => { if (req.body[k] !== undefined) data.settings[k] = req.body[k]; });
   write(data); res.json(data.settings);
 });
+
 // ═══ ADMIN — Users ═══════════════════════════════════════════════════════════
 app.get('/api/admin/users', requireAuth, requireAdmin, (req, res) => {
   const data  = read();
@@ -351,6 +398,7 @@ app.delete('/api/admin/users/:id', requireAuth, requireAdmin, (req, res) => {
   data.users = data.users.filter(u => u.id !== id); write(data);
   res.json({ success:true });
 });
+
 // ═══ STATS ═══════════════════════════════════════════════════════════════════
 app.get('/api/stats', requireAuth, requireAdmin, (req, res) => {
   const data   = read();
@@ -371,8 +419,9 @@ app.get('/api/stats', requireAuth, requireAdmin, (req, res) => {
   }
   res.json({ totalQuizzes:scores.length, totalQuestions:data.questions.length, totalLessons:data.lessons.length, totalCategories:data.categories.length, avgScore:avg, categoryStats:catStats, daily, recentScores:scores.slice(-5).reverse() });
 });
+
 // ─── SPA fallback ─────────────────────────────────────────────────────────────
-app.use((req, res) =>
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
-);
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 app.listen(PORT, () => console.log(`\n🚀 CodeArena v3 → http://localhost:${PORT}\n   Welcome to Code-Arena\n`));
