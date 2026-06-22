@@ -1185,7 +1185,36 @@
       "createdAt": "2025-01-01T00:00:00.000Z"
     }
   ],
-  "scores": [],
+  "scores": [
+    {
+      "id": "sc-244370",
+      "playerName": "hafid",
+      "userId": 1781536068731,
+      "categoryId": "python",
+      "difficulty": "medium",
+      "score": 30,
+      "percentage": 30,
+      "correct": 3,
+      "incorrect": 2,
+      "skipped": 5,
+      "mode": "normal",
+      "createdAt": "2026-06-22T16:50:13.869Z"
+    },
+    {
+      "id": "sc-baf1af",
+      "playerName": "hafid",
+      "userId": 1781536068731,
+      "categoryId": "python",
+      "difficulty": "medium",
+      "score": 0,
+      "percentage": 0,
+      "correct": 0,
+      "incorrect": 1,
+      "skipped": 9,
+      "mode": "normal",
+      "createdAt": "2026-06-22T16:50:37.224Z"
+    }
+  ],
   "users": [
     {
       "id": 1781536068731,
@@ -1204,7 +1233,7 @@
       "password": "$2b$10$UF2MIrKkHQqGJZ8PIpXg9ekVJIpb3ilrUhAZYDgBSH4Yg2QD663XW",
       "securityQuestion": "What city were you born in?",
       "securityAnswer": "$2b$10$2EotJihLJ0QhTxlUorJb4.3k0CgJhbDzeKfl0UDEhh1e9UySxKn4O",
-      "role": "member",
+      "role": "admin",
       "createdAt": "2026-06-20T19:18:50.316Z"
     },
     {
@@ -1214,7 +1243,7 @@
       "password": "$2b$10$Cs7fSr7lpleFqn49DDuDaOoejzZD0flELSE/FAPO1J.WBW6F18CGW",
       "securityQuestion": "What is your favorite color?",
       "securityAnswer": "$2b$10$OY4r112HHq8uHLCqubVSZuJf3J9MInwbzbCMjkqfdMBg21b6SIkxK",
-      "role": "member",
+      "role": "admin",
       "createdAt": "2026-06-22T15:36:40.419Z"
     }
   ],
@@ -1223,7 +1252,7 @@
     "1781536068731": {
       "userId": 1781536068731,
       "name": "hafid",
-      "lastSeen": 1782146825046
+      "lastSeen": 1782164677737
     },
     "1781983130316": {
       "userId": 1781983130316,
