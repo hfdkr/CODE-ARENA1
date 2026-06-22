@@ -205,34 +205,6 @@
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "q-html-011",
-      "categoryId": "html",
-      "difficulty": "hard",
-      "question": "What is the purpose of the 'srcset' attribute in an <img> tag?",
-      "options": [
-        "Sets the image source",
-        "Provides multiple image sources for different screen sizes",
-        "Sets the image style",
-        "Defines fallback text"
-      ],
-      "answer": "Provides multiple image sources for different screen sizes",
-      "createdAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
-      "id": "q-html-012",
-      "categoryId": "html",
-      "difficulty": "hard",
-      "question": "Which HTML5 element is used to draw graphics via scripting (usually JavaScript)?",
-      "options": [
-        "<svg>",
-        "<canvas>",
-        "<draw>",
-        "<graphic>"
-      ],
-      "answer": "<canvas>",
-      "createdAt": "2025-01-01T00:00:00.000Z"
-    },
-    {
       "id": "q-css-001",
       "categoryId": "css",
       "difficulty": "easy",
@@ -345,34 +317,6 @@
       "createdAt": "2025-01-02T00:00:00.000Z"
     },
     {
-      "id": "q-css-009",
-      "categoryId": "css",
-      "difficulty": "hard",
-      "question": "Which CSS property creates a flexible container?",
-      "options": [
-        "display: grid",
-        "display: flex",
-        "display: block",
-        "position: flex"
-      ],
-      "answer": "display: flex",
-      "createdAt": "2025-01-02T00:00:00.000Z"
-    },
-    {
-      "id": "q-css-010",
-      "categoryId": "css",
-      "difficulty": "hard",
-      "question": "What does 'z-index' control in CSS?",
-      "options": [
-        "The zoom level",
-        "The stacking order of elements",
-        "The size of an element",
-        "The horizontal position"
-      ],
-      "answer": "The stacking order of elements",
-      "createdAt": "2025-01-02T00:00:00.000Z"
-    },
-    {
       "id": "q-python-001",
       "categoryId": "python",
       "difficulty": "easy",
@@ -471,48 +415,6 @@
       "createdAt": "2025-01-03T00:00:00.000Z"
     },
     {
-      "id": "q-python-008",
-      "categoryId": "python",
-      "difficulty": "hard",
-      "question": "What is the Big O notation for Binary Search?",
-      "options": [
-        "O(n)",
-        "O(log n)",
-        "O(n²)",
-        "O(2^n)"
-      ],
-      "answer": "O(log n)",
-      "createdAt": "2025-01-03T00:00:00.000Z"
-    },
-    {
-      "id": "q-python-009",
-      "categoryId": "python",
-      "difficulty": "hard",
-      "question": "Which data structure uses LIFO (Last In, First Out)?",
-      "options": [
-        "Queue",
-        "Stack",
-        "Linked List",
-        "Tree"
-      ],
-      "answer": "Stack",
-      "createdAt": "2025-01-03T00:00:00.000Z"
-    },
-    {
-      "id": "q-python-010",
-      "categoryId": "python",
-      "difficulty": "hard",
-      "question": "What is the time complexity of accessing an element in a Python dict?",
-      "options": [
-        "O(n)",
-        "O(log n)",
-        "O(1)",
-        "O(n²)"
-      ],
-      "answer": "O(1)",
-      "createdAt": "2025-01-03T00:00:00.000Z"
-    },
-    {
       "id": "q-js-001",
       "categoryId": "js",
       "difficulty": "easy",
@@ -569,18 +471,718 @@
       "createdAt": "2025-01-04T00:00:00.000Z"
     },
     {
+      "id": "q-html-011",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What is the purpose of the 'srcset' attribute in an <img> tag?",
+      "options": [
+        "To define multiple image sources for different screen sizes",
+        "To set the source of the image",
+        "To add alt text for accessibility",
+        "To define a CSS class for the image"
+      ],
+      "answer": "To define multiple image sources for different screen sizes",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-012",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "Which HTML5 element is used to draw graphics via scripting (usually JavaScript)?",
+      "options": [
+        "<svg>",
+        "<canvas>",
+        "<figure>",
+        "<picture>"
+      ],
+      "answer": "<canvas>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-013",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What is the difference between <section> and <div> in HTML5?",
+      "options": [
+        "<section> is a semantic element representing a thematic grouping; <div> is a generic container",
+        "<div> is semantic and <section> is not",
+        "They are identical in behavior",
+        "<section> can only contain headings"
+      ],
+      "answer": "<section> is a semantic element representing a thematic grouping; <div> is a generic container",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-014",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "Which attribute makes a form field required before submission?",
+      "options": [
+        "mandatory",
+        "required",
+        "validate",
+        "notnull"
+      ],
+      "answer": "required",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-015",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What is the correct way to embed a video in HTML5?",
+      "options": [
+        "<video src='file.mp4' controls></video>",
+        "<embed type='video/mp4' src='file.mp4'>",
+        "<media src='file.mp4'>",
+        "<movie src='file.mp4'>"
+      ],
+      "answer": "<video src='file.mp4' controls></video>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-016",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What does the 'defer' attribute do on a <script> tag?",
+      "options": [
+        "Loads the script asynchronously and executes it after HTML parsing",
+        "Prevents the script from loading",
+        "Loads the script before parsing HTML",
+        "Caches the script permanently"
+      ],
+      "answer": "Loads the script asynchronously and executes it after HTML parsing",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-017",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "Which HTML element is used to define navigation links?",
+      "options": [
+        "<nav>",
+        "<menu>",
+        "<links>",
+        "<navigation>"
+      ],
+      "answer": "<nav>",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-018",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What is the purpose of the <datalist> element in HTML5?",
+      "options": [
+        "Provides autocomplete suggestions for an <input> element",
+        "Creates a dropdown list like <select>",
+        "Displays a list of data in a table",
+        "Defines a form validation rule"
+      ],
+      "answer": "Provides autocomplete suggestions for an <input> element",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-019",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "What does the 'aria-label' attribute do?",
+      "options": [
+        "Provides an accessible name for an element for screen readers",
+        "Labels a form input visually",
+        "Sets the language of an element",
+        "Defines a tooltip on hover"
+      ],
+      "answer": "Provides an accessible name for an element for screen readers",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-html-020",
+      "categoryId": "html",
+      "difficulty": "medium",
+      "question": "Which input type would you use to let users pick a date?",
+      "options": [
+        "type='date'",
+        "type='datetime'",
+        "type='calendar'",
+        "type='picker'"
+      ],
+      "answer": "type='date'",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-009",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "How do you make text bold in CSS?",
+      "options": [
+        "font-weight: bold;",
+        "text-style: bold;",
+        "font-style: bold;",
+        "text-weight: bold;"
+      ],
+      "answer": "font-weight: bold;",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-010",
+      "categoryId": "css",
+      "difficulty": "easy",
+      "question": "Which CSS property is used to set the space between elements (outside the border)?",
+      "options": [
+        "margin",
+        "padding",
+        "spacing",
+        "border-gap"
+      ],
+      "answer": "margin",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-011",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "Which CSS property creates a flexible container for Flexbox layout?",
+      "options": [
+        "display: flex;",
+        "display: block;",
+        "display: grid;",
+        "display: inline;"
+      ],
+      "answer": "display: flex;",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-012",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What does 'z-index' control in CSS?",
+      "options": [
+        "The stacking order of overlapping elements",
+        "The zoom level of elements",
+        "The z-axis scaling of 3D transforms",
+        "The horizontal position of elements"
+      ],
+      "answer": "The stacking order of overlapping elements",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-013",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What is the difference between 'relative' and 'absolute' positioning in CSS?",
+      "options": [
+        "'relative' offsets from its normal position; 'absolute' is positioned relative to its nearest positioned ancestor",
+        "'absolute' offsets from its normal position; 'relative' is positioned relative to the viewport",
+        "They both position relative to the parent element",
+        "They are identical in behavior"
+      ],
+      "answer": "'relative' offsets from its normal position; 'absolute' is positioned relative to its nearest positioned ancestor",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-014",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "Which CSS property is used to make a website responsive by changing styles based on screen size?",
+      "options": [
+        "@media",
+        "@screen",
+        "@responsive",
+        "@viewport"
+      ],
+      "answer": "@media",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-015",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What does 'box-sizing: border-box' do?",
+      "options": [
+        "Makes padding and border included in the element's total width and height",
+        "Removes the border from the element",
+        "Adds extra space around the element",
+        "Resets all box model properties to default"
+      ],
+      "answer": "Makes padding and border included in the element's total width and height",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-016",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "Which CSS property aligns flex items along the cross axis?",
+      "options": [
+        "align-items",
+        "justify-content",
+        "flex-align",
+        "cross-align"
+      ],
+      "answer": "align-items",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-017",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What is a CSS pseudo-class?",
+      "options": [
+        "A keyword added to a selector that specifies a special state of the element",
+        "A class applied via JavaScript",
+        "A selector that targets an element's child",
+        "A CSS variable"
+      ],
+      "answer": "A keyword added to a selector that specifies a special state of the element",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-018",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What does CSS specificity determine?",
+      "options": [
+        "Which CSS rule is applied when multiple rules target the same element",
+        "How fast a CSS rule is applied",
+        "The order in which CSS files are loaded",
+        "The scope of a CSS variable"
+      ],
+      "answer": "Which CSS rule is applied when multiple rules target the same element",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-019",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "Which CSS function is used to apply a smooth color transition between two or more colors?",
+      "options": [
+        "linear-gradient()",
+        "color-blend()",
+        "transition-color()",
+        "blend-colors()"
+      ],
+      "answer": "linear-gradient()",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-css-020",
+      "categoryId": "css",
+      "difficulty": "medium",
+      "question": "What does the CSS property 'overflow: hidden' do?",
+      "options": [
+        "Clips content that exceeds the element's bounds and hides the scrollbar",
+        "Adds a scrollbar when content overflows",
+        "Collapses the element when it overflows",
+        "Makes the element invisible when overflowed"
+      ],
+      "answer": "Clips content that exceeds the element's bounds and hides the scrollbar",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
       "id": "q-js-005",
       "categoryId": "js",
-      "difficulty": "hard",
+      "difficulty": "easy",
+      "question": "Which method removes the last element of an array in JavaScript?",
+      "options": [
+        "pop()",
+        "shift()",
+        "splice()",
+        "remove()"
+      ],
+      "answer": "pop()",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-006",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "How do you declare a constant in JavaScript?",
+      "options": [
+        "const",
+        "let",
+        "var",
+        "define"
+      ],
+      "answer": "const",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-007",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "Which operator is used for strict equality in JavaScript?",
+      "options": [
+        "===",
+        "==",
+        "=",
+        "!=="
+      ],
+      "answer": "===",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-008",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "How do you write 'Hello World' to the browser console?",
+      "options": [
+        "console.log('Hello World')",
+        "print('Hello World')",
+        "log('Hello World')",
+        "echo('Hello World')"
+      ],
+      "answer": "console.log('Hello World')",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-009",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "What keyword is used to define a function in JavaScript?",
+      "options": [
+        "function",
+        "def",
+        "func",
+        "fn"
+      ],
+      "answer": "function",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-010",
+      "categoryId": "js",
+      "difficulty": "easy",
+      "question": "How do you check the length of a string in JavaScript?",
+      "options": [
+        "string.length",
+        "string.size()",
+        "len(string)",
+        "string.count()"
+      ],
+      "answer": "string.length",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-011",
+      "categoryId": "js",
+      "difficulty": "medium",
       "question": "What is a closure in JavaScript?",
       "options": [
-        "A way to close a browser window",
-        "A function with access to its outer scope variables",
+        "A function that has access to its outer function's scope even after the outer function has returned",
+        "A way to close the browser window using JavaScript",
         "A method to end a loop",
-        "An error handling technique"
+        "A function with no return value"
       ],
-      "answer": "A function with access to its outer scope variables",
-      "createdAt": "2025-01-04T00:00:00.000Z"
+      "answer": "A function that has access to its outer function's scope even after the outer function has returned",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-012",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What is the difference between '==' and '===' in JavaScript?",
+      "options": [
+        "'==' checks value only; '===' checks both value and type",
+        "'===' checks value only; '==' checks both value and type",
+        "They are identical in behavior",
+        "'===' is used only for numbers"
+      ],
+      "answer": "'==' checks value only; '===' checks both value and type",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-013",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What does the 'this' keyword refer to inside an arrow function?",
+      "options": [
+        "The enclosing lexical context (not the function itself)",
+        "The arrow function itself",
+        "The global window object always",
+        "The DOM element the function is attached to"
+      ],
+      "answer": "The enclosing lexical context (not the function itself)",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-014",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What does the Array.map() method do?",
+      "options": [
+        "Creates a new array by applying a function to each element",
+        "Filters elements from an array based on a condition",
+        "Reduces an array to a single value",
+        "Finds the index of an element in an array"
+      ],
+      "answer": "Creates a new array by applying a function to each element",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-015",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What is event bubbling in JavaScript?",
+      "options": [
+        "An event propagates from the target element up to the root of the DOM",
+        "An event fires multiple times on the same element",
+        "An event is cancelled before reaching the target",
+        "An event is created dynamically using JavaScript"
+      ],
+      "answer": "An event propagates from the target element up to the root of the DOM",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-016",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What is the purpose of 'async/await' in JavaScript?",
+      "options": [
+        "To write asynchronous code that reads like synchronous code",
+        "To speed up JavaScript execution",
+        "To block the main thread until a promise resolves",
+        "To handle synchronous errors only"
+      ],
+      "answer": "To write asynchronous code that reads like synchronous code",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-017",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What does JSON.stringify() do?",
+      "options": [
+        "Converts a JavaScript object to a JSON string",
+        "Parses a JSON string into a JavaScript object",
+        "Validates whether a string is valid JSON",
+        "Clones a JavaScript object deeply"
+      ],
+      "answer": "Converts a JavaScript object to a JSON string",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-018",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What is the difference between 'let' and 'var' in JavaScript?",
+      "options": [
+        "'let' is block-scoped; 'var' is function-scoped and hoisted",
+        "'var' is block-scoped; 'let' is function-scoped",
+        "They are identical in modern JavaScript",
+        "'let' cannot be reassigned; 'var' can"
+      ],
+      "answer": "'let' is block-scoped; 'var' is function-scoped and hoisted",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-019",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "What does the spread operator (...) do in JavaScript?",
+      "options": [
+        "Expands an iterable into individual elements",
+        "Merges two functions together",
+        "Creates a new scope for variables",
+        "Converts an array into a string"
+      ],
+      "answer": "Expands an iterable into individual elements",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-js-020",
+      "categoryId": "js",
+      "difficulty": "medium",
+      "question": "Which method is used to attach an event listener to a DOM element?",
+      "options": [
+        "addEventListener()",
+        "attachEvent()",
+        "onEvent()",
+        "bindEvent()"
+      ],
+      "answer": "addEventListener()",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-008",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "What is the output of print(2 ** 3) in Python?",
+      "options": [
+        "8",
+        "6",
+        "9",
+        "5"
+      ],
+      "answer": "8",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-009",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "How do you convert a string to an integer in Python?",
+      "options": [
+        "int('42')",
+        "str(42)",
+        "float('42')",
+        "number('42')"
+      ],
+      "answer": "int('42')",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-010",
+      "categoryId": "python",
+      "difficulty": "easy",
+      "question": "Which keyword is used to handle exceptions in Python?",
+      "options": [
+        "try/except",
+        "catch/throw",
+        "try/catch",
+        "error/handle"
+      ],
+      "answer": "try/except",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-011",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is the Big O time complexity of Binary Search?",
+      "options": [
+        "O(log n)",
+        "O(n)",
+        "O(n²)",
+        "O(1)"
+      ],
+      "answer": "O(log n)",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-012",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "Which data structure uses LIFO (Last In, First Out) order?",
+      "options": [
+        "Stack",
+        "Queue",
+        "Linked List",
+        "Tree"
+      ],
+      "answer": "Stack",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-013",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is the time complexity of accessing an element in a Python dictionary?",
+      "options": [
+        "O(1) average",
+        "O(n)",
+        "O(log n)",
+        "O(n²)"
+      ],
+      "answer": "O(1) average",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-014",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is a Python list comprehension?",
+      "options": [
+        "A concise way to create a list by applying an expression to each item in an iterable",
+        "A method to compress a list",
+        "A way to sort a list in-place",
+        "A function that filters a list"
+      ],
+      "answer": "A concise way to create a list by applying an expression to each item in an iterable",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-015",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is the difference between a list and a tuple in Python?",
+      "options": [
+        "Lists are mutable; tuples are immutable",
+        "Tuples are mutable; lists are immutable",
+        "Lists can only hold integers; tuples can hold any type",
+        "They are identical in behavior"
+      ],
+      "answer": "Lists are mutable; tuples are immutable",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-016",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What does the *args parameter do in a Python function?",
+      "options": [
+        "Allows a function to accept any number of positional arguments",
+        "Multiplies all arguments passed to the function",
+        "Accepts keyword-only arguments",
+        "Restricts the function to a single argument"
+      ],
+      "answer": "Allows a function to accept any number of positional arguments",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-017",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is a Python decorator?",
+      "options": [
+        "A function that wraps another function to extend its behavior",
+        "A way to add comments to code",
+        "A design pattern for creating objects",
+        "A method to format string output"
+      ],
+      "answer": "A function that wraps another function to extend its behavior",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-018",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What is the time complexity of Bubble Sort in the worst case?",
+      "options": [
+        "O(n²)",
+        "O(n log n)",
+        "O(n)",
+        "O(log n)"
+      ],
+      "answer": "O(n²)",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-019",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "Which Python built-in function returns the largest item in an iterable?",
+      "options": [
+        "max()",
+        "largest()",
+        "top()",
+        "greatest()"
+      ],
+      "answer": "max()",
+      "createdAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "q-python-020",
+      "categoryId": "python",
+      "difficulty": "medium",
+      "question": "What does the 'yield' keyword do in a Python function?",
+      "options": [
+        "Turns the function into a generator that returns values one at a time",
+        "Returns a value and terminates the function",
+        "Pauses execution of the program",
+        "Yields control to another thread"
+      ],
+      "answer": "Turns the function into a generator that returns values one at a time",
+      "createdAt": "2025-01-01T00:00:00.000Z"
     }
   ],
   "scores": [],
@@ -621,7 +1223,7 @@
     "1781536068731": {
       "userId": 1781536068731,
       "name": "hafid",
-      "lastSeen": 1782142424559
+      "lastSeen": 1782146825046
     },
     "1781983130316": {
       "userId": 1781983130316,
