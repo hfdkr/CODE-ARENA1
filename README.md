@@ -1,4 +1,4 @@
-# CodeArena v3
+# CodeArena 
 
 > A modern, interactive quiz and coding challenge platform with real-time scoring and user authentication.
 
@@ -83,7 +83,24 @@ CODE-ARENA/
    ```
    The application will be available at `http://localhost:3000`
 
-## 📖 Usage
+## � Screenshots
+
+### Home Page
+The main dashboard where users can sett the quiz settings and start it
+
+![Home Page](assets/Home.png)
+
+### Lessons
+Browse and select from available quiz categories and lessons organized by difficulty.
+
+![Lessons Page](assets/Lessons.png)
+
+### Leaderboard
+Compete with other users and view the global leaderboard rankings.
+
+![Leaderboard](assets/Leaderboard.png)
+
+## �📖 Usage
 
 ### For Users
 
