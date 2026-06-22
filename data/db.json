@@ -604,6 +604,16 @@
       "securityAnswer": "$2b$10$2EotJihLJ0QhTxlUorJb4.3k0CgJhbDzeKfl0UDEhh1e9UySxKn4O",
       "role": "member",
       "createdAt": "2026-06-20T19:18:50.316Z"
+    },
+    {
+      "id": 1782142600419,
+      "name": "Hamza",
+      "email": "hamza@gmail.com",
+      "password": "$2b$10$Cs7fSr7lpleFqn49DDuDaOoejzZD0flELSE/FAPO1J.WBW6F18CGW",
+      "securityQuestion": "What is your favorite color?",
+      "securityAnswer": "$2b$10$OY4r112HHq8uHLCqubVSZuJf3J9MInwbzbCMjkqfdMBg21b6SIkxK",
+      "role": "member",
+      "createdAt": "2026-06-22T15:36:40.419Z"
     }
   ],
   "onlineSessions": {},
@@ -622,6 +632,11 @@
       "userId": 1782121453366,
       "name": "Ilyas Assfar",
       "lastSeen": 1782122241436
+    },
+    "1782142600419": {
+      "userId": 1782142600419,
+      "name": "Hamza",
+      "lastSeen": 1782144288667
     }
   }
 }
