@@ -337,16 +337,40 @@ app.get('/api/scores', (req, res) => {
 app.post('/api/scores', requireAuth, (req, res) => {
   const { categoryId, difficulty, score, percentage, correct, incorrect, skipped, mode } = req.body;
   const data  = read();
+  const diff  = difficulty || 'easy';
+  const mod   = mode || 'normal';
+
+  // Check if the user already has a score for this category + difficulty + mode
+  const existingIdx = data.scores.findIndex(
+    s => s.userId === req.user.id &&
+         s.categoryId === categoryId &&
+         s.difficulty === diff &&
+         s.mode === mod
+  );
+
   const entry = {
-    id:'sc-'+uuid().slice(0,6),
+    id: existingIdx !== -1 ? data.scores[existingIdx].id : 'sc-'+uuid().slice(0,6),
     playerName: req.user.name,
     userId:     req.user.id,
-    categoryId, difficulty:difficulty||'easy',
-    score, percentage:percentage||0,
-    correct:correct||0, incorrect:incorrect||0, skipped:skipped||0,
-    mode:mode||'normal', createdAt:new Date().toISOString()
+    categoryId, difficulty: diff,
+    score, percentage: percentage || 0,
+    correct: correct || 0, incorrect: incorrect || 0, skipped: skipped || 0,
+    mode: mod, createdAt: new Date().toISOString()
   };
-  data.scores.push(entry); write(data);
+
+  if (existingIdx !== -1) {
+    // Only update if the new score is higher
+    if (score > data.scores[existingIdx].score) {
+      data.scores[existingIdx] = entry;
+    } else {
+      // Return the existing (higher) score without changing anything
+      return res.status(200).json(data.scores[existingIdx]);
+    }
+  } else {
+    data.scores.push(entry);
+  }
+
+  write(data);
   res.status(201).json(entry);
 });
 app.delete('/api/scores/:id', requireAuth, requireAdmin, (req, res) => {
