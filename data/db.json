@@ -584,71 +584,6 @@
     }
   ],
   "scores": [
-    {
-      "id": "sc-001",
-      "playerName": "Alice",
-      "categoryId": "html",
-      "difficulty": "easy",
-      "score": 90,
-      "percentage": 90,
-      "correct": 9,
-      "incorrect": 1,
-      "skipped": 0,
-      "mode": "normal",
-      "createdAt": "2025-06-10T10:00:00.000Z"
-    },
-    {
-      "id": "sc-002",
-      "playerName": "Bob",
-      "categoryId": "css",
-      "difficulty": "easy",
-      "score": 70,
-      "percentage": 70,
-      "correct": 7,
-      "incorrect": 2,
-      "skipped": 1,
-      "mode": "normal",
-      "createdAt": "2025-06-11T14:30:00.000Z"
-    },
-    {
-      "id": "sc-003",
-      "playerName": "Charlie",
-      "categoryId": "python",
-      "difficulty": "hard",
-      "score": 80,
-      "percentage": 80,
-      "correct": 8,
-      "incorrect": 1,
-      "skipped": 1,
-      "mode": "challenge",
-      "createdAt": "2025-06-12T09:15:00.000Z"
-    },
-    {
-      "id": "sc-004",
-      "playerName": "Diana",
-      "categoryId": "html",
-      "difficulty": "hard",
-      "score": 100,
-      "percentage": 100,
-      "correct": 10,
-      "incorrect": 0,
-      "skipped": 0,
-      "mode": "challenge",
-      "createdAt": "2025-06-13T16:45:00.000Z"
-    },
-    {
-      "id": "sc-005",
-      "playerName": "Eve",
-      "categoryId": "js",
-      "difficulty": "easy",
-      "score": 60,
-      "percentage": 60,
-      "correct": 6,
-      "incorrect": 3,
-      "skipped": 1,
-      "mode": "normal",
-      "createdAt": "2025-06-14T11:20:00.000Z"
-    }
   ],
   "users": [
     {
@@ -670,16 +605,6 @@
       "securityAnswer": "$2b$10$2EotJihLJ0QhTxlUorJb4.3k0CgJhbDzeKfl0UDEhh1e9UySxKn4O",
       "role": "member",
       "createdAt": "2026-06-20T19:18:50.316Z"
-    },
-    {
-      "id": 1782140822031,
-      "name": "hamza",
-      "email": "hamza@gmail.com",
-      "password": "$2b$10$kGyoABt2/ud2YjLQPMhOueCQacIn6t5wkrGyOF0C4xVBf2VRlg21e",
-      "securityQuestion": "What is your favorite color?",
-      "securityAnswer": "$2b$10$nJnsTd2Kr8AkZCBdbG9fWeJJ1N4hVBM/sXYgNbCFdmuR2frYoW6nK",
-      "role": "member",
-      "createdAt": "2026-06-22T15:07:02.031Z"
     }
   ],
   "onlineSessions": {},
@@ -687,7 +612,7 @@
     "1781536068731": {
       "userId": 1781536068731,
       "name": "hafid",
-      "lastSeen": 1782121774997
+      "lastSeen": 1782142333628
     },
     "1781983130316": {
       "userId": 1781983130316,
@@ -698,11 +623,6 @@
       "userId": 1782121453366,
       "name": "Ilyas Assfar",
       "lastSeen": 1782122241436
-    },
-    "1782140822031": {
-      "userId": 1782140822031,
-      "name": "hamza",
-      "lastSeen": 1782140822059
     }
   }
 }
