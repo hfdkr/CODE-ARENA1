@@ -1199,32 +1199,18 @@
   ],
   "scores": [
     {
-      "id": "sc-244370",
+      "id": "sc-288123",
       "playerName": "hafid",
       "userId": 1781536068731,
-      "categoryId": "python",
-      "difficulty": "medium",
-      "score": 30,
-      "percentage": 30,
-      "correct": 3,
-      "incorrect": 2,
-      "skipped": 5,
-      "mode": "normal",
-      "createdAt": "2026-06-22T16:50:13.869Z"
-    },
-    {
-      "id": "sc-baf1af",
-      "playerName": "hafid",
-      "userId": 1781536068731,
-      "categoryId": "python",
-      "difficulty": "medium",
-      "score": 0,
-      "percentage": 0,
-      "correct": 0,
+      "categoryId": "html",
+      "difficulty": "easy",
+      "score": 90,
+      "percentage": 90,
+      "correct": 9,
       "incorrect": 1,
-      "skipped": 9,
+      "skipped": 0,
       "mode": "normal",
-      "createdAt": "2026-06-22T16:50:37.224Z"
+      "createdAt": "2026-06-23T17:26:14.556Z"
     }
   ],
   "users": [
@@ -1261,11 +1247,6 @@
   ],
   "onlineSessions": {},
   "sessions": {
-    "1781536068731": {
-      "userId": 1781536068731,
-      "name": "hafid",
-      "lastSeen": 1782220577266
-    },
     "1781983130316": {
       "userId": 1781983130316,
       "name": "hassan",
@@ -1280,6 +1261,11 @@
       "userId": 1782142600419,
       "name": "Hamza",
       "lastSeen": 1782144288667
+    },
+    "1781536068731": {
+      "userId": 1781536068731,
+      "name": "hafid",
+      "lastSeen": 1782235635800
     }
   }
 }
