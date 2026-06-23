@@ -41,26 +41,38 @@
     {
       "id": "lesson-001",
       "categoryId": "html",
-      "title": "Les bases de HTML",
-      "content": "HTML (HyperText Markup Language) est le langage de balisage standard pour créer des pages web. Il décrit la structure d'une page web et consiste en une série d'éléments. Les éléments HTML indiquent au navigateur comment afficher le contenu.\n\n## Structure de base\n\nUn document HTML commence toujours par `<!DOCTYPE html>` suivi de la balise `<html>`. À l'intérieur on trouve `<head>` pour les métadonnées et `<body>` pour le contenu visible.\n\n## Les balises essentielles\n\n- `<h1>` à `<h6>` : Titres\n- `<p>` : Paragraphes\n- `<a>` : Liens hypertexte\n- `<img>` : Images\n- `<div>` et `<span>` : Conteneurs",
+      "title": "HTML Basics",
+      "content": "HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of a web page and consists of a series of elements. HTML elements tell the browser how to display the content.\n\n## Basic structure\n\nAn HTML document always starts with `<!DOCTYPE html>` followed by the `<html>` tag. Inside, you'll find `<head>` for metadata and `<body>` for the visible content.\n\n## Essential tags\n\n- `<h1>` to `<h6>`: Headings\n- `<p>`: Paragraphs\n- `<a>`: Hyperlinks\n- `<img>`: Images\n- `<div>` and `<span>`: Containers",
       "difficulty": "easy",
-      "createdAt": "2025-01-01T00:00:00.000Z"
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "link": "https://www.w3schools.com/html/"
     },
     {
       "id": "lesson-002",
       "categoryId": "css",
-      "title": "Introduction au CSS",
-      "content": "CSS (Cascading Style Sheets) est utilisé pour styliser les éléments HTML. Il permet de contrôler la couleur, la police, l'espacement, la mise en page et bien plus encore.\n\n## Sélecteurs CSS\n\n- **Sélecteur d'élément** : `p { color: red; }`\n- **Sélecteur de classe** : `.ma-classe { font-size: 16px; }`\n- **Sélecteur d'identifiant** : `#mon-id { background: blue; }`\n\n## Le modèle de boîte\n\nChaque élément HTML est une boîte avec margin, border, padding et content.",
+      "title": "Introduction to CSS",
+      "content": "CSS (Cascading Style Sheets) is used to style HTML elements. It lets you control color, font, spacing, layout, and much more.\n\n## CSS Selectors\n\n- **Element selector**: `p { color: red; }`\n- **Class selector**: `.my-class { font-size: 16px; }`\n- **ID selector**: `#my-id { background: blue; }`\n\n## The box model\n\nEvery HTML element is a box made up of margin, border, padding, and content.",
       "difficulty": "easy",
-      "createdAt": "2025-01-02T00:00:00.000Z"
+      "createdAt": "2025-01-02T00:00:00.000Z",
+      "link": "https://www.w3schools.com/css/"
     },
     {
       "id": "lesson-003",
       "categoryId": "python",
-      "title": "Python : Fondamentaux",
-      "content": "Python est un langage de programmation interprété, de haut niveau et à usage général. Sa philosophie de conception met l'accent sur la lisibilité du code.\n\n## Variables et types\n\n```python\nnom = 'Alice'      # str\nage = 25           # int\nprix = 19.99       # float\nactif = True       # bool\n```\n\n## Structures de contrôle\n\n```python\nif age >= 18:\n    print('Majeur')\nelse:\n    print('Mineur')\n\nfor i in range(5):\n    print(i)\n```",
+      "title": "Python: Fundamentals",
+      "content": "Python is an interpreted, high-level, general-purpose programming language. Its design philosophy emphasizes code readability.\n\n## Variables and types\n\n```python\nname = 'Alice'     # str\nage = 25           # int\nprice = 19.99       # float\nactive = True       # bool\n```\n\n## Control structures\n\n```python\nif age >= 18:\n    print('Adult')\nelse:\n    print('Minor')\n\nfor i in range(5):\n    print(i)\n```",
       "difficulty": "easy",
-      "createdAt": "2025-01-03T00:00:00.000Z"
+      "createdAt": "2025-01-03T00:00:00.000Z",
+      "link": "https://www.w3schools.com/python/"
+    },
+    {
+      "id": "lesson-004",
+      "categoryId": "js",
+      "title": "JavaScript: Fundamentals",
+      "content": "JavaScript is a programming language that makes web pages interactive. It's one of the three pillars of web development, alongside HTML and CSS.\n\n## Variables and types\n\n```javascript\nlet name = 'Alice';     // string\nconst age = 25;          // number\nlet price = 19.99;       // number\nlet active = true;       // boolean\n```\n\n## Control structures\n\n```javascript\nif (age >= 18) {\n    console.log('Adult');\n} else {\n    console.log('Minor');\n}\n\nfor (let i = 0; i < 5; i++) {\n    console.log(i);\n}\n```",
+      "difficulty": "easy",
+      "createdAt": "2025-01-04T00:00:00.000Z",
+      "link": "https://www.w3schools.com/js/"
     }
   ],
   "questions": [
@@ -1252,7 +1264,7 @@
     "1781536068731": {
       "userId": 1781536068731,
       "name": "hafid",
-      "lastSeen": 1782164677737
+      "lastSeen": 1782220577266
     },
     "1781983130316": {
       "userId": 1781983130316,

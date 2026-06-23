@@ -394,7 +394,7 @@ async function startQuiz() {
   q.timePerQ = q.mode==='challenge' ? (state.settings.challengeTimePerQuestion||15) : (state.settings.timePerQuestion||30);
 
   $('q-cat-tag').textContent  = state.categories.find(c=>c.id===q.category)?.name || q.category;
-  $('q-diff-tag').textContent = q.difficulty==='easy'?'Facile':'Moyen';
+  $('q-diff-tag').textContent = q.difficulty==='easy'?'Easy':'Medium';
   q.mode==='challenge' ? show('q-mode-tag') : hide('q-mode-tag');
   $('q-skip').onclick = handleSkip;
   loadQ();
@@ -537,7 +537,7 @@ function renderLessons(lessons,cats,filterCat) {
     return `<div class="lesson-card" data-id="${l.id}">
       <div class="lesson-card-cat">${esc(cat?(cat.icon+' '+cat.name):l.categoryId)}</div>
       <div class="lesson-card-title">${esc(l.title)}</div>
-      <div class="lesson-card-diff">${l.difficulty==='easy'?'🟢 Facile':'🟠 Moyen'}</div>
+      <div class="lesson-card-diff">${l.difficulty==='easy'?'🟢 Easy':'🟠 Medium'}</div>
     </div>`;
   }).join('');
   grid.querySelectorAll('.lesson-card').forEach(card=>{
@@ -546,14 +546,35 @@ function renderLessons(lessons,cats,filterCat) {
 }
 
 async function initLessonDetail(id) {
-  if(!id){navigate('lessons');return;}
-  const lesson=await req('/lessons/'+id);
-  const cats=state.categories.length?state.categories:await req('/categories');
-  const cat=cats.find(c=>c.id===lesson.categoryId);
-  $('lesson-content').innerHTML=`
+  if (!id) { navigate('lessons'); return; }
+  const lesson = await req('/lessons/' + id);
+  if (!lesson || !lesson.id) {
+    $('lesson-content').innerHTML = '<p style="color:var(--text2)">Leçon introuvable.</p>';
+    return;
+  }
+  const cats = state.categories.length ? state.categories : await req('/categories');
+  const cat = cats.find(c => c.id === lesson.categoryId);
+
+  // Date défensive : évite "Invalid Date" si createdAt est manquant/mal formé
+  let dateStr = '';
+  if (lesson.createdAt) {
+    const d = new Date(lesson.createdAt);
+    if (!isNaN(d.getTime())) dateStr = ' · ' + d.toLocaleDateString('fr-FR');
+  }
+
+  // Lien externe optionnel (ex: W3Schools)
+  const linkHTML = lesson.link ? `
+    <a href="${esc(lesson.link)}" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:10px 18px;
+              background:var(--blue,#5c8dff);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">
+      <i class="fi fi-rr-arrow-up-right-from-square"></i> En savoir plus sur W3Schools
+    </a>` : '';
+
+  $('lesson-content').innerHTML = `
     <h1>${esc(lesson.title)}</h1>
-    <div class="lesson-meta">${cat?cat.icon+' '+esc(cat.name):''} · ${lesson.difficulty==='easy'?'🟢 Facile':'🟠 Moyen'} · ${new Date(lesson.createdAt).toLocaleDateString('fr-FR')}</div>
+    <div class="lesson-meta">${cat ? cat.icon + ' ' + esc(cat.name) : ''} · ${lesson.difficulty === 'easy' ? '🟢 Easy' : '🟠 Medium'}${dateStr}</div>
     <div class="lesson-body">${md2html(lesson.content)}</div>
+    ${linkHTML}
   `;
 }
 
@@ -656,10 +677,10 @@ function initAdmin() {
 async function loadDashboard() {
   const stats=await req('/stats');
   $('dash-kpis').innerHTML=[
-    {icon:'📝',num:stats.totalQuizzes,label:'Quiz joués'},
-    {icon:'❓',num:stats.totalQuestions,label:'Questions'},
-    {icon:'📚',num:stats.totalLessons,label:'Leçons'},
-    {icon:'📊',num:stats.avgScore+'%',label:'Score moyen'}
+    { icon: '📝', num: stats.totalQuizzes, label: 'Quizzes Played' },
+{ icon: '❓', num: stats.totalQuestions, label: 'Questions' },
+{ icon: '📚', num: stats.totalLessons, label: 'Lessons' },
+{ icon: '📊', num: stats.avgScore + '%', label: 'Average Score' }
   ].map(k=>`<div class="kpi-card"><div class="kpi-icon">${k.icon}</div><div class="kpi-num">${k.num}</div><div class="kpi-label">${k.label}</div></div>`).join('');
 
   const max=Math.max(...stats.daily.map(d=>d.count),1);
@@ -677,7 +698,7 @@ async function loadAdminQ() {
   const render=list=>{
     $('questions-list').innerHTML=list.length?list.map(q=>{
       const cat=cats.find(c=>c.id===q.categoryId);
-      return `<div class="admin-item" data-id="${q.id}"><div class="admin-item-body"><div class="admin-item-title">${esc(q.question)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):q.categoryId} · ${q.difficulty==='easy'?'Facile':'Moyen'} · ✅ ${esc(q.answer)}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-q" data-id="${q.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-q" data-id="${q.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
+      return `<div class="admin-item" data-id="${q.id}"><div class="admin-item-body"><div class="admin-item-title">${esc(q.question)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):q.categoryId} · ${q.difficulty==='easy'?'Easy':'Medium'} · ✅ ${esc(q.answer)}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-q" data-id="${q.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-q" data-id="${q.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
     }).join(''):'<p style="color:var(--text2)">Aucune question.</p>';
     document.querySelectorAll('.edit-q').forEach(b=>b.onclick=()=>openQModal(b.dataset.id));
     document.querySelectorAll('.del-q').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette question ?',async()=>{await req('/questions/'+b.dataset.id,'DELETE');loadAdminQ();}));
@@ -708,7 +729,7 @@ async function loadAdminL() {
   populateCatSel('ml-cat',cats);
   $('lessons-admin-list').innerHTML=ls.length?ls.map(l=>{
     const cat=cats.find(c=>c.id===l.categoryId);
-    return `<div class="admin-item"><div class="admin-item-body"><div class="admin-item-title">${esc(l.title)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):l.categoryId} · ${l.difficulty==='easy'?'Facile':'Moyen'}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-l" data-id="${l.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-l" data-id="${l.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
+    return `<div class="admin-item"><div class="admin-item-body"><div class="admin-item-title">${esc(l.title)}</div><div class="admin-item-meta">${cat?cat.icon+' '+esc(cat.name):l.categoryId} · ${l.difficulty==='easy'?'Easy':'Medium'}</div></div><div class="admin-item-actions"><button class="btn-icon-sm edit-l" data-id="${l.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-l" data-id="${l.id}"><i class="fi fi-rr-trash"></i></button></div></div>`;
   }).join(''):'<p style="color:var(--text2)">Aucune leçon.</p>';
   document.querySelectorAll('.edit-l').forEach(b=>b.onclick=()=>openLModal(b.dataset.id));
   document.querySelectorAll('.del-l').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette leçon ?',async()=>{await req('/lessons/'+b.dataset.id,'DELETE');loadAdminL();}));
@@ -732,7 +753,7 @@ $('ml-save').onclick=async()=>{
 // ── Admin: Categories ──────────────────────────────
 async function loadAdminCats() {
   const cats=await req('/categories');
-  $('cats-list').innerHTML=cats.map(c=>`<div class="cat-admin-card"><div class="cat-color-bar" style="background:${c.color}"></div><div class="cat-admin-top"><span class="cat-admin-ico">${c.icon||'📁'}</span><div class="admin-item-actions"><button class="btn-icon-sm edit-cat" data-id="${c.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-cat" data-id="${c.id}"><i class="fi fi-rr-trash"></i></button></div></div><div class="cat-admin-name">${esc(c.name)}</div><div class="cat-admin-meta">${c.questionCount||0} questions · ${c.lessonCount||0} leçons</div></div>`).join('');
+  $('cats-list').innerHTML=cats.map(c=>`<div class="cat-admin-card"><div class="cat-color-bar" style="background:${c.color}"></div><div class="cat-admin-top"><span class="cat-admin-ico">${c.icon||'📁'}</span><div class="admin-item-actions"><button class="btn-icon-sm edit-cat" data-id="${c.id}"><i class="fi fi-rr-pencil"></i></button><button class="btn-icon-sm del del-cat" data-id="${c.id}"><i class="fi fi-rr-trash"></i></button></div></div><div class="cat-admin-name">${esc(c.name)}</div><div class="cat-admin-meta">${c.questionCount||0} questions · ${c.lessonCount||0} Lesson</div></div>`).join('');
   document.querySelectorAll('.edit-cat').forEach(b=>b.onclick=()=>openCatModal(b.dataset.id));
   document.querySelectorAll('.del-cat').forEach(b=>b.onclick=()=>confirmDo('Supprimer','Supprimer cette catégorie ?',async()=>{await req('/categories/'+b.dataset.id,'DELETE');loadAdminCats();}));
   $('add-cat-btn').onclick=()=>openCatModal(null);
@@ -825,7 +846,7 @@ async function loadAdminSettings() {
 // ── Helpers ────────────────────────────────────────
 function populateCatSel(selId, cats) {
   const sel=$(selId); if(!sel)return;
-  if(selId==='q-filter-cat') sel.innerHTML='<option value="">Toutes catégories</option>'+cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
+  if(selId==='q-filter-cat') sel.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
   else sel.innerHTML=cats.map(c=>`<option value="${c.id}">${c.icon||''} ${esc(c.name)}</option>`).join('');
 }
 
